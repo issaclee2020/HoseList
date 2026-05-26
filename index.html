@@ -1,0 +1,322 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+h2.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+body{font-family:var(--font-sans);font-size:14px;color:var(--color-text-primary)}
+select,input{font-family:var(--font-sans);color:var(--color-text-primary);background:var(--color-background-primary)}
+.panel{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin-bottom:1rem}
+.stitle{font-size:11px;font-weight:500;color:var(--color-text-secondary);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
+.lbl{font-size:12px;color:var(--color-text-secondary);margin-bottom:4px;display:block}
+.preview{font-size:12px;color:var(--color-text-tertiary);margin-top:6px;font-family:var(--font-mono);min-height:17px;word-break:break-all}
+.conn-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+@media(max-width:540px){.conn-grid{grid-template-columns:1fr}}
+.conn-row{display:flex;gap:5px;flex-wrap:wrap}
+.ssel{padding:5px 7px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);font-size:12px;flex:1 1 auto;min-width:72px;max-width:100%}
+.inp-b{padding:6px 10px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);font-size:13px;background:var(--color-background-primary);color:var(--color-text-primary)}
+.btn{background:transparent;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:6px 14px;font-size:13px;cursor:pointer;color:var(--color-text-primary);display:inline-flex;align-items:center;gap:6px;font-family:var(--font-sans);white-space:nowrap}
+.btn:hover{background:var(--color-background-secondary)}
+.btn:active{transform:scale(.98)}
+.btn.pri{background:var(--color-text-primary);color:var(--color-background-primary);border-color:var(--color-text-primary)}
+.btn.pri:hover{background:var(--color-text-primary);opacity:.82}
+.btn.sm{padding:3px 7px;font-size:12px}
+.btn.dng:hover{color:var(--color-text-danger)}
+.frm-row{display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap}
+.add-inp-row{display:none;gap:4px;margin-top:4px;align-items:center}
+.add-inp-row input{flex:1;padding:4px 8px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);font-size:12px;min-width:0}
+.sel-wrap{display:flex;flex-direction:column;flex:1 1 auto;min-width:72px;gap:0}
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:480px}
+th{font-size:11px;font-weight:500;color:var(--color-text-secondary);text-align:left;padding:7px 10px;border-bottom:0.5px solid var(--color-border-tertiary);white-space:nowrap;cursor:pointer;user-select:none}
+th.r{text-align:right}th:hover{color:var(--color-text-primary)}
+td{padding:8px 10px;border-bottom:0.5px solid var(--color-border-tertiary);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--color-background-secondary)}
+tr.hl td{background:var(--color-background-info)!important}
+.mono{font-family:var(--font-mono);font-size:12px;max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.num{text-align:right;font-family:var(--font-mono);font-weight:500;white-space:nowrap;width:80px}
+.ops{white-space:nowrap;width:1px}
+.stat-bar{display:flex;align-items:center;gap:10px;margin-top:12px;flex-wrap:wrap;font-size:12px;color:var(--color-text-secondary)}
+.stat-bar b{color:var(--color-text-primary);font-weight:500}
+.vsep{width:1px;height:14px;background:var(--color-border-tertiary)}
+.empty{text-align:center;padding:2.5rem;color:var(--color-text-tertiary);font-size:13px}
+</style>
+
+<h2 class="sr-only">軟管丈量記錄工具：選取接頭、新增、複製編輯與匯出清單</h2>
+
+<div style="padding:1rem 0">
+
+<div class="panel" id="form-panel">
+  <div class="stitle" id="form-title">新增紀錄</div>
+  <div class="conn-grid">
+    <div><span class="lbl">端 A</span><div id="mntA"></div><div class="preview">→ <span style="color:var(--color-text-info)" id="pvA"></span></div></div>
+    <div><span class="lbl">端 B</span><div id="mntB"></div><div class="preview">→ <span style="color:var(--color-text-info)" id="pvB"></span></div></div>
+  </div>
+  <div class="frm-row">
+    <div style="display:flex;flex-direction:column;gap:4px">
+      <span class="lbl">長度 (mm)</span>
+      <input type="number" id="inp-len" min="1" placeholder="1800" class="inp-b" style="width:100px">
+    </div>
+    <div style="display:flex;flex-direction:column;gap:4px;flex:1;min-width:120px">
+      <span class="lbl">位置 / 功用</span>
+      <input type="text" id="inp-note" placeholder="e.g. 進水管" class="inp-b" style="width:100%">
+    </div>
+    <div style="display:flex;gap:6px;padding-bottom:1px">
+      <button class="btn pri" id="btn-sub"><i class="ti ti-plus" aria-hidden="true" id="ico-sub"></i><span id="lbl-sub">新增</span></button>
+      <button class="btn" id="btn-cancel" style="display:none">取消</button>
+    </div>
+  </div>
+</div>
+
+<div class="panel" id="tbl-panel" style="display:none">
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr>
+        <th style="width:32px">#</th>
+        <th data-col="a">端 A<span id="si-a" style="font-size:9px;margin-left:3px"></span></th>
+        <th data-col="b">端 B<span id="si-b" style="font-size:9px;margin-left:3px"></span></th>
+        <th data-col="len" class="r">長度<span id="si-len" style="font-size:9px;margin-left:3px"></span></th>
+        <th data-col="note">位置/功用<span id="si-note" style="font-size:9px;margin-left:3px"></span></th>
+        <th></th>
+      </tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+  <div class="stat-bar">
+    筆數 <b id="sc">0</b>
+    <div class="vsep"></div>
+    總長 <b id="st">0</b> mm
+    <div style="flex:1"></div>
+    <button class="btn" id="btn-exp"><i class="ti ti-download" aria-hidden="true"></i> 匯出 .txt</button>
+  </div>
+</div>
+
+<div id="empty-msg" class="empty">
+  <i class="ti ti-clipboard-list" style="font-size:28px;display:block;margin-bottom:8px" aria-hidden="true"></i>
+  尚無紀錄，填寫上方表單後新增
+</div>
+
+</div>
+
+<script>
+const TH_SZ=['1/8"','1/4"','3/8"','1/2"','3/4"','1"','1 1/4"','1 1/2"'];
+const ST_SZ=['8S','10S','12S','16S','20S'];
+const BASE_TYPES=['母直頭','母90度頭','公直頭','公90度頭'];
+const custom={THSz:[],STSz:[],types:[]};
+
+const isDirect=t=>t.endsWith('直頭');
+
+function buildLabel(s){
+  const p=s.cat==='TH'?'TH'+s.sz:s.sz;
+  if(isDirect(s.type))return p+s.type;
+  return p+s.type+(s.dir==='反向'?'(反向)':'');
+}
+
+const csA={cat:'TH',sz:'1/4"',type:'母直頭',dir:'順向'};
+const csB={cat:'TH',sz:'1/4"',type:'母直頭',dir:'順向'};
+
+function updPv(cs,pvId){document.getElementById(pvId).textContent=buildLabel(cs);}
+
+function hasOpt(sel,val){for(const o of sel.options)if(o.value===val)return true;return false;}
+
+function addOptToSel(sel,val){
+  if(hasOpt(sel,val))return;
+  const a=sel.querySelector('option[value="__ADD__"]');
+  const o=document.createElement('option');o.value=val;o.textContent=val;
+  if(a)sel.insertBefore(o,a);else sel.appendChild(o);
+}
+
+function mkSelWrap(opts,customArr,val,onchange,catKey){
+  const wrap=document.createElement('div');wrap.className='sel-wrap';
+  const sel=document.createElement('select');sel.className='ssel';
+  if(catKey)sel.dataset.cat=catKey;
+  [...opts,...customArr].forEach(o=>{
+    const opt=document.createElement('option');opt.value=o;opt.textContent=o;
+    if(o===val)opt.selected=true;sel.appendChild(opt);
+  });
+  const addOpt=document.createElement('option');addOpt.value='__ADD__';addOpt.textContent='＋ 新增項目…';
+  sel.appendChild(addOpt);
+  const aRow=document.createElement('div');aRow.className='add-inp-row';
+  const aInp=document.createElement('input');aInp.type='text';aInp.placeholder='輸入後按 Enter 確認';
+  const xBtn=document.createElement('button');xBtn.className='btn sm';xBtn.type='button';
+  xBtn.innerHTML='<i class="ti ti-x" aria-hidden="true"></i>';
+  aRow.appendChild(aInp);aRow.appendChild(xBtn);
+  let prev=val;
+  sel.addEventListener('change',e=>{
+    if(e.target.value==='__ADD__'){sel.value=prev;aRow.style.display='flex';aInp.focus();}
+    else{prev=e.target.value;aRow.style.display='none';onchange(e.target.value);}
+  });
+  const confirm=()=>{
+    const v=aInp.value.trim();if(!v)return;
+    customArr.push(v);
+    if(catKey){
+      document.querySelectorAll(`select[data-cat="${catKey}"]`).forEach(s=>addOptToSel(s,v));
+    } else addOptToSel(sel,v);
+    sel.value=v;prev=v;aRow.style.display='none';aInp.value='';onchange(v);
+  };
+  aInp.addEventListener('keydown',e=>{
+    if(e.key==='Enter'){e.preventDefault();confirm();}
+    if(e.key==='Escape'){aRow.style.display='none';aInp.value='';sel.value=prev;}
+  });
+  xBtn.addEventListener('click',()=>{aRow.style.display='none';aInp.value='';sel.value=prev;});
+  wrap.appendChild(sel);wrap.appendChild(aRow);
+  return{wrap,sel};
+}
+
+function buildConn(mountId,cs,pvId){
+  const mnt=document.getElementById(mountId);mnt.innerHTML='';
+  const row=document.createElement('div');row.className='conn-row';
+  const catSel=document.createElement('select');catSel.className='ssel';
+  ['TH','鋼管頭'].forEach(v=>{
+    const o=document.createElement('option');o.value=v;o.textContent=v;
+    if(v===cs.cat)o.selected=true;catSel.appendChild(o);
+  });
+  const szKey=cs.cat==='TH'?'THSz':'STSz';
+  const szCustom=cs.cat==='TH'?custom.THSz:custom.STSz;
+  const szCtrl=mkSelWrap(cs.cat==='TH'?TH_SZ:ST_SZ,szCustom,cs.sz,v=>{cs.sz=v;updPv(cs,pvId);},szKey);
+  const typeCtrl=mkSelWrap(BASE_TYPES,custom.types,cs.type,v=>{
+    cs.type=v;
+    dirWrap.style.display=isDirect(v)?'none':'block';
+    if(isDirect(v))cs.dir='順向';
+    updPv(cs,pvId);
+  },'type');
+  const dirWrap=document.createElement('div');
+  dirWrap.style.cssText='flex:1 1 auto;min-width:72px;display:'+(isDirect(cs.type)?'none':'block');
+  const dirSel=document.createElement('select');dirSel.className='ssel';
+  ['順向','反向'].forEach(v=>{
+    const o=document.createElement('option');o.value=v;o.textContent=v;
+    if(v===cs.dir)o.selected=true;dirSel.appendChild(o);
+  });
+  dirSel.addEventListener('change',e=>{cs.dir=e.target.value;updPv(cs,pvId);});
+  dirWrap.appendChild(dirSel);
+  catSel.addEventListener('change',e=>{
+    cs.cat=e.target.value;
+    cs.sz=cs.cat==='TH'?TH_SZ[1]:ST_SZ[1];
+    buildConn(mountId,cs,pvId);
+  });
+  row.appendChild(catSel);row.appendChild(szCtrl.wrap);row.appendChild(typeCtrl.wrap);row.appendChild(dirWrap);
+  mnt.appendChild(row);
+  updPv(cs,pvId);
+}
+
+buildConn('mntA',csA,'pvA');
+buildConn('mntB',csB,'pvB');
+
+let records=[],nextId=1,sortCol=null,sortDir='asc',editId=null;
+
+function sortedRecs(){
+  if(!sortCol)return[...records];
+  return[...records].sort((a,b)=>{
+    let av,bv;
+    if(sortCol==='a'){av=buildLabel(a.a);bv=buildLabel(b.a);}
+    else if(sortCol==='b'){av=buildLabel(a.b);bv=buildLabel(b.b);}
+    else if(sortCol==='len'){av=a.len;bv=b.len;}
+    else{av=a.note||'';bv=b.note||'';}
+    return(av<bv?-1:av>bv?1:0)*(sortDir==='asc'?1:-1);
+  });
+}
+
+function setEditMode(on,id){
+  editId=on?id:null;
+  document.getElementById('form-title').textContent=on?'編輯紀錄':'新增紀錄';
+  document.getElementById('ico-sub').className=on?'ti ti-check':'ti ti-plus';
+  document.getElementById('lbl-sub').textContent=on?'儲存':'新增';
+  document.getElementById('btn-cancel').style.display=on?'inline-flex':'none';
+}
+
+function fillForm(r){
+  Object.assign(csA,r.a);Object.assign(csB,r.b);
+  buildConn('mntA',csA,'pvA');buildConn('mntB',csB,'pvB');
+  document.getElementById('inp-len').value=r.len;
+  document.getElementById('inp-note').value=r.note||'';
+}
+
+function resetForm(){
+  Object.assign(csA,{cat:'TH',sz:'1/4"',type:'母直頭',dir:'順向'});
+  Object.assign(csB,{cat:'TH',sz:'1/4"',type:'母直頭',dir:'順向'});
+  buildConn('mntA',csA,'pvA');buildConn('mntB',csB,'pvB');
+  document.getElementById('inp-len').value='';
+  document.getElementById('inp-note').value='';
+}
+
+document.getElementById('btn-sub').addEventListener('click',()=>{
+  const len=parseInt(document.getElementById('inp-len').value);
+  if(!len||len<=0){document.getElementById('inp-len').focus();return;}
+  const note=document.getElementById('inp-note').value.trim();
+  if(editId!==null){
+    const r=records.find(x=>x.id===editId);
+    if(r){r.a={...csA};r.b={...csB};r.len=len;r.note=note;}
+    setEditMode(false);
+  } else {
+    records.push({id:nextId++,a:{...csA},b:{...csB},len,note});
+  }
+  resetForm();renderTable();
+});
+
+document.getElementById('btn-cancel').addEventListener('click',()=>{setEditMode(false);resetForm();renderTable();});
+['inp-len','inp-note'].forEach(id=>document.getElementById(id).addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('btn-sub').click();}));
+
+function renderTable(){
+  const panel=document.getElementById('tbl-panel');
+  const empty=document.getElementById('empty-msg');
+  if(!records.length){panel.style.display='none';empty.style.display='block';return;}
+  panel.style.display='block';empty.style.display='none';
+  ['a','b','len','note'].forEach(c=>{
+    document.getElementById('si-'+c).textContent=sortCol===c?(sortDir==='asc'?' ↑':' ↓'):'';
+  });
+  const tbody=document.getElementById('tbody');tbody.innerHTML='';
+  sortedRecs().forEach((r,i)=>{
+    const tr=document.createElement('tr');
+    if(editId===r.id)tr.className='hl';
+    const la=buildLabel(r.a),lb=buildLabel(r.b);
+    tr.innerHTML=`
+      <td style="color:var(--color-text-tertiary);font-size:11px;width:32px">${i+1}</td>
+      <td class="mono" title="${la}">${la}</td>
+      <td class="mono" title="${lb}">${lb}</td>
+      <td class="num">${r.len}<span style="font-size:10px;color:var(--color-text-tertiary);margin-left:2px">mm</span></td>
+      <td style="font-size:12px;color:var(--color-text-secondary);max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${r.note||''}">${r.note||'<span style="color:var(--color-text-tertiary)">—</span>'}</td>
+      <td class="ops">
+        <div style="display:flex;gap:3px">
+          <button class="btn sm cp-btn" data-id="${r.id}" title="複製此筆"><i class="ti ti-copy" aria-hidden="true"></i></button>
+          <button class="btn sm ed-btn" data-id="${r.id}" title="編輯"><i class="ti ti-edit" aria-hidden="true"></i></button>
+          <button class="btn sm dng dl-btn" data-id="${r.id}" title="刪除"><i class="ti ti-trash" aria-hidden="true"></i></button>
+        </div>
+      </td>`;
+    tbody.appendChild(tr);
+  });
+  tbody.querySelectorAll('.cp-btn').forEach(b=>b.addEventListener('click',()=>{
+    const r=records.find(x=>x.id===parseInt(b.dataset.id));if(!r)return;
+    const nr={id:nextId++,a:{...r.a},b:{...r.b},len:r.len,note:r.note?r.note+' (複製)':'(複製)'};
+    records.splice(records.findIndex(x=>x.id===r.id)+1,0,nr);
+    fillForm(nr);setEditMode(true,nr.id);renderTable();
+  }));
+  tbody.querySelectorAll('.ed-btn').forEach(b=>b.addEventListener('click',()=>{
+    const r=records.find(x=>x.id===parseInt(b.dataset.id));if(!r)return;
+    fillForm(r);setEditMode(true,r.id);renderTable();
+  }));
+  tbody.querySelectorAll('.dl-btn').forEach(b=>b.addEventListener('click',()=>{
+    const id=parseInt(b.dataset.id);
+    if(editId===id){setEditMode(false);resetForm();}
+    records=records.filter(x=>x.id!==id);renderTable();
+  }));
+  document.getElementById('sc').textContent=records.length;
+  document.getElementById('st').textContent=records.reduce((s,r)=>s+r.len,0).toLocaleString();
+}
+
+document.querySelectorAll('th[data-col]').forEach(th=>th.addEventListener('click',()=>{
+  const c=th.dataset.col;
+  sortDir=sortCol===c?(sortDir==='asc'?'desc':'asc'):'asc';
+  sortCol=c;renderTable();
+}));
+
+document.getElementById('btn-exp').addEventListener('click',()=>{
+  const d=new Date();
+  const ds=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  const lines=sortedRecs().map(r=>buildLabel(r.a)+'＊'+buildLabel(r.b)+'＊'+r.len+'mm'+(r.note?' '+r.note:''));
+  const blob=new Blob(['軟管清單 '+ds+'\n'+'─'.repeat(40)+'\n'+lines.join('\n')],{type:'text/plain;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download='軟管清單_'+ds+'.txt';a.click();
+  URL.revokeObjectURL(url);
+});
+
+renderTable();
+</script>
