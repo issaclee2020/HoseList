@@ -458,9 +458,10 @@ function renderTable(){
     const r=records.find(x=>x.id===parseInt(b.dataset.id));if(!r)return;
     const idx=sortedRecs().findIndex(x=>x.id===r.id)+1;
     const la=buildLabel(r.a),lb=buildLabel(r.b);
-    if(!confirm(`確定要刪除第 ${idx} 筆嗎？\n${la} ＊ ${lb} ＊ ${r.len}mm\n\n此操作無法復原。`))return;
-    if(editId===r.id)resetForm();
-    records=records.filter(x=>x.id!==r.id);renderTable();
+    showConfirm(`確定要刪除第 ${idx} 筆嗎？\n${la} ＊ ${lb} ＊ ${r.len}mm\n\n此操作無法復原。`,()=>{
+      if(editId===r.id)resetForm();
+      records=records.filter(x=>x.id!==r.id);renderTable();
+    });
   }));
   document.getElementById('sc').textContent=records.length;
   document.getElementById('sq').textContent=records.reduce((s,r)=>s+(r.qty||1),0);
@@ -518,6 +519,30 @@ function buildTxt(recs){
   });
   const total=recs.reduce((s,r)=>s+(r.qty||1),0);
   return`軟管清單 ${ds}\n${'─'.repeat(44)}\n${lines.join('\n')}\n\n共 ${recs.length} 筆　軟管總數 ${total} 條`;
+}
+
+function showConfirm(msg,onConfirm){
+  const overlay=document.createElement('div');
+  overlay.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:1000;display:flex;align-items:center;justify-content:center;padding:1rem';
+  const box=document.createElement('div');
+  box.style.cssText='background:var(--bp);border-radius:12px;padding:1.25rem 1.5rem;max-width:320px;width:100%;box-shadow:0 8px 28px rgba(0,0,0,0.28)';
+  const p=document.createElement('p');
+  p.style.cssText='font-size:14px;color:var(--tp);line-height:1.6;margin-bottom:18px;white-space:pre-line';
+  p.textContent=msg;
+  const btns=document.createElement('div');
+  btns.style.cssText='display:flex;gap:8px;justify-content:flex-end';
+  const cancelBtn=document.createElement('button');
+  cancelBtn.className='btn';cancelBtn.textContent='取消';cancelBtn.style.cssText='padding:7px 16px;font-size:14px';
+  const okBtn=document.createElement('button');
+  okBtn.style.cssText='background:#b91c1c;color:#fff;border:none;border-radius:var(--rm);padding:7px 16px;font-size:14px;font-weight:500;cursor:pointer;font-family:var(--fs)';
+  okBtn.textContent='確定刪除';
+  cancelBtn.addEventListener('click',()=>overlay.remove());
+  okBtn.addEventListener('click',()=>{overlay.remove();onConfirm();});
+  overlay.addEventListener('click',e=>{if(e.target===overlay)overlay.remove();});
+  btns.appendChild(cancelBtn);btns.appendChild(okBtn);
+  box.appendChild(p);box.appendChild(btns);
+  overlay.appendChild(box);document.body.appendChild(overlay);
+  okBtn.focus();
 }
 
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
