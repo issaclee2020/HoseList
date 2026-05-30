@@ -24,7 +24,7 @@ body{font-family:var(--fs);font-size:15px;color:var(--tp)}
 select,input{font-family:var(--fs);color:var(--tp);background:var(--bp)}
 #inp-len::-webkit-inner-spin-button,#inp-len::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
 #inp-len{-moz-appearance:textfield;appearance:textfield}
-#app{max-width:700px;margin:0 auto;padding:1rem}
+#app{max-width:720px;margin:0 auto;padding:1rem}
 header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:8px}
 header h1{font-size:20px;font-weight:600}
 header span{font-size:13px;color:var(--ts)}
@@ -32,7 +32,7 @@ header span{font-size:13px;color:var(--ts)}
 .panel.mode-new{border:3px solid #2563eb}
 .panel.mode-edit{border:3px solid #c0392b}
 .stitle{font-size:12px;font-weight:600;color:var(--ts);letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:8px}
-.mbadge{font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;letter-spacing:.04em}
+.mbadge{font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px}
 .mb-new{background:#dbeafe;color:#1d4ed8}.mb-edit{background:#fee2e2;color:#b91c1c}
 .lbl{font-size:13px;font-weight:500;color:var(--ts);margin-bottom:5px;display:block}
 .preview{font-size:13px;color:var(--tt);margin-top:6px;font-family:var(--fm);min-height:18px;word-break:break-all}
@@ -40,7 +40,7 @@ header span{font-size:13px;color:var(--ts)}
 .conn-row{display:flex;gap:6px;flex-wrap:wrap}
 .ssel{padding:7px 8px;border-radius:var(--rm);border:1.5px solid var(--bb);font-size:14px;flex:1 1 auto;min-width:76px;max-width:100%;background:var(--bp);color:var(--tp)}
 .ssel:focus{outline:2px solid var(--ti);outline-offset:1px}
-.ssel:disabled{opacity:.4;cursor:not-allowed}
+.ssel:disabled{opacity:.4}
 .inp-b{padding:8px 12px;border-radius:var(--rm);border:1.5px solid var(--bb);font-size:15px;background:var(--bp);color:var(--tp);width:100%}
 .inp-b:focus{outline:2px solid var(--ti);outline-offset:1px}
 .spec-row{display:flex;gap:8px;flex-wrap:wrap}
@@ -48,7 +48,9 @@ header span{font-size:13px;color:var(--ts)}
 .btn{background:transparent;border:1.5px solid var(--bb);border-radius:var(--rm);padding:8px 16px;font-size:14px;cursor:pointer;color:var(--tp);display:inline-flex;align-items:center;gap:7px;font-family:var(--fs);white-space:nowrap;font-weight:500}
 .btn:hover{background:var(--bs)}.btn:active{transform:scale(.98)}
 .btn.pri{background:#1a4a6e;color:#fff;border-color:#1a4a6e}.btn.pri:hover{background:#15405f}
-.btn.sm{padding:5px 10px;font-size:13px;font-weight:500}
+.btn.sm{padding:5px 10px;font-size:13px}
+.btn.add-fit{border-style:dashed;color:var(--ti);border-color:var(--ti)}
+.btn.danger{color:var(--td);border-color:var(--td)}.btn.danger:hover{background:#fef2f2}
 .btn-cp{background:transparent;border:1.5px solid var(--bb);border-radius:var(--rm);padding:6px 11px;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--fs);color:var(--ts);display:inline-flex;align-items:center;gap:5px}
 .btn-cp:hover{background:#e8f4fd;border-color:#1a5c8a;color:#1a5c8a}
 .btn-ed{background:transparent;border:1.5px solid var(--bb);border-radius:var(--rm);padding:6px 11px;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--fs);color:var(--ts);display:inline-flex;align-items:center;gap:5px}
@@ -60,14 +62,21 @@ header span{font-size:13px;color:var(--ts)}
 .add-inp-row input{flex:1;padding:6px 10px;border-radius:var(--rm);border:1.5px solid var(--bb);font-size:13px;min-width:0;background:var(--bp);color:var(--tp)}
 .sel-wrap{display:flex;flex-direction:column;flex:1 1 auto;min-width:76px}
 .form-btns{display:flex;gap:8px;margin-top:16px}
+.fit-card{background:var(--bs);border-radius:var(--rm);padding:10px;margin-bottom:8px;display:flex;flex-direction:column;gap:8px}
+.fit-top{display:flex;gap:8px;align-items:center}
+.port-group{background:var(--bp);border-radius:6px;padding:8px;border:1px solid var(--bt)}
+.port-hdr{font-size:11px;font-weight:700;color:var(--ts);margin-bottom:6px;letter-spacing:.05em}
+.port-fields{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+.gender-fixed{padding:6px 10px;border-radius:var(--rm);border:1.5px solid var(--bt);font-size:13px;color:var(--ts);background:var(--bs);flex:0 0 auto;white-space:nowrap}
+.fit-reveal{animation:fadeSlide .18s ease}
+@keyframes fadeSlide{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
 .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
-table{width:100%;border-collapse:collapse;font-size:14px;min-width:720px}
-th{font-size:12px;font-weight:600;color:var(--ts);text-align:left;padding:0;border-bottom:1.5px solid var(--bb);white-space:nowrap;background:var(--bs);cursor:pointer;user-select:none}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:860px}
+th{font-size:12px;font-weight:600;color:var(--ts);text-align:left;padding:0;border-bottom:1.5px solid var(--bb);white-space:nowrap;background:var(--bs)}
 th:hover{color:var(--tp)}
 .th-inner{display:flex;align-items:center;gap:4px;padding:8px 10px;white-space:nowrap}
-.th-text{display:inline-flex;align-items:center;gap:2px;flex:1}
-.col-chk{width:15px;height:15px;cursor:pointer;accent-color:#1a4a6e;flex-shrink:0;margin:0}
-th.r .th-inner{justify-content:flex-end}
+.th-text{display:inline-flex;align-items:center;gap:2px}
+th.r .th-inner{justify-content:flex-end}th.c .th-inner{justify-content:center}
 td{padding:9px 10px;border-bottom:1px solid var(--bt);vertical-align:middle}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:var(--bs)}
@@ -75,14 +84,31 @@ tr.hl td{background:var(--bi)!important}
 .mono{font-family:var(--fm);font-size:12px;max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ti);font-weight:500}
 .num-c{text-align:right;font-family:var(--fm);font-weight:600;font-size:14px;white-space:nowrap}
 .ctr{text-align:center;font-family:var(--fm);font-weight:600;font-size:13px}
-.note-c{font-size:13px;color:var(--ts);max-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.note-c{font-size:13px;color:var(--ts);max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fit-c{font-size:12px;color:var(--ts);line-height:1.5;max-width:150px}
 .stat-bar{display:flex;align-items:center;gap:12px;margin-top:14px;flex-wrap:wrap;font-size:13px;color:var(--ts)}
 .stat-bar b{color:var(--tp);font-weight:600}
 .vsep{width:1.5px;height:16px;background:var(--bt)}
 .export-row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.hint{font-size:12px;color:var(--tt);margin-top:8px}
+.danger-zone{margin-top:12px;padding-top:12px;border-top:1px solid var(--bt)}
 .empty{text-align:center;padding:2.5rem;color:var(--tt);font-size:14px}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1a4a6e;color:#fff;padding:10px 22px;border-radius:20px;font-size:14px;font-weight:500;opacity:0;transition:opacity .25s;pointer-events:none;z-index:999;white-space:nowrap}
 .toast.show{opacity:1}
+#print-area{display:none}
+@media print{
+  html,body{background:#fff!important}
+  #app{display:none!important}
+  #print-area{display:block!important;color:#000;font-family:sans-serif}
+  @page{size:A4 landscape;margin:9mm}
+  #print-area h1{font-size:16px;margin:0 0 4px}
+  #print-area h2{font-size:13px;margin:16px 0 6px}
+  #print-area .meta{font-size:11px;color:#333;margin-bottom:10px}
+  #print-area table{width:100%;border-collapse:collapse;font-size:10px;margin:0 auto 16px}
+  #print-area th{border:1px solid #000;padding:5px 6px;background:#e5e5e5;font-weight:700;text-align:center}
+  #print-area td{border:1px solid #777;padding:4px 6px;vertical-align:top}
+  #print-area tr{page-break-inside:avoid}
+}
 </style>
 </head>
 <body>
@@ -93,45 +119,26 @@ tr.hl td{background:var(--bi)!important}
 </header>
 
 <div class="panel mode-new" id="form-panel">
-  <div class="stitle">
-    <span id="form-title-txt">新增紀錄</span>
-    <span class="mbadge mb-new" id="mode-badge">新增</span>
-  </div>
-
-  <div class="field">
-    <span class="lbl">A 端</span>
-    <div id="mntA"></div>
-    <div class="preview">→ <span style="color:var(--ti)" id="pvA"></span></div>
-  </div>
-  <div class="field">
-    <span class="lbl">長度 (mm)</span>
-    <input type="number" id="inp-len" inputmode="numeric" class="inp-b" style="width:130px" autocomplete="off">
-  </div>
+  <div class="stitle"><span id="form-title-txt">新增紀錄</span><span class="mbadge mb-new" id="mode-badge">新增</span></div>
+  <div class="field"><span class="lbl">A 端</span><div id="mntA"></div><div class="preview">→ <span style="color:var(--ti)" id="pvA"></span></div></div>
+  <div class="field"><span class="lbl">B 端</span><div id="mntB"></div><div class="preview">→ <span style="color:var(--ti)" id="pvB"></span></div></div>
+  <div class="field"><span class="lbl">長度 (mm)</span><input type="number" id="inp-len" inputmode="numeric" class="inp-b" style="width:130px" autocomplete="off"></div>
   <div class="field">
     <span class="lbl">管徑 / 層數 / 工作壓力</span>
     <div class="spec-row">
       <div class="spec-item"><span class="lbl" style="font-size:12px;margin-bottom:3px">管徑</span><select id="inp-bore" class="ssel"></select></div>
-      <div class="spec-item"><span class="lbl" style="font-size:12px;margin-bottom:3px">層數</span><select id="inp-layers" class="ssel"></select></div>
-      <div class="spec-item"><span class="lbl" style="font-size:12px;margin-bottom:3px">工作壓力</span><select id="inp-pressure" class="ssel"></select></div>
+      <div class="spec-item"><span class="lbl" style="font-size:12px;margin-bottom:3px">層數(可留空)</span><select id="inp-layers" class="ssel"></select></div>
+      <div class="spec-item"><span class="lbl" style="font-size:12px;margin-bottom:3px">工作壓力(可留空) (BAR)</span><input type="number" id="inp-pressure" inputmode="numeric" class="inp-b" style="font-size:14px" autocomplete="off"></div>
     </div>
   </div>
+  <div class="field"><span class="lbl">數量</span><input type="number" id="inp-qty" min="1" value="1" class="inp-b" style="width:100px"></div>
   <div class="field">
-    <span class="lbl">B 端</span>
-    <div id="mntB"></div>
-    <div class="preview">→ <span style="color:var(--ti)" id="pvB"></span></div>
+    <span class="lbl">使用接頭</span>
+    <div id="fittings-container"></div>
+    <button class="btn add-fit sm" id="btn-add-fit" type="button" style="margin-top:4px"><i class="ti ti-plus"></i> 新增接頭</button>
   </div>
-  <div class="field">
-    <span class="lbl">數量</span>
-    <input type="number" id="inp-qty" min="1" value="1" class="inp-b" style="width:100px">
-  </div>
-  <div class="field">
-    <span class="lbl">位置 / 功用</span>
-    <input type="text" id="inp-note" class="inp-b" autocomplete="off">
-  </div>
-  <div class="field" style="margin-bottom:0">
-    <span class="lbl">給廠商</span>
-    <input type="text" id="inp-vendor" class="inp-b" autocomplete="off">
-  </div>
+  <div class="field"><span class="lbl">位置/功用/備註</span><input type="text" id="inp-note" class="inp-b" autocomplete="off"></div>
+  <div class="field" style="margin-bottom:0"><span class="lbl">說明(給廠商)</span><input type="text" id="inp-vendor" class="inp-b" autocomplete="off"></div>
   <div class="form-btns">
     <button class="btn pri" id="btn-sub"><i class="ti ti-plus" id="ico-sub"></i><span id="lbl-sub">新增</span></button>
     <button class="btn" id="btn-cancel" style="display:none"><i class="ti ti-x"></i> 取消</button>
@@ -139,111 +146,75 @@ tr.hl td{background:var(--bi)!important}
 </div>
 
 <div class="panel" id="tbl-panel" style="display:none">
-  <div class="tbl-wrap">
-    <table id="main-table">
-      <thead><tr id="thead-row">
-        <!-- Built by JS -->
-      </tr></thead>
-      <tbody id="tbody"></tbody>
-    </table>
-  </div>
-  <div class="stat-bar">
-    筆數 <b id="sc">0</b>
-    <div class="vsep"></div>
-    軟管總數 <b id="sq">0</b> 條
-  </div>
+  <div class="tbl-wrap"><table id="main-table"><thead><tr id="thead-row"></tr></thead><tbody id="tbody"></tbody></table></div>
+  <div class="stat-bar">筆數 <b id="sc">0</b><div class="vsep"></div>軟管總數 <b id="sq">0</b> 條</div>
   <div class="export-row">
-    <button class="btn" id="btn-exp"><i class="ti ti-download"></i> 匯出 .txt</button>
-    <button class="btn" id="btn-clip"><i class="ti ti-clipboard-copy"></i> 複製到剪貼簿</button>
+    <button class="btn" id="btn-pdf"><i class="ti ti-file-type-pdf"></i> 保存成PDF</button>
+    <button class="btn" id="btn-vendor"><i class="ti ti-send"></i> 貼給廠商</button>
   </div>
+  <div class="hint">PDF 透過瀏覽器列印產生，請於對話框選擇「另存為 PDF」即可下載或分享。</div>
+  <div class="danger-zone"><button class="btn danger" id="btn-clear-all"><i class="ti ti-trash-x"></i> 清空所有數據</button></div>
 </div>
 
-<div id="empty-msg" class="empty">
-  <i class="ti ti-clipboard-list" style="font-size:28px;display:block;margin-bottom:8px"></i>
-  尚無紀錄，填寫上方表單後新增
-</div>
+<div id="empty-msg" class="empty"><i class="ti ti-clipboard-list" style="font-size:28px;display:block;margin-bottom:8px"></i>尚無紀錄，填寫上方表單後新增</div>
 <div id="toast" class="toast"></div>
 </div>
+<div id="print-area"></div>
 
 <script>
-// ── 常數 ──────────────────────────────────────────────────────────
+// ── 接頭規格資料 ──────────────────────────────────────────────────
+const SHAPES_CONFIG={
+  '直接頭':{ports:['#1','#2']},
+  '90度接頭':{ports:['#1','#2']},
+  '45度接頭':{ports:['#1','#2']},
+  'BANJO':{ports:['#1','#2']},
+  '三通':{ports:['#1','#2','#3']}
+};
+const PORT_SPECS={
+  Steel_Tube_Fitting:{name:'鋼管頭',genders:null,sizes:['6L','8L','10L','12L','15L','18L','22L','28L','35L','42L','6S','8S','10S','12S','14S','16S','20S','25S','30S','38S']},
+  TH_Fitting:{name:'TH頭',genders:null,sizes:['1/8"','3/16"','1/4"','5/16"','3/8"','1/2"','5/8"','3/4"','7/8"','1"','1-1/4"','1-1/2"','2"']},
+  Metric_Port:{name:'公制牙口',genders:['公'],sizes:['M8x1','M10x1','M12x1.5','M14x1.5','M16x1.5','M18x1.5','M22x1.5','M27x2','M33x2','M42x2','M48x2','M60x2']},
+  PT_Thread:{name:'PT牙口',genders:['公','母'],sizes:['1/8"','1/4"','3/8"','1/2"','3/4"','1"','1-1/4"','1-1/2"','2"']},
+  G_Thread:{name:'G牙口',genders:['公','母'],sizes:['1/8"','1/4"','3/8"','1/2"','5/8"','3/4"','1"','1-1/4"','1-1/2"','2"']}
+};
+const SHORT={Steel_Tube_Fitting:'鋼管頭',TH_Fitting:'TH',Metric_Port:'公制',PT_Thread:'PT',G_Thread:'G'};
+
+// ── 軟管接頭/管徑常數 ─────────────────────────────────────────────
 const TH_SZ=['1/8"','1/4"','3/8"','1/2"','3/4"','1"','1 1/4"','1 1/2"'];
 const ST_SZ=['6L','8L','10L','12L','15L','18L','22L','8S','10S','12S','14S','16S','20S','25S'];
 const BASE_TYPES=['母直頭','母90度頭','公直頭','公90度頭'];
 const BORE_OPT=['1/4','3/8','1/2','5/8','3/4','1"','1-1/4','1-1/2','2"'];
-const PRESSURE={
-  '1/4':  [{l:1,p:225},{l:2,p:400}],
-  '3/8':  [{l:1,p:180},{l:2,p:330},{l:4,p:445}],
-  '1/2':  [{l:1,p:160},{l:2,p:276},{l:4,p:425}],
-  '5/8':  [{l:1,p:130},{l:2,p:250},{l:4,p:350}],
-  '3/4':  [{l:1,p:105},{l:2,p:215},{l:4,p:420}],
-  '1"':   [{l:1,p:88},{l:2,p:165},{l:4,p:380}],
-  '1-1/4':[{l:1,p:63},{l:2,p:125},{l:4,p:345}],
-  '1-1/2':[{l:1,p:50},{l:2,p:90},{l:4,p:290}],
-  '2"':   [{l:1,p:40},{l:2,p:80},{l:4,p:250}]
-};
+const BORE_LAYERS={'1/4':[1,2],'3/8':[1,2,4],'1/2':[1,2,4],'5/8':[1,2,4],'3/4':[1,2,4],'1"':[1,2,4],'1-1/4':[1,2,4],'1-1/2':[1,2,4],'2"':[1,2,4]};
 const BORE_MAP={
   TH:{'1/8"':null,'1/4"':'1/4','3/8"':'3/8','1/2"':'1/2','3/4"':'3/4','1"':'1"','1 1/4"':'1-1/4','1 1/2"':'1-1/2'},
-  ST:{'6L':'1/4','8L':'1/4','10L':'3/8','12L':'3/8','15L':'1/2','18L':'5/8','22L':'3/4',
-      '8S':'1/4','10S':'1/4','12S':'3/8','14S':'1/2','16S':'1/2','20S':'5/8','25S':'3/4'}
+  ST:{'6L':'1/4','8L':'1/4','10L':'3/8','12L':'3/8','15L':'1/2','18L':'5/8','22L':'3/4','8S':'1/4','10S':'1/4','12S':'3/8','14S':'1/2','16S':'1/2','20S':'5/8','25S':'3/4'}
 };
 const custom={THSz:[],STSz:[],types:[]};
-
-// ── 欄位定義（控制可見性與剪貼簿） ──────────────────────────────
 const COLS=[
-  {key:'num',    label:'編號',    sortCol:null,       w:'50px', align:'center'},
-  {key:'a',      label:'A 端',   sortCol:'a',        w:''},
-  {key:'len',    label:'長度',    sortCol:'len',      w:'76px', align:'right'},
-  {key:'bore',   label:'管徑',    sortCol:'bore',     w:'58px'},
-  {key:'layers', label:'層數',    sortCol:'layers',   w:'52px', align:'center'},
-  {key:'pressure',label:'耐壓',   sortCol:'pressure', w:'72px', align:'right'},
-  {key:'b',      label:'B 端',   sortCol:'b',        w:''},
-  {key:'qty',    label:'數量',    sortCol:'qty',      w:'50px', align:'center'},
-  {key:'note',   label:'位置/功用',sortCol:'note',    w:''},
-  {key:'vendor', label:'給廠商',  sortCol:'vendor',   w:''},
+  {key:'num',label:'編號',sortCol:null,w:'48px',align:'center'},
+  {key:'a',label:'A 端',sortCol:'a'},
+  {key:'b',label:'B 端',sortCol:'b'},
+  {key:'len',label:'長度',sortCol:'len',w:'70px',align:'right'},
+  {key:'bore',label:'管徑',sortCol:'bore',w:'56px'},
+  {key:'layers',label:'層數',sortCol:'layers',w:'52px',align:'center'},
+  {key:'pressure',label:'耐壓',sortCol:'pressure',w:'64px',align:'right'},
+  {key:'qty',label:'數量',sortCol:'qty',w:'48px',align:'center'},
+  {key:'fittings',label:'使用接頭',sortCol:null},
+  {key:'note',label:'位置/功用/備註',sortCol:'note'},
+  {key:'vendor',label:'說明(給廠商)',sortCol:'vendor'}
 ];
-const colVis={};
-COLS.forEach(c=>colVis[c.key]=true);
 
-// ── 建立表頭 ──────────────────────────────────────────────────────
-function buildThead(){
-  const tr=document.getElementById('thead-row');tr.innerHTML='';
-  COLS.forEach(col=>{
-    const th=document.createElement('th');
-    if(col.w)th.style.width=col.w;
-    if(col.align==='right')th.classList.add('r');
-    if(col.sortCol)th.dataset.col=col.sortCol;
-    th.dataset.ck=col.key;
-    if(!colVis[col.key])th.style.display='none';
-    const inner=document.createElement('div');inner.className='th-inner';
-    const chk=document.createElement('input');chk.type='checkbox';chk.className='col-chk';chk.checked=colVis[col.key];
-    chk.title='勾選後複製到剪貼簿時包含此欄';
-    chk.addEventListener('click',e=>e.stopPropagation());
-    chk.addEventListener('change',e=>{toggleColVis(col.key,e.target.checked);});
-    const txt=document.createElement('span');txt.className='th-text';
-    const si=document.createElement('span');si.id='si-'+col.key;si.style.cssText='font-size:9px;margin-left:2px';
-    txt.appendChild(document.createTextNode(col.label));txt.appendChild(si);
-    inner.appendChild(chk);inner.appendChild(txt);
-    th.appendChild(inner);
-    if(col.sortCol){
-      th.addEventListener('click',e=>{
-        if(e.target.classList.contains('col-chk'))return;
-        const c=col.sortCol;
-        sortDir=sortCol===c?(sortDir==='asc'?'desc':'asc'):'asc';
-        sortCol=c;renderTable();
-      });
-    }
-    tr.appendChild(th);
-  });
-  // ops th
-  const opsTh=document.createElement('th');opsTh.style.width='1px';
-  opsTh.innerHTML='<div class="th-inner"></div>';
-  tr.appendChild(opsTh);
-}
-
-function toggleColVis(key,vis){
-  colVis[key]=vis;
-  // 僅影響剪貼簿輸出，不隱藏欄位
+// ── 持久化 ────────────────────────────────────────────────────────
+const STORAGE_KEY='hose_measurement_v3';
+function saveState(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify({records,nextId,custom,sessionDefaultPressure}));}catch(e){}}
+function loadState(){
+  try{
+    const d=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null');if(!d)return;
+    if(Array.isArray(d.records))records=d.records;
+    if(d.nextId)nextId=d.nextId;
+    if(d.custom){custom.THSz=d.custom.THSz||[];custom.STSz=d.custom.STSz||[];custom.types=d.custom.types||[];}
+    if(d.sessionDefaultPressure!==undefined)sessionDefaultPressure=d.sessionDefaultPressure;
+  }catch(e){}
 }
 
 // ── Connector 工具 ────────────────────────────────────────────────
@@ -252,17 +223,16 @@ function buildLabel(s){const p=s.cat==='TH'?'TH'+s.sz:s.sz;if(isDirect(s.type))r
 function boreFromConn(cs){return cs.cat==='TH'?(BORE_MAP.TH[cs.sz]||null):(BORE_MAP.ST[cs.sz]||null);}
 function hasOpt(sel,val){for(const o of sel.options)if(o.value===val)return true;return false;}
 function addOptToSel(sel,val){if(hasOpt(sel,val))return;const a=sel.querySelector('option[value="__ADD__"]');const o=document.createElement('option');o.value=val;o.textContent=val;if(a)sel.insertBefore(o,a);else sel.appendChild(o);}
-
 let skipBoreUpdate=false;
 function updPv(cs,pvId){
   document.getElementById(pvId).textContent=buildLabel(cs);
-  if(cs===csA&&!skipBoreUpdate){const bore=boreFromConn(csA);document.getElementById('inp-bore').value=bore||'';rebuildLayersPressure(bore);}
+  if(cs===csA&&!skipBoreUpdate){const bore=boreFromConn(csA);document.getElementById('inp-bore').value=bore||'';rebuildLayers(bore);}
 }
 function mkSelWrap(opts,customArr,val,onchange,catKey){
   const wrap=document.createElement('div');wrap.className='sel-wrap';
   const sel=document.createElement('select');sel.className='ssel';
   if(catKey)sel.dataset.cat=catKey;
-  [...opts,...customArr].forEach(o=>{const opt=document.createElement('option');opt.value=o;opt.textContent=o;if(o===val)opt.selected=true;sel.appendChild(opt);});
+  [...opts,...customArr].forEach(o=>{const op=document.createElement('option');op.value=o;op.textContent=o;if(o===val)op.selected=true;sel.appendChild(op);});
   const addOpt=document.createElement('option');addOpt.value='__ADD__';addOpt.textContent='＋ 新增項目…';sel.appendChild(addOpt);
   const aRow=document.createElement('div');aRow.className='add-inp-row';
   const aInp=document.createElement('input');aInp.type='text';aInp.placeholder='輸入後按 Enter 確認';
@@ -270,8 +240,8 @@ function mkSelWrap(opts,customArr,val,onchange,catKey){
   aRow.appendChild(aInp);aRow.appendChild(xBtn);
   let prev=val;
   sel.addEventListener('change',e=>{if(e.target.value==='__ADD__'){sel.value=prev;aRow.style.display='flex';aInp.focus();}else{prev=e.target.value;aRow.style.display='none';onchange(e.target.value);}});
-  const confirm=()=>{const v=aInp.value.trim();if(!v)return;customArr.push(v);if(catKey)document.querySelectorAll(`select[data-cat="${catKey}"]`).forEach(s=>addOptToSel(s,v));else addOptToSel(sel,v);sel.value=v;prev=v;aRow.style.display='none';aInp.value='';onchange(v);};
-  aInp.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();confirm();}if(e.key==='Escape'){aRow.style.display='none';aInp.value='';sel.value=prev;}});
+  const doConfirm=()=>{const v=aInp.value.trim();if(!v)return;customArr.push(v);if(catKey)document.querySelectorAll(`select[data-cat="${catKey}"]`).forEach(s=>addOptToSel(s,v));else addOptToSel(sel,v);sel.value=v;prev=v;aRow.style.display='none';aInp.value='';onchange(v);saveState();};
+  aInp.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();doConfirm();}if(e.key==='Escape'){aRow.style.display='none';aInp.value='';sel.value=prev;}});
   xBtn.addEventListener('click',()=>{aRow.style.display='none';aInp.value='';sel.value=prev;});
   wrap.appendChild(sel);wrap.appendChild(aRow);return{wrap,sel};
 }
@@ -295,64 +265,150 @@ function buildConn(mountId,cs,pvId){
   mnt.appendChild(row);updPv(cs,pvId);
 }
 
-// ── 管徑/層數/壓力 ───────────────────────────────────────────────
-function rebuildLayersPressure(bore){
+// ── 管徑 / 層數 / 壓力（解耦，互斥） ─────────────────────────────
+function rebuildLayers(bore){
   const ls=document.getElementById('inp-layers');
-  const ps=document.getElementById('inp-pressure');
-  ls.innerHTML='';ps.innerHTML='';
-  const entries=PRESSURE[bore]||[];
-  if(!entries.length){
-    ls.disabled=true;ps.disabled=true;
-    ['inp-layers','inp-pressure'].forEach(id=>{const o=document.createElement('option');o.textContent='—';document.getElementById(id).appendChild(o);});return;
-  }
-  ls.disabled=false;ps.disabled=false;
-  entries.forEach(e=>{
-    const lo=document.createElement('option');lo.value=e.l;lo.textContent=e.l+'層';ls.appendChild(lo);
-    const po=document.createElement('option');po.value=e.p;po.textContent=e.p+' BAR';ps.appendChild(po);
-  });
-  const defIdx=entries.findIndex(e=>e.l===2);const idx=defIdx>=0?defIdx:0;
-  ls.selectedIndex=idx;ps.selectedIndex=idx;
+  const cur=ls.value;ls.innerHTML='';
+  const blank=document.createElement('option');blank.value='';blank.textContent='—';ls.appendChild(blank);
+  const opts=(bore&&BORE_LAYERS[bore])?BORE_LAYERS[bore]:[1,2,4];
+  opts.forEach(l=>{const o=document.createElement('option');o.value=l;o.textContent=l+'層';ls.appendChild(o);});
+  ls.value=(opts.includes(parseInt(cur)))?cur:'';
 }
-function initSpecSection(){
+function initBoreSection(){
   const boreSel=document.getElementById('inp-bore');
-  const noneOpt=document.createElement('option');noneOpt.value='';noneOpt.textContent='—';boreSel.appendChild(noneOpt);
+  const blank=document.createElement('option');blank.value='';blank.textContent='—';boreSel.appendChild(blank);
   BORE_OPT.forEach(b=>{const o=document.createElement('option');o.value=b;o.textContent=b;boreSel.appendChild(o);});
   boreSel.value=boreFromConn(csA)||'';
-  rebuildLayersPressure(boreFromConn(csA));
-  boreSel.addEventListener('change',e=>rebuildLayersPressure(e.target.value||null));
-  document.getElementById('inp-layers').addEventListener('change',()=>{const idx=document.getElementById('inp-layers').selectedIndex;document.getElementById('inp-pressure').selectedIndex=idx;});
-  document.getElementById('inp-pressure').addEventListener('change',()=>{const idx=document.getElementById('inp-pressure').selectedIndex;document.getElementById('inp-layers').selectedIndex=idx;});
+  rebuildLayers(boreFromConn(csA));
+  boreSel.addEventListener('change',e=>rebuildLayers(e.target.value||null));
+  // 互斥：填層數 → 清壓力；填壓力 → 清層數
+  document.getElementById('inp-layers').addEventListener('change',e=>{if(e.target.value)document.getElementById('inp-pressure').value='';});
+  document.getElementById('inp-pressure').addEventListener('input',e=>{if(e.target.value.trim())document.getElementById('inp-layers').value='';});
 }
 function getSpec(){
   const bore=document.getElementById('inp-bore').value||null;
-  const ls=document.getElementById('inp-layers');const ps=document.getElementById('inp-pressure');
-  const layers=(!ls.disabled&&ls.value)?parseInt(ls.value):null;
-  const pressure=(!ps.disabled&&ps.value)?parseInt(ps.value):null;
+  const lv=document.getElementById('inp-layers').value;
+  const layers=lv?parseInt(lv):null;
+  const pv=document.getElementById('inp-pressure').value;
+  const pressure=pv?parseInt(pv):null;
   return{bore,layers,pressure};
 }
-function setSpec(bore,layers){
-  document.getElementById('inp-bore').value=bore||'';
-  rebuildLayersPressure(bore||null);
-  if(bore&&PRESSURE[bore]&&layers){const idx=PRESSURE[bore].findIndex(e=>e.l===layers);if(idx>=0){document.getElementById('inp-layers').selectedIndex=idx;document.getElementById('inp-pressure').selectedIndex=idx;}}
+function setSpec(bore,layers,pressure){
+  document.getElementById('inp-bore').value=bore||'';rebuildLayers(bore||null);
+  const ls=document.getElementById('inp-layers');
+  if(layers){for(let i=0;i<ls.options.length;i++){if(parseInt(ls.options[i].value)===layers){ls.selectedIndex=i;break;}}}
+  else ls.value='';
+  document.getElementById('inp-pressure').value=pressure||'';
 }
 
+// ── 使用接頭（新架構，漸進式顯示） ───────────────────────────────
+let formFittings=[];
+function defaultFitting(){return{shape:'',ports:[],qty:1};}
+function defaultPort(){return{spec:'',gender:null,size:''};}
+function fittingLabel(f){
+  if(!f.shape)return'(未完成)';
+  const portStrs=(f.ports||[]).filter(p=>p.spec).map(p=>{
+    const short=SHORT[p.spec]||p.spec;
+    const sp=PORT_SPECS[p.spec];
+    const gender=(sp&&sp.genders&&p.gender)?p.gender:'';
+    return`${short}${p.size}${gender}`;
+  });
+  return`${f.shape}-${portStrs.join('*')} ×${f.qty}`;
+}
+function renderFittingsForm(){
+  const c=document.getElementById('fittings-container');c.innerHTML='';
+  formFittings.forEach((f,idx)=>c.appendChild(buildFitCard(f,idx)));
+}
+function mkSimpleSel(opts,val,getText,onChange,blankLabel){
+  const s=document.createElement('select');s.className='ssel';
+  if(blankLabel!==undefined){const b=document.createElement('option');b.value='';b.textContent=blankLabel;if(!val)b.selected=true;s.appendChild(b);}
+  opts.forEach(o=>{const key=typeof o==='object'?o.v:o;const lbl=getText?getText(o):(typeof o==='object'?o.t:o);const el=document.createElement('option');el.value=key;el.textContent=lbl;if(key===val)el.selected=true;s.appendChild(el);});
+  s.addEventListener('change',e=>onChange(e.target.value));return s;
+}
+function buildFitCard(f,idx){
+  const card=document.createElement('div');card.className='fit-card';
+  const top=document.createElement('div');top.className='fit-top';
+  const shapeLbl=document.createElement('span');shapeLbl.style.cssText='font-size:12px;font-weight:600;color:var(--ts);flex:0 0 auto';shapeLbl.textContent='外型';
+  const shapeSel=mkSimpleSel(Object.keys(SHAPES_CONFIG),f.shape,k=>k,v=>{
+    f.shape=v;
+    if(v){const n=SHAPES_CONFIG[v].ports.length;while(f.ports.length<n)f.ports.push(defaultPort());while(f.ports.length>n)f.ports.pop();}
+    else f.ports=[];
+    renderFittingsForm();
+  },'選擇外型...');
+  shapeSel.style.flex='1';
+  const del=document.createElement('button');del.type='button';del.className='btn-dl';del.style.cssText='flex:0 0 auto;padding:6px 9px';del.innerHTML='<i class="ti ti-x"></i>';
+  del.addEventListener('click',()=>{formFittings.splice(idx,1);renderFittingsForm();});
+  top.appendChild(shapeLbl);top.appendChild(shapeSel);top.appendChild(del);card.appendChild(top);
+  if(f.shape&&SHAPES_CONFIG[f.shape]){
+    const portLabels=SHAPES_CONFIG[f.shape].ports;
+    portLabels.forEach((pl,pi)=>{
+      const port=f.ports[pi]||(f.ports[pi]=defaultPort());
+      const pg=document.createElement('div');pg.className='port-group fit-reveal';
+      const ph=document.createElement('div');ph.className='port-hdr';ph.textContent=pl;pg.appendChild(ph);
+      const pf=document.createElement('div');pf.className='port-fields';
+      const specSel=mkSimpleSel(Object.keys(PORT_SPECS).map(k=>({v:k,t:PORT_SPECS[k].name})),port.spec,o=>o.t,v=>{
+        port.spec=v;
+        if(v){const sp=PORT_SPECS[v];port.gender=sp.genders?sp.genders[0]:null;port.size=sp.sizes[0];}
+        else{port.gender=null;port.size='';}
+        renderFittingsForm();
+      },'選擇規範...');
+      specSel.style.cssText='flex:1 1 auto;min-width:80px';pf.appendChild(specSel);
+      if(port.spec){
+        const sp=PORT_SPECS[port.spec];
+        if(sp.genders){
+          if(sp.genders.length===1){
+            port.gender=sp.genders[0];
+            const fg=document.createElement('span');fg.className='gender-fixed';fg.textContent=sp.genders[0];pf.appendChild(fg);
+          }else{
+            const gSel=mkSimpleSel(sp.genders,port.gender||sp.genders[0],g=>g,v=>{port.gender=v;});
+            gSel.style.cssText='flex:0 0 auto;min-width:58px';pf.appendChild(gSel);
+          }
+        }
+        if(!port.size)port.size=sp.sizes[0];
+        const szSel=mkSimpleSel(sp.sizes,port.size,s=>s,v=>{port.size=v;});
+        szSel.style.cssText='flex:1 1 auto;min-width:72px';pf.appendChild(szSel);
+      }
+      pg.appendChild(pf);card.appendChild(pg);
+    });
+    const qtyRow=document.createElement('div');qtyRow.style.cssText='display:flex;align-items:center;gap:6px;margin-top:2px';
+    const ql=document.createElement('span');ql.style.cssText='font-size:13px;color:var(--ts)';ql.textContent='數量 ×';
+    const qi=document.createElement('input');qi.type='number';qi.min='1';qi.value=f.qty||1;qi.className='inp-b';qi.style.cssText='width:68px;padding:6px 8px;font-size:14px';
+    qi.addEventListener('input',e=>{f.qty=Math.max(1,parseInt(e.target.value)||1);});
+    qtyRow.appendChild(ql);qtyRow.appendChild(qi);card.appendChild(qtyRow);
+  }
+  return card;
+}
+document.getElementById('btn-add-fit').addEventListener('click',()=>{formFittings.push(defaultFitting());renderFittingsForm();});
+
 // ── 初始化 ────────────────────────────────────────────────────────
-skipBoreUpdate=true;
-buildConn('mntA',csA,'pvA');buildConn('mntB',csB,'pvB');
-skipBoreUpdate=false;
-initSpecSection();
-buildThead();
+let records=[],nextId=1,sortCol=null,sortDir='asc',editId=null,sessionDefaultPressure='';
+loadState();
+skipBoreUpdate=true;buildConn('mntA',csA,'pvA');buildConn('mntB',csB,'pvB');skipBoreUpdate=false;
+initBoreSection();
+document.getElementById('inp-pressure').value=sessionDefaultPressure||'';
+(function buildThead(){
+  const tr=document.getElementById('thead-row');tr.innerHTML='';
+  COLS.forEach(col=>{
+    const th=document.createElement('th');if(col.w)th.style.width=col.w;
+    if(col.align==='right')th.classList.add('r');if(col.align==='center')th.classList.add('c');
+    const inner=document.createElement('div');inner.className='th-inner';
+    const txt=document.createElement('span');txt.className='th-text';
+    const si=document.createElement('span');si.id='si-'+col.key;si.style.cssText='font-size:9px;margin-left:2px';
+    txt.appendChild(document.createTextNode(col.label));txt.appendChild(si);inner.appendChild(txt);th.appendChild(inner);
+    if(col.sortCol){th.style.cursor='pointer';th.addEventListener('click',()=>{const c=col.sortCol;sortDir=sortCol===c?(sortDir==='asc'?'desc':'asc'):'asc';sortCol=c;renderTable();});}
+    else th.style.cursor='default';
+    tr.appendChild(th);
+  });
+  const ot=document.createElement('th');ot.innerHTML='<div class="th-inner"></div>';tr.appendChild(ot);
+})();
+renderFittingsForm();
 
 // ── 記錄操作 ──────────────────────────────────────────────────────
-let records=[],nextId=1,sortCol=null,sortDir='asc',editId=null;
-
 function setEditMode(on,id){
   editId=on?id:null;
-  const fp=document.getElementById('form-panel');
-  fp.classList.toggle('mode-new',!on);fp.classList.toggle('mode-edit',on);
+  const fp=document.getElementById('form-panel');fp.classList.toggle('mode-new',!on);fp.classList.toggle('mode-edit',on);
   document.getElementById('form-title-txt').textContent=on?'編輯紀錄':'新增紀錄';
-  const badge=document.getElementById('mode-badge');badge.textContent=on?'編輯':'新增';
-  badge.className='mbadge '+(on?'mb-edit':'mb-new');
+  const badge=document.getElementById('mode-badge');badge.textContent=on?'編輯':'新增';badge.className='mbadge '+(on?'mb-edit':'mb-new');
   document.getElementById('ico-sub').className=on?'ti ti-check':'ti ti-plus';
   document.getElementById('lbl-sub').textContent=on?'儲存':'新增';
   document.getElementById('btn-cancel').style.display=on?'inline-flex':'none';
@@ -360,64 +416,56 @@ function setEditMode(on,id){
 function fillForm(r){
   Object.assign(csA,r.a);Object.assign(csB,r.b);
   skipBoreUpdate=true;buildConn('mntA',csA,'pvA');buildConn('mntB',csB,'pvB');skipBoreUpdate=false;
-  setSpec(r.bore,r.layers);
+  setSpec(r.bore,r.layers,r.pressure);
   document.getElementById('inp-len').value=r.len;document.getElementById('inp-qty').value=r.qty||1;
   document.getElementById('inp-note').value=r.note||'';document.getElementById('inp-vendor').value=r.vendor||'';
+  formFittings=(r.fittings||[]).map(f=>({shape:f.shape||'',ports:(f.ports||[]).map(p=>({...p})),qty:f.qty||1}));
+  renderFittingsForm();
 }
 function resetForm(){
-  Object.assign(csA,{cat:'TH',sz:'1/4"',type:'母直頭',dir:'順向'});
-  Object.assign(csB,{cat:'TH',sz:'1/4"',type:'母直頭',dir:'順向'});
+  Object.assign(csA,{cat:'TH',sz:'1/4"',type:'母直頭',dir:'順向'});Object.assign(csB,{cat:'TH',sz:'1/4"',type:'母直頭',dir:'順向'});
   skipBoreUpdate=true;buildConn('mntA',csA,'pvA');buildConn('mntB',csB,'pvB');skipBoreUpdate=false;
-  const bore=boreFromConn(csA);document.getElementById('inp-bore').value=bore||'';rebuildLayersPressure(bore);
-  document.getElementById('inp-len').value='';document.getElementById('inp-qty').value='1';
-  document.getElementById('inp-note').value='';document.getElementById('inp-vendor').value='';
-  setEditMode(false,null);
+  const bore=boreFromConn(csA);document.getElementById('inp-bore').value=bore||'';rebuildLayers(bore);
+  document.getElementById('inp-len').value='';document.getElementById('inp-layers').value='';
+  document.getElementById('inp-pressure').value=sessionDefaultPressure||'';
+  document.getElementById('inp-qty').value='1';document.getElementById('inp-note').value='';document.getElementById('inp-vendor').value='';
+  formFittings=[];renderFittingsForm();setEditMode(false,null);
 }
 document.getElementById('btn-sub').addEventListener('click',()=>{
-  const len=parseInt(document.getElementById('inp-len').value);
-  if(!len||len<=0){document.getElementById('inp-len').focus();return;}
+  const len=parseInt(document.getElementById('inp-len').value);if(!len||len<=0){document.getElementById('inp-len').focus();return;}
   const qty=Math.max(1,parseInt(document.getElementById('inp-qty').value)||1);
-  const spec=getSpec();const note=document.getElementById('inp-note').value.trim();
-  const vendor=document.getElementById('inp-vendor').value.trim();
+  const spec=getSpec();const note=document.getElementById('inp-note').value.trim();const vendor=document.getElementById('inp-vendor').value.trim();
+  const fittings=formFittings.map(f=>({shape:f.shape,ports:f.ports.map(p=>({...p})),qty:f.qty}));
   if(editId!==null){
     const r=records.find(x=>x.id===editId);
-    if(r){r.a={...csA};r.b={...csB};r.len=len;Object.assign(r,spec);r.qty=qty;r.note=note;r.vendor=vendor;}
+    if(r){r.a={...csA};r.b={...csB};r.len=len;Object.assign(r,spec);r.qty=qty;r.note=note;r.vendor=vendor;r.fittings=fittings;}
     setEditMode(false);
-  }else{records.push({id:nextId++,a:{...csA},b:{...csB},len,...spec,qty,note,vendor});}
-  resetForm();renderTable();
+  }else{
+    records.push({id:nextId++,a:{...csA},b:{...csB},len,...spec,qty,note,vendor,fittings});
+    if(!sessionDefaultPressure&&spec.pressure)sessionDefaultPressure=spec.pressure;
+  }
+  resetForm();renderTable();saveState();
 });
 document.getElementById('btn-cancel').addEventListener('click',()=>{resetForm();renderTable();});
-['inp-len','inp-qty','inp-note','inp-vendor'].forEach(id=>
-  document.getElementById(id).addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('btn-sub').click();})
-);
+['inp-len','inp-pressure','inp-qty','inp-note','inp-vendor'].forEach(id=>document.getElementById(id).addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('btn-sub').click();}));
 
-// ── 表格渲染 ──────────────────────────────────────────────────────
+// ── 表格 ──────────────────────────────────────────────────────────
 function sortedRecs(){
   if(!sortCol)return[...records];
   return[...records].sort((a,b)=>{
     let av,bv;
-    if(sortCol==='a'){av=buildLabel(a.a);bv=buildLabel(b.a);}
-    else if(sortCol==='b'){av=buildLabel(a.b);bv=buildLabel(b.b);}
-    else if(sortCol==='len'){av=a.len;bv=b.len;}
-    else if(sortCol==='bore'){av=a.bore||'';bv=b.bore||'';}
-    else if(sortCol==='layers'){av=a.layers||0;bv=b.layers||0;}
-    else if(sortCol==='pressure'){av=a.pressure||0;bv=b.pressure||0;}
-    else if(sortCol==='qty'){av=a.qty;bv=b.qty;}
-    else if(sortCol==='note'){av=a.note||'';bv=b.note||'';}
+    if(sortCol==='a'){av=buildLabel(a.a);bv=buildLabel(b.a);}else if(sortCol==='b'){av=buildLabel(a.b);bv=buildLabel(b.b);}
+    else if(sortCol==='len'){av=a.len;bv=b.len;}else if(sortCol==='bore'){av=a.bore||'';bv=b.bore||'';}
+    else if(sortCol==='layers'){av=a.layers||0;bv=b.layers||0;}else if(sortCol==='pressure'){av=a.pressure||0;bv=b.pressure||0;}
+    else if(sortCol==='qty'){av=a.qty;bv=b.qty;}else if(sortCol==='note'){av=a.note||'';bv=b.note||'';}
     else{av=a.vendor||'';bv=b.vendor||'';}
     return(av<bv?-1:av>bv?1:0)*(sortDir==='asc'?1:-1);
   });
 }
-function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-
-function makeTd(ck,content,cls,style){
-  const td=document.createElement('td');
-  td.dataset.ck=ck;if(cls)td.className=cls;if(style)td.style.cssText=style;
-  td.innerHTML=content;return td;
-}
-
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function mkTd(html,cls,style){const td=document.createElement('td');if(cls)td.className=cls;if(style)td.style.cssText=style;td.innerHTML=html;return td;}
 function renderTable(){
-  const panel=document.getElementById('tbl-panel');const empty=document.getElementById('empty-msg');
+  const panel=document.getElementById('tbl-panel'),empty=document.getElementById('empty-msg');
   if(!records.length){panel.style.display='none';empty.style.display='block';document.getElementById('hdr-count').textContent='';return;}
   panel.style.display='block';empty.style.display='none';
   document.getElementById('hdr-count').textContent='共 '+records.length+' 筆';
@@ -426,140 +474,111 @@ function renderTable(){
   sortedRecs().forEach((r,i)=>{
     const tr=document.createElement('tr');if(editId===r.id)tr.className='hl';
     const la=buildLabel(r.a),lb=buildLabel(r.b);
-    const bore=r.bore||'—';
-    const layers=r.layers?r.layers+'層':'—';
-    const pressure=r.pressure?r.pressure+' BAR':'—';
-    const qty=r.qty||1;
-    tr.appendChild(makeTd('num',i+1,'','text-align:center;font-size:12px;color:var(--tt)'));
-    tr.appendChild(makeTd('a',`<span class="mono" title="${esc(la)}">${esc(la)}</span>`));
-    tr.appendChild(makeTd('len',`${r.len}<span style="font-size:10px;color:var(--tt);margin-left:2px">mm</span>`,'num-c'));
-    tr.appendChild(makeTd('bore',`<span style="font-family:var(--fm);font-size:12px;font-weight:500">${esc(bore)}</span>`));
-    tr.appendChild(makeTd('layers',layers,'','text-align:center;font-family:var(--fm);font-size:12px;font-weight:500'));
-    tr.appendChild(makeTd('pressure',pressure,'','text-align:right;font-family:var(--fm);font-size:12px;font-weight:500;white-space:nowrap'));
-    tr.appendChild(makeTd('b',`<span class="mono" title="${esc(lb)}">${esc(lb)}</span>`));
-    tr.appendChild(makeTd('qty',qty,'ctr'));
-    tr.appendChild(makeTd('note',r.note?`<span class="note-c" title="${esc(r.note)}">${esc(r.note)}</span>`:`<span style="color:var(--tt)">—</span>`));
-    tr.appendChild(makeTd('vendor',r.vendor?`<span class="note-c" title="${esc(r.vendor)}">${esc(r.vendor)}</span>`:`<span style="color:var(--tt)">—</span>`));
-    const opsTd=document.createElement('td');
-    opsTd.innerHTML=`<div class="act-btns"><button class="btn-cp cp-btn" data-id="${r.id}"><i class="ti ti-copy"></i> 複製</button><button class="btn-ed ed-btn" data-id="${r.id}"><i class="ti ti-pencil"></i> 編輯</button><button class="btn-dl dl-btn" data-id="${r.id}"><i class="ti ti-trash"></i> 刪除</button></div>`;
-    tr.appendChild(opsTd);tbody.appendChild(tr);
+    const fitsHtml=(r.fittings&&r.fittings.length)?r.fittings.map(f=>esc(fittingLabel(f))).join('<br>'):'<span style="color:var(--tt)">—</span>';
+    tr.appendChild(mkTd(i+1,'','text-align:center;font-size:12px;color:var(--tt)'));
+    tr.appendChild(mkTd(`<span class="mono" title="${esc(la)}">${esc(la)}</span>`));
+    tr.appendChild(mkTd(`<span class="mono" title="${esc(lb)}">${esc(lb)}</span>`));
+    tr.appendChild(mkTd(`${r.len}<span style="font-size:10px;color:var(--tt);margin-left:2px">mm</span>`,'num-c'));
+    tr.appendChild(mkTd(`<span style="font-family:var(--fm);font-size:12px;font-weight:500">${esc(r.bore||'—')}</span>`));
+    tr.appendChild(mkTd(r.layers?r.layers+'層':'—','','text-align:center;font-family:var(--fm);font-size:12px'));
+    tr.appendChild(mkTd(r.pressure?r.pressure+' BAR':'—','','text-align:right;font-family:var(--fm);font-size:12px;white-space:nowrap'));
+    tr.appendChild(mkTd(r.qty||1,'ctr'));
+    tr.appendChild(mkTd(`<div class="fit-c">${fitsHtml}</div>`));
+    tr.appendChild(mkTd(r.note?`<span class="note-c" title="${esc(r.note)}">${esc(r.note)}</span>`:'<span style="color:var(--tt)">—</span>'));
+    tr.appendChild(mkTd(r.vendor?`<span class="note-c" title="${esc(r.vendor)}">${esc(r.vendor)}</span>`:'<span style="color:var(--tt)">—</span>'));
+    const ops=document.createElement('td');
+    ops.innerHTML=`<div class="act-btns"><button class="btn-cp cp-btn" data-id="${r.id}"><i class="ti ti-copy"></i> 複製</button><button class="btn-ed ed-btn" data-id="${r.id}"><i class="ti ti-pencil"></i> 編輯</button><button class="btn-dl dl-btn" data-id="${r.id}"><i class="ti ti-trash"></i> 刪除</button></div>`;
+    tr.appendChild(ops);tbody.appendChild(tr);
   });
   tbody.querySelectorAll('.cp-btn').forEach(b=>b.addEventListener('click',()=>{
     const r=records.find(x=>x.id===parseInt(b.dataset.id));if(!r)return;
-    const nr={id:nextId++,a:{...r.a},b:{...r.b},len:r.len,bore:r.bore,layers:r.layers,pressure:r.pressure,qty:r.qty||1,note:r.note,vendor:r.vendor};
+    const nr={id:nextId++,a:{...r.a},b:{...r.b},len:r.len,bore:r.bore,layers:r.layers,pressure:r.pressure,qty:r.qty||1,note:r.note,vendor:r.vendor,fittings:(r.fittings||[]).map(f=>({shape:f.shape,ports:f.ports.map(p=>({...p})),qty:f.qty}))};
     records.splice(records.findIndex(x=>x.id===r.id)+1,0,nr);
-    fillForm(nr);setEditMode(true,nr.id);renderTable();
+    fillForm(nr);setEditMode(true,nr.id);renderTable();saveState();
   }));
   tbody.querySelectorAll('.ed-btn').forEach(b=>b.addEventListener('click',()=>{
-    const r=records.find(x=>x.id===parseInt(b.dataset.id));if(!r)return;
-    fillForm(r);setEditMode(true,r.id);renderTable();
+    const r=records.find(x=>x.id===parseInt(b.dataset.id));if(!r)return;fillForm(r);setEditMode(true,r.id);renderTable();
   }));
   tbody.querySelectorAll('.dl-btn').forEach(b=>b.addEventListener('click',()=>{
     const r=records.find(x=>x.id===parseInt(b.dataset.id));if(!r)return;
     const idx=sortedRecs().findIndex(x=>x.id===r.id)+1;
-    const la=buildLabel(r.a),lb=buildLabel(r.b);
-    showConfirm(`確定要刪除第 ${idx} 筆嗎？\n${la} ＊ ${lb} ＊ ${r.len}mm\n\n此操作無法復原。`,()=>{
-      if(editId===r.id)resetForm();
-      records=records.filter(x=>x.id!==r.id);renderTable();
-    });
+    showConfirm(`確定要刪除第 ${idx} 筆嗎？\n${buildLabel(r.a)} ＊ ${buildLabel(r.b)} ＊ ${r.len}mm\n\n此操作無法復原。`,()=>{
+      if(editId===r.id)resetForm();records=records.filter(x=>x.id!==r.id);renderTable();saveState();
+    },'確定刪除');
   }));
   document.getElementById('sc').textContent=records.length;
   document.getElementById('sq').textContent=records.reduce((s,r)=>s+(r.qty||1),0);
 }
 
-// ── 匯出 ──────────────────────────────────────────────────────────
-function buildClipboardText(recs){
-  // 抬頭：依勾選欄位組合
-  const connCols=[];
-  if(colVis.a)connCols.push('A端');
-  if(colVis.b)connCols.push('B端');
-  const hdrFields=[];
-  if(connCols.length)hdrFields.push(connCols.join('-'));
-  const midKeys=[{k:'len',l:'長度'},{k:'bore',l:'管徑'},{k:'layers',l:'層數'},{k:'pressure',l:'耐壓'},{k:'qty',l:'數量'},{k:'note',l:'位置/功用'}];
-  midKeys.forEach(({k,l})=>{if(colVis[k])hdrFields.push(l);});
-  let header='';
-  if(colVis.num)header='編號  ';
-  header+=hdrFields.join('*');
-  if(colVis.vendor)header+=' (給廠商)';
-
-  // 資料行
-  const lines=recs.map((r,i)=>{
-    const la=buildLabel(r.a),lb=buildLabel(r.b);
-    const connParts=[];
-    if(colVis.a)connParts.push(la);
-    if(colVis.b)connParts.push(lb);
-    const dataFields=[];
-    if(connParts.length)dataFields.push(connParts.join('-'));
-    if(colVis.len)dataFields.push(r.len);
-    if(colVis.bore)dataFields.push(r.bore||'—');
-    if(colVis.layers)dataFields.push(r.layers?r.layers+'層':'—');
-    if(colVis.pressure)dataFields.push(r.pressure?r.pressure+'BAR':'—');
-    if(colVis.qty)dataFields.push(r.qty||1);
-    if(colVis.note)dataFields.push(r.note||'—');
-    let line='';
-    if(colVis.num)line=`#${i+1}  `;
-    line+=dataFields.join('*');
-    if(colVis.vendor&&r.vendor)line+=` (${r.vendor})`;
-    return line;
-  });
-
-  // 頁尾
-  const totalQty=recs.reduce((s,r)=>s+(r.qty||1),0);
-  const footer=`\n共 ${recs.length} 筆　軟管總數 ${totalQty} 條`;
-  return header+'\n'+lines.join('\n')+footer;
+// ── 確認框 / Toast ────────────────────────────────────────────────
+function showConfirm(msg,onConfirm,okText,cancelText){
+  okText=okText||'確定';cancelText=cancelText||'取消';
+  const ov=document.createElement('div');ov.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:1000;display:flex;align-items:center;justify-content:center;padding:1rem';
+  const box=document.createElement('div');box.style.cssText='background:var(--bp);border-radius:12px;padding:1.25rem 1.5rem;max-width:320px;width:100%;box-shadow:0 8px 28px rgba(0,0,0,0.28)';
+  const p=document.createElement('p');p.style.cssText='font-size:14px;color:var(--tp);line-height:1.6;margin-bottom:18px;white-space:pre-line';p.textContent=msg;
+  const btns=document.createElement('div');btns.style.cssText='display:flex;gap:8px;justify-content:flex-end';
+  const cancelBtn=document.createElement('button');cancelBtn.className='btn';cancelBtn.textContent=cancelText;cancelBtn.style.cssText='padding:7px 14px;font-size:14px';
+  const okBtn=document.createElement('button');okBtn.style.cssText='background:#b91c1c;color:#fff;border:none;border-radius:var(--rm);padding:7px 14px;font-size:14px;font-weight:500;cursor:pointer;font-family:var(--fs)';okBtn.textContent=okText;
+  cancelBtn.addEventListener('click',()=>ov.remove());okBtn.addEventListener('click',()=>{ov.remove();onConfirm();});
+  ov.addEventListener('click',e=>{if(e.target===ov)ov.remove();});
+  btns.appendChild(cancelBtn);btns.appendChild(okBtn);box.appendChild(p);box.appendChild(btns);ov.appendChild(box);document.body.appendChild(ov);okBtn.focus();
 }
-
-function buildTxt(recs){
-  const d=new Date();const ds=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
-  const lines=recs.map((r,i)=>{
-    const la=buildLabel(r.a),lb=buildLabel(r.b);
-    const spec=(r.layers&&r.pressure)?`${r.layers}層/${r.pressure}BAR`:'—';
-    const parts=[`${i+1}. ${la}＊${lb}＊${r.len}mm＊${r.bore||'—'}＊${spec}×${r.qty||1}`];
-    if(r.note)parts.push(r.note);if(r.vendor)parts.push(`[${r.vendor}]`);return parts.join(' ');
-  });
-  const total=recs.reduce((s,r)=>s+(r.qty||1),0);
-  return`軟管清單 ${ds}\n${'─'.repeat(44)}\n${lines.join('\n')}\n\n共 ${recs.length} 筆　軟管總數 ${total} 條`;
-}
-
-function showConfirm(msg,onConfirm){
-  const overlay=document.createElement('div');
-  overlay.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:1000;display:flex;align-items:center;justify-content:center;padding:1rem';
-  const box=document.createElement('div');
-  box.style.cssText='background:var(--bp);border-radius:12px;padding:1.25rem 1.5rem;max-width:320px;width:100%;box-shadow:0 8px 28px rgba(0,0,0,0.28)';
-  const p=document.createElement('p');
-  p.style.cssText='font-size:14px;color:var(--tp);line-height:1.6;margin-bottom:18px;white-space:pre-line';
-  p.textContent=msg;
-  const btns=document.createElement('div');
-  btns.style.cssText='display:flex;gap:8px;justify-content:flex-end';
-  const cancelBtn=document.createElement('button');
-  cancelBtn.className='btn';cancelBtn.textContent='取消';cancelBtn.style.cssText='padding:7px 16px;font-size:14px';
-  const okBtn=document.createElement('button');
-  okBtn.style.cssText='background:#b91c1c;color:#fff;border:none;border-radius:var(--rm);padding:7px 16px;font-size:14px;font-weight:500;cursor:pointer;font-family:var(--fs)';
-  okBtn.textContent='確定刪除';
-  cancelBtn.addEventListener('click',()=>overlay.remove());
-  okBtn.addEventListener('click',()=>{overlay.remove();onConfirm();});
-  overlay.addEventListener('click',e=>{if(e.target===overlay)overlay.remove();});
-  btns.appendChild(cancelBtn);btns.appendChild(okBtn);
-  box.appendChild(p);box.appendChild(btns);
-  overlay.appendChild(box);document.body.appendChild(overlay);
-  okBtn.focus();
-}
-
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
 
-document.getElementById('btn-exp').addEventListener('click',()=>{
-  const d=new Date();const ds=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
-  const blob=new Blob([buildTxt(sortedRecs())],{type:'text/plain;charset=utf-8'});
-  const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`軟管清單_${ds}.txt`;a.click();URL.revokeObjectURL(url);
-});
-document.getElementById('btn-clip').addEventListener('click',async()=>{
-  const txt=buildClipboardText(sortedRecs());
-  try{await navigator.clipboard.writeText(txt);}
-  catch(e){const ta=document.createElement('textarea');ta.value=txt;ta.style.cssText='position:fixed;top:-9999px';document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);}
-  showToast('✓ 已複製到剪貼簿');
+// ── 清空所有數據（兩次確認） ──────────────────────────────────────
+document.getElementById('btn-clear-all').addEventListener('click',()=>{
+  showConfirm('確定要清空所有紀錄嗎？\n\n確認後仍需要第二次確認。',()=>{
+    showConfirm('⚠️ 最後確認\n\n所有紀錄將被永久清除且無法恢復。\n確定要繼續嗎？',()=>{
+      records=[];nextId=1;sessionDefaultPressure='';
+      try{localStorage.removeItem(STORAGE_KEY);}catch(e){}
+      resetForm();renderTable();showToast('✓ 已清空所有紀錄');
+    },'確定清空');
+  },'繼續');
 });
 
-window.addEventListener('beforeunload',e=>{if(records.length>0){e.preventDefault();e.returnValue='確定要離開嗎？頁面上的紀錄尚未匯出，離開後將全部清除。';return e.returnValue;}});
+// ── PDF (列印) ────────────────────────────────────────────────────
+function buildMainTbl(recs,inclNote,inclFit){
+  const cols=[{h:'編號',f:(r,i)=>i+1},{h:'A 端',f:r=>esc(buildLabel(r.a))},{h:'B 端',f:r=>esc(buildLabel(r.b))},
+    {h:'長度(mm)',f:r=>r.len},{h:'管徑',f:r=>esc(r.bore||'—')},{h:'層數',f:r=>r.layers?r.layers+'層':'—'},
+    {h:'耐壓(BAR)',f:r=>r.pressure||'—'},{h:'數量',f:r=>r.qty||1}];
+  if(inclFit)cols.push({h:'使用接頭',f:r=>(r.fittings&&r.fittings.length)?r.fittings.map(x=>esc(fittingLabel(x))).join('<br>'):'—'});
+  if(inclNote)cols.push({h:'位置/功用/備註',f:r=>esc(r.note||'—')});
+  cols.push({h:'說明(給廠商)',f:r=>esc(r.vendor||'—')});
+  let h='<table><thead><tr>'+cols.map(c=>`<th>${c.h}</th>`).join('')+'</tr></thead><tbody>';
+  recs.forEach((r,i)=>{h+='<tr>'+cols.map(c=>`<td>${c.f(r,i)}</td>`).join('')+'</tr>';});
+  return h+'</tbody></table>';
+}
+function buildFitTbl(recs){
+  let h='<table><thead><tr><th>編號</th><th>軟管 (A端-B端)</th><th>大類</th><th>類型</th><th>形狀</th><th>尺寸</th><th>數量</th></tr></thead><tbody>';
+  let any=false;
+  recs.forEach((r,i)=>{(r.fittings||[]).forEach(f=>{
+    any=true;
+    const catName=PORT_SPECS[Object.keys(PORT_SPECS)[0]]?'':f.shape;
+    // Per port in fitting
+    (f.ports||[]).forEach((p,pi)=>{
+      const pn=PORT_SPECS[p.spec];
+      const catN=pn?pn.name:p.spec;
+      const gender=(pn&&pn.genders&&p.gender)?p.gender:'—';
+      h+=`<tr><td>${i+1}</td><td>${esc(buildLabel(r.a))}-${esc(buildLabel(r.b))}</td><td>${esc(f.shape)}</td><td>${esc(catN)}</td><td>${esc(p.size)}</td><td>${esc(gender)}</td><td>${f.qty}</td></tr>`;
+    });
+  });});
+  if(!any)h+='<tr><td colspan="7" style="text-align:center;color:#888">無使用接頭資料</td></tr>';
+  return h+'</tbody></table>';
+}
+function genPDF(mode){
+  if(!records.length){showToast('清單為空，無法產生 PDF');return;}
+  const recs=sortedRecs();
+  const d=new Date();const ds=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  const total=recs.reduce((s,r)=>s+(r.qty||1),0);
+  let html=`<h1>軟管清單${mode==='vendor'?'（給廠商）':''}</h1><div class="meta">製表日期：${ds}　筆數：${recs.length}　軟管總數：${total} 條</div>`;
+  if(mode==='full'){html+=buildMainTbl(recs,true,true);}
+  else{html+=buildMainTbl(recs,false,false);html+='<h2>使用接頭明細</h2>';html+=buildFitTbl(recs);}
+  document.getElementById('print-area').innerHTML=html;
+  window.print();
+}
+document.getElementById('btn-pdf').addEventListener('click',()=>genPDF('full'));
+document.getElementById('btn-vendor').addEventListener('click',()=>genPDF('vendor'));
+
 renderTable();
 </script>
 </body>
