@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>軟管丈量記錄 v1.3</title>
+<title>軟管丈量記錄 v1.8</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.0.0/tabler-icons.min.css">
 <style>
 :root{
@@ -104,9 +104,10 @@ tr.hl td{background:var(--bi)!important}
   #print-area h1{font-size:16px;margin:0 0 4px}
   #print-area h2{font-size:13px;margin:16px 0 6px}
   #print-area .meta{font-size:11px;color:#333;margin-bottom:10px}
-  #print-area table{width:100%;border-collapse:collapse;font-size:10px;margin:0 auto 16px}
-  #print-area th{border:1px solid #000;padding:5px 6px;background:#e5e5e5;font-weight:700;text-align:center}
-  #print-area td{border:1px solid #777;padding:4px 6px;vertical-align:top}
+  #print-area table{border-collapse:collapse;font-size:10px;margin:0 auto 16px 0}
+  #print-area th{border:1px solid #000;padding:5px 6px;background:#e5e5e5;font-weight:700;text-align:center;white-space:nowrap}
+  #print-area td{border:1px solid #777;padding:4px 6px;text-align:center;vertical-align:middle}
+  #print-area td.col-text{text-align:left}
   #print-area tr{page-break-inside:avoid}
 }
 </style>
@@ -117,7 +118,7 @@ tr.hl td{background:var(--bi)!important}
   <h1>軟管丈量記錄</h1>
   <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
     <span id="hdr-count"></span>
-    <span style="font-size:11px;font-weight:700;color:var(--tt);letter-spacing:.06em;padding:2px 8px;border:1px solid var(--bt);border-radius:20px">v1.3</span>
+    <span style="font-size:11px;font-weight:700;color:var(--tt);letter-spacing:.06em;padding:2px 8px;border:1px solid var(--bt);border-radius:20px">v1.8</span>
   </div>
 </header>
 
@@ -317,6 +318,16 @@ function fittingLabel(f){
     return`${short}${p.size}${gender}`;
   });
   return`${f.shape}-${portStrs.join('*')} ×${f.qty}`;
+}
+function fittingSpec(f){
+  if(!f.shape)return'(未完成)';
+  const portStrs=(f.ports||[]).filter(p=>p.spec).map(p=>{
+    const short=SHORT[p.spec]||p.spec;
+    const sp=PORT_SPECS[p.spec];
+    const gender=(sp&&sp.genders&&p.gender)?p.gender:'';
+    return`${short}${p.size}${gender}`;
+  });
+  return`${f.shape}-${portStrs.join('*')}`;
 }
 function renderFittingsForm(){
   const c=document.getElementById('fittings-container');c.innerHTML='';
@@ -563,27 +574,29 @@ document.getElementById('btn-clear-all').addEventListener('click',()=>{
 
 // ── PDF (列印) ────────────────────────────────────────────────────
 function buildMainTbl(recs,inclNote,inclFit){
-  const cols=[{h:'編號',f:(r,i)=>i+1},{h:'A 端',f:r=>esc(buildLabel(r.a))},{h:'B 端',f:r=>esc(buildLabel(r.b))},
+  const cols=[{h:'編號',f:(r,i)=>i+1},{h:'A 端',f:r=>esc(buildLabel(r.a)),text:true},{h:'B 端',f:r=>esc(buildLabel(r.b)),text:true},
     {h:'長度(mm)',f:r=>r.len},{h:'管徑',f:r=>esc(r.bore||'—')},{h:'層數',f:r=>r.layers?r.layers+'層':'—'},
     {h:'耐壓(BAR)',f:r=>r.pressure||'—'},{h:'數量',f:r=>r.qty||1}];
-  if(inclFit)cols.push({h:'使用接頭',f:r=>(r.fittings&&r.fittings.length)?r.fittings.map(x=>esc(fittingLabel(x))).join('<br>'):'—'});
-  if(inclNote)cols.push({h:'位置/功用/備註',f:r=>esc(r.note||'—')});
-  cols.push({h:'說明(給廠商)',f:r=>esc(r.vendor||'—')});
-  let h='<table><thead><tr>'+cols.map(c=>`<th>${c.h}</th>`).join('')+'</tr></thead><tbody>';
-  recs.forEach((r,i)=>{h+='<tr>'+cols.map(c=>`<td>${c.f(r,i)}</td>`).join('')+'</tr>';});
+  if(inclFit)cols.push({h:'使用接頭',f:r=>(r.fittings&&r.fittings.length)?r.fittings.map(x=>esc(fittingSpec(x))+' ×'+x.qty).join('<br>'):'—',text:true});
+  if(inclNote)cols.push({h:'位置/功用/備註',f:r=>esc(r.note||'—'),text:true});
+  cols.push({h:'說明(給廠商)',f:r=>esc(r.vendor||'—'),text:true});
+  // width:100% 撐滿頁面寬度
+  let h='<table style="width:100%"><thead><tr>'+cols.map(c=>`<th>${c.h}</th>`).join('')+'</tr></thead><tbody>';
+  recs.forEach((r,i)=>{h+='<tr>'+cols.map(c=>`<td${c.text?' class="col-text"':''}>${c.f(r,i)}</td>`).join('')+'</tr>';});
   return h+'</tbody></table>';
 }
 function buildFitTbl(recs){
-  let h='<table><thead><tr><th>規格</th><th>數量</th></tr></thead><tbody>';
+  // inline-block wrapper 讓表格 shrink-wrap 到內容寬度，不跟隨主表格
+  let h='<div style="display:inline-block;max-width:100%"><table><thead><tr><th>規格</th><th>數量</th></tr></thead><tbody>';
   let any=false;
   recs.forEach((r,i)=>{
     (r.fittings||[]).filter(f=>f.shape).forEach(f=>{
       any=true;
-      h+=`<tr><td>${esc(fittingLabel(f))}</td><td style="text-align:center">${f.qty}</td></tr>`;
+      h+=`<tr><td class="col-text">${esc(fittingSpec(f))}</td><td>${f.qty}</td></tr>`;
     });
   });
-  if(!any)h+='<tr><td colspan="2" style="text-align:center;color:#888">無接頭資料</td></tr>';
-  return h+'</tbody></table>';
+  if(!any)h+='<tr><td colspan="2" style="color:#888">無接頭資料</td></tr>';
+  return h+'</tbody></table></div>';
 }
 function genPDF(mode){
   if(!records.length){showToast('清單為空，無法產生 PDF');return;}
