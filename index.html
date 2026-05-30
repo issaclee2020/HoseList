@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>軟管丈量記錄</title>
+<title>軟管丈量記錄 v1.3</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.0.0/tabler-icons.min.css">
 <style>
 :root{
@@ -115,7 +115,10 @@ tr.hl td{background:var(--bi)!important}
 <div id="app">
 <header>
   <h1>軟管丈量記錄</h1>
-  <span id="hdr-count"></span>
+  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+    <span id="hdr-count"></span>
+    <span style="font-size:11px;font-weight:700;color:var(--tt);letter-spacing:.06em;padding:2px 8px;border:1px solid var(--bt);border-radius:20px">v1.3</span>
+  </div>
 </header>
 
 <div class="panel mode-new" id="form-panel">
@@ -150,7 +153,7 @@ tr.hl td{background:var(--bi)!important}
   <div class="stat-bar">筆數 <b id="sc">0</b><div class="vsep"></div>軟管總數 <b id="sq">0</b> 條</div>
   <div class="export-row">
     <button class="btn" id="btn-pdf"><i class="ti ti-file-type-pdf"></i> 保存成PDF</button>
-    <button class="btn" id="btn-vendor"><i class="ti ti-send"></i> 貼給廠商</button>
+    <button class="btn" id="btn-vendor"><i class="ti ti-file-type-pdf"></i> 給廠商PDF</button>
   </div>
   <div class="hint">PDF 透過瀏覽器列印產生，請於對話框選擇「另存為 PDF」即可下載或分享。</div>
   <div class="danger-zone"><button class="btn danger" id="btn-clear-all"><i class="ti ti-trash-x"></i> 清空所有數據</button></div>
@@ -171,11 +174,11 @@ const SHAPES_CONFIG={
   '三通':{ports:['#1','#2','#3']}
 };
 const PORT_SPECS={
-  Steel_Tube_Fitting:{name:'鋼管頭',genders:null,sizes:['6L','8L','10L','12L','15L','18L','22L','28L','35L','42L','6S','8S','10S','12S','14S','16S','20S','25S','30S','38S']},
-  TH_Fitting:{name:'TH頭',genders:null,sizes:['1/8"','3/16"','1/4"','5/16"','3/8"','1/2"','5/8"','3/4"','7/8"','1"','1-1/4"','1-1/2"','2"']},
-  Metric_Port:{name:'公制牙口',genders:['公'],sizes:['M8x1','M10x1','M12x1.5','M14x1.5','M16x1.5','M18x1.5','M22x1.5','M27x2','M33x2','M42x2','M48x2','M60x2']},
-  PT_Thread:{name:'PT牙口',genders:['公','母'],sizes:['1/8"','1/4"','3/8"','1/2"','3/4"','1"','1-1/4"','1-1/2"','2"']},
-  G_Thread:{name:'G牙口',genders:['公','母'],sizes:['1/8"','1/4"','3/8"','1/2"','5/8"','3/4"','1"','1-1/4"','1-1/2"','2"']}
+  Steel_Tube_Fitting:{name:'鋼管頭',genders:['公','母'],sizes:['6L','8L','10L','12L','15L','18L','22L','28L','35L','42L','6S','8S','10S','12S','14S','16S','20S','25S','30S','38S']},
+  TH_Fitting:{name:'TH頭',genders:['公','母'],sizes:['1/8"','3/16"','1/4"','5/16"','3/8"','1/2"','5/8"','3/4"','7/8"','1"','1-1/4"','1-1/2"','2"']},
+  Metric_Port:{name:'公制牙口',genders:null,sizes:['M8x1','M10x1','M12x1.5','M14x1.5','M16x1.5','M18x1.5','M22x1.5','M27x2','M33x2','M42x2','M48x2','M60x2']},
+  PT_Thread:{name:'PT牙口',genders:null,sizes:['1/8"','1/4"','3/8"','1/2"','3/4"','1"','1-1/4"','1-1/2"','2"']},
+  G_Thread:{name:'G牙口',genders:null,sizes:['1/8"','1/4"','3/8"','1/2"','5/8"','3/4"','1"','1-1/4"','1-1/2"','2"']}
 };
 const SHORT={Steel_Tube_Fitting:'鋼管頭',TH_Fitting:'TH',Metric_Port:'公制',PT_Thread:'PT',G_Thread:'G'};
 
@@ -336,7 +339,7 @@ function buildFitCard(f,idx){
     renderFittingsForm();
   },'選擇外型...');
   shapeSel.style.flex='1';
-  const del=document.createElement('button');del.type='button';del.className='btn-dl';del.style.cssText='flex:0 0 auto;padding:6px 9px';del.innerHTML='<i class="ti ti-x"></i>';
+  const del=document.createElement('button');del.type='button';del.className='btn-dl';del.style.cssText='flex:0 0 auto;padding:7px 14px;font-size:13px;font-weight:500';del.innerHTML='<i class="ti ti-trash"></i> 刪除接頭';
   del.addEventListener('click',()=>{formFittings.splice(idx,1);renderFittingsForm();});
   top.appendChild(shapeLbl);top.appendChild(shapeSel);top.appendChild(del);card.appendChild(top);
   if(f.shape&&SHAPES_CONFIG[f.shape]){
@@ -348,8 +351,12 @@ function buildFitCard(f,idx){
       const pf=document.createElement('div');pf.className='port-fields';
       const specSel=mkSimpleSel(Object.keys(PORT_SPECS).map(k=>({v:k,t:PORT_SPECS[k].name})),port.spec,o=>o.t,v=>{
         port.spec=v;
-        if(v){const sp=PORT_SPECS[v];port.gender=sp.genders?sp.genders[0]:null;port.size=sp.sizes[0];}
-        else{port.gender=null;port.size='';}
+        if(v){
+          const sp=PORT_SPECS[v];
+          port.gender=sp.genders?sp.genders[0]:null;
+          const bore=document.getElementById('inp-bore')?.value||null;
+          port.size=(bore&&getSizeForBore(v,bore))||sp.sizes[0];
+        }else{port.gender=null;port.size='';}
         renderFittingsForm();
       },'選擇規範...');
       specSel.style.cssText='flex:1 1 auto;min-width:80px';pf.appendChild(specSel);
@@ -381,7 +388,17 @@ function buildFitCard(f,idx){
 document.getElementById('btn-add-fit').addEventListener('click',()=>{formFittings.push(defaultFitting());renderFittingsForm();});
 
 // ── 初始化 ────────────────────────────────────────────────────────
-let records=[],nextId=1,sortCol=null,sortDir='asc',editId=null,sessionDefaultPressure='';
+let records=[],nextId=1,sortCol=null,sortDir='asc',editId=null,sessionDefaultPressure='',lastFormState=null;
+
+// 依軟管管徑推算接頭預設尺寸
+function getSizeForBore(specKey,bore){
+  if(!bore)return null;
+  const sp=PORT_SPECS[specKey];if(!sp)return null;
+  if(specKey==='Steel_Tube_Fitting'){return sp.sizes.find(s=>BORE_MAP.ST[s]===bore)||null;}
+  const c=bore+'"';if(sp.sizes.includes(c))return c;
+  if(sp.sizes.includes(bore))return bore;
+  return null;
+}
 loadState();
 skipBoreUpdate=true;buildConn('mntA',csA,'pvA');buildConn('mntB',csB,'pvB');skipBoreUpdate=false;
 initBoreSection();
@@ -423,11 +440,18 @@ function fillForm(r){
   renderFittingsForm();
 }
 function resetForm(){
-  Object.assign(csA,{cat:'TH',sz:'1/4"',type:'母直頭',dir:'順向'});Object.assign(csB,{cat:'TH',sz:'1/4"',type:'母直頭',dir:'順向'});
-  skipBoreUpdate=true;buildConn('mntA',csA,'pvA');buildConn('mntB',csB,'pvB');skipBoreUpdate=false;
-  const bore=boreFromConn(csA);document.getElementById('inp-bore').value=bore||'';rebuildLayers(bore);
-  document.getElementById('inp-len').value='';document.getElementById('inp-layers').value='';
-  document.getElementById('inp-pressure').value=sessionDefaultPressure||'';
+  if(lastFormState){
+    Object.assign(csA,lastFormState.csA);Object.assign(csB,lastFormState.csB);
+    skipBoreUpdate=true;buildConn('mntA',csA,'pvA');buildConn('mntB',csB,'pvB');skipBoreUpdate=false;
+    setSpec(lastFormState.bore,lastFormState.layers,lastFormState.pressure);
+  }else{
+    Object.assign(csA,{cat:'TH',sz:'1/4"',type:'母直頭',dir:'順向'});Object.assign(csB,{cat:'TH',sz:'1/4"',type:'母直頭',dir:'順向'});
+    skipBoreUpdate=true;buildConn('mntA',csA,'pvA');buildConn('mntB',csB,'pvB');skipBoreUpdate=false;
+    const bore=boreFromConn(csA);document.getElementById('inp-bore').value=bore||'';rebuildLayers(bore);
+    document.getElementById('inp-layers').value='';
+    document.getElementById('inp-pressure').value=sessionDefaultPressure||'';
+  }
+  document.getElementById('inp-len').value='';
   document.getElementById('inp-qty').value='1';document.getElementById('inp-note').value='';document.getElementById('inp-vendor').value='';
   formFittings=[];renderFittingsForm();setEditMode(false,null);
 }
@@ -443,6 +467,7 @@ document.getElementById('btn-sub').addEventListener('click',()=>{
   }else{
     records.push({id:nextId++,a:{...csA},b:{...csB},len,...spec,qty,note,vendor,fittings});
     if(!sessionDefaultPressure&&spec.pressure)sessionDefaultPressure=spec.pressure;
+    lastFormState={csA:{...csA},csB:{...csB},bore:spec.bore,layers:spec.layers,pressure:spec.pressure};
   }
   resetForm();renderTable();saveState();
 });
@@ -529,7 +554,7 @@ function showToast(msg){const t=document.getElementById('toast');t.textContent=m
 document.getElementById('btn-clear-all').addEventListener('click',()=>{
   showConfirm('確定要清空所有紀錄嗎？\n\n確認後仍需要第二次確認。',()=>{
     showConfirm('⚠️ 最後確認\n\n所有紀錄將被永久清除且無法恢復。\n確定要繼續嗎？',()=>{
-      records=[];nextId=1;sessionDefaultPressure='';
+      records=[];nextId=1;sessionDefaultPressure='';lastFormState=null;
       try{localStorage.removeItem(STORAGE_KEY);}catch(e){}
       resetForm();renderTable();showToast('✓ 已清空所有紀錄');
     },'確定清空');
@@ -549,20 +574,15 @@ function buildMainTbl(recs,inclNote,inclFit){
   return h+'</tbody></table>';
 }
 function buildFitTbl(recs){
-  let h='<table><thead><tr><th>編號</th><th>軟管 (A端-B端)</th><th>大類</th><th>類型</th><th>形狀</th><th>尺寸</th><th>數量</th></tr></thead><tbody>';
+  let h='<table><thead><tr><th>規格</th><th>數量</th></tr></thead><tbody>';
   let any=false;
-  recs.forEach((r,i)=>{(r.fittings||[]).forEach(f=>{
-    any=true;
-    const catName=PORT_SPECS[Object.keys(PORT_SPECS)[0]]?'':f.shape;
-    // Per port in fitting
-    (f.ports||[]).forEach((p,pi)=>{
-      const pn=PORT_SPECS[p.spec];
-      const catN=pn?pn.name:p.spec;
-      const gender=(pn&&pn.genders&&p.gender)?p.gender:'—';
-      h+=`<tr><td>${i+1}</td><td>${esc(buildLabel(r.a))}-${esc(buildLabel(r.b))}</td><td>${esc(f.shape)}</td><td>${esc(catN)}</td><td>${esc(p.size)}</td><td>${esc(gender)}</td><td>${f.qty}</td></tr>`;
+  recs.forEach((r,i)=>{
+    (r.fittings||[]).filter(f=>f.shape).forEach(f=>{
+      any=true;
+      h+=`<tr><td>${esc(fittingLabel(f))}</td><td style="text-align:center">${f.qty}</td></tr>`;
     });
-  });});
-  if(!any)h+='<tr><td colspan="7" style="text-align:center;color:#888">無使用接頭資料</td></tr>';
+  });
+  if(!any)h+='<tr><td colspan="2" style="text-align:center;color:#888">無接頭資料</td></tr>';
   return h+'</tbody></table>';
 }
 function genPDF(mode){
@@ -572,7 +592,7 @@ function genPDF(mode){
   const total=recs.reduce((s,r)=>s+(r.qty||1),0);
   let html=`<h1>軟管清單${mode==='vendor'?'（給廠商）':''}</h1><div class="meta">製表日期：${ds}　筆數：${recs.length}　軟管總數：${total} 條</div>`;
   if(mode==='full'){html+=buildMainTbl(recs,true,true);}
-  else{html+=buildMainTbl(recs,false,false);html+='<h2>使用接頭明細</h2>';html+=buildFitTbl(recs);}
+  else{html+=buildMainTbl(recs,false,false);html+='<h2>接頭需求量</h2>';html+=buildFitTbl(recs);}
   document.getElementById('print-area').innerHTML=html;
   window.print();
 }
