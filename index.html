@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<!-- Version: v3.0 - Issac - 2026-06-06 -->
+<!-- Version: v3.2 - Issac - 2026-06-06 -->
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>現場需求紀錄 v3.0</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.0.0/tabler-icons.min.css">
+<title>現場需求紀錄 v3.2</title>
 <style>
 :root{
   --fs:system-ui,-apple-system,sans-serif;--fm:'Menlo','Consolas',monospace;
@@ -25,45 +24,45 @@ body{font-family:var(--fs);font-size:15px;color:var(--tp)}
 select,input{font-family:var(--fs);color:var(--tp);background:var(--bp)}
 #inp-len::-webkit-inner-spin-button,#inp-len::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
 #inp-len{-moz-appearance:textfield;appearance:textfield}
-#app{max-width:720px;margin:0 auto;padding:1rem}
-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:8px}
+#app{max-width:720px;margin:0 auto;padding:0.75rem}
+header{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem;flex-wrap:wrap;gap:6px}
 header h1{font-size:20px;font-weight:600}
 header span{font-size:13px;color:var(--ts)}
-.panel{background:var(--bp);border:1px solid var(--bt);border-radius:var(--rl);padding:1.1rem 1.25rem;margin-bottom:1rem;box-shadow:0 1px 4px rgba(30,20,10,0.08);transition:border .2s}
+.panel{background:var(--bp);border:1px solid var(--bt);border-radius:var(--rl);padding:0.75rem 1rem;margin-bottom:0.75rem;box-shadow:0 1px 4px rgba(30,20,10,0.08);transition:border .2s}
 .panel.mode-new{border:3px solid #2563eb}
 .panel.mode-edit{border:3px solid #c0392b}
-.stitle{font-size:12px;font-weight:600;color:var(--ts);letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.stitle{font-size:12px;font-weight:600;color:var(--ts);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .mbadge{font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px}
 .mb-new{background:#dbeafe;color:#1d4ed8}.mb-edit{background:#fee2e2;color:#b91c1c}
-.lbl{font-size:13px;font-weight:500;color:var(--ts);margin-bottom:5px;display:block}
-.preview{font-size:13px;color:var(--tt);margin-top:6px;font-family:var(--fm);min-height:18px;word-break:break-all}
-.field{margin-bottom:14px}
-.conn-row{display:flex;gap:4px;flex-wrap:wrap;align-items:center}
-.ssel{padding:6px 4px;border-radius:var(--rm);border:1.5px solid var(--bb);font-size:14px;flex:1 1 auto;min-width:0;max-width:100%;background:var(--bp);color:var(--tp);width:auto}
+.lbl{font-size:13px;font-weight:500;color:var(--ts);margin-bottom:3px;display:block}
+.preview{font-size:13px;color:var(--tt);margin-top:4px;font-family:var(--fm);min-height:16px;word-break:break-all}
+.field{margin-bottom:9px}
+.conn-row{display:flex;gap:3px;flex-wrap:wrap;align-items:center}
+.ssel{padding:5px 3px;border-radius:var(--rm);border:1.5px solid var(--bb);font-size:14px;flex:1 1 auto;min-width:0;max-width:100%;background:var(--bp);color:var(--tp);width:auto}
 .ssel:focus{outline:2px solid var(--ti);outline-offset:1px}
 .ssel:disabled{opacity:.4}
-.inp-b{padding:8px 12px;border-radius:var(--rm);border:1.5px solid var(--bb);font-size:15px;background:var(--bp);color:var(--tp);width:100%}
+.inp-b{padding:6px 10px;border-radius:var(--rm);border:1.5px solid var(--bb);font-size:15px;background:var(--bp);color:var(--tp);width:100%}
 .inp-b:focus{outline:2px solid var(--ti);outline-offset:1px}
-.spec-row{display:flex;gap:8px;flex-wrap:wrap}
-.spec-item{display:flex;flex-direction:column;gap:4px;flex:1 1 auto;min-width:90px}
+.spec-row{display:flex;gap:5px;flex-wrap:wrap}
+.spec-item{display:flex;flex-direction:column;gap:2px;flex:1 1 auto;min-width:72px}
 .btn{background:transparent;border:1.5px solid var(--bb);border-radius:var(--rm);padding:8px 16px;font-size:14px;cursor:pointer;color:var(--tp);display:inline-flex;align-items:center;gap:7px;font-family:var(--fs);white-space:nowrap;font-weight:500}
 .btn:hover{background:var(--bs)}.btn:active{transform:scale(.98)}
 .btn.pri{background:#1a4a6e;color:#fff;border-color:#1a4a6e}.btn.pri:hover{background:#15405f}
 .btn.sm{padding:5px 10px;font-size:13px}
 .btn.add-fit{border-style:dashed;color:var(--ti);border-color:var(--ti)}
 .btn.danger{color:var(--td);border-color:var(--td)}.btn.danger:hover{background:#fef2f2}
-.btn-cp{background:transparent;border:1.5px solid var(--bb);border-radius:var(--rm);padding:6px 11px;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--fs);color:var(--ts);display:inline-flex;align-items:center;gap:5px}
+.btn-cp{background:transparent;border:1.5px solid var(--bb);border-radius:var(--rm);padding:4px 9px;font-size:15px;font-weight:500;cursor:pointer;font-family:var(--fs);color:var(--ts);display:inline-flex;align-items:center;gap:4px}
 .btn-cp:hover{background:#e8f4fd;border-color:#1a5c8a;color:#1a5c8a}
-.btn-ed{background:transparent;border:1.5px solid var(--bb);border-radius:var(--rm);padding:6px 11px;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--fs);color:var(--ts);display:inline-flex;align-items:center;gap:5px}
+.btn-ed{background:transparent;border:1.5px solid var(--bb);border-radius:var(--rm);padding:4px 9px;font-size:15px;font-weight:500;cursor:pointer;font-family:var(--fs);color:var(--ts);display:inline-flex;align-items:center;gap:4px}
 .btn-ed:hover{background:#fff7e6;border-color:#b45309;color:#b45309}
-.btn-dl{background:transparent;border:1.5px solid var(--bb);border-radius:var(--rm);padding:6px 11px;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--fs);color:var(--ts);display:inline-flex;align-items:center;gap:5px}
+.btn-dl{background:transparent;border:1.5px solid var(--bb);border-radius:var(--rm);padding:4px 9px;font-size:15px;font-weight:500;cursor:pointer;font-family:var(--fs);color:var(--ts);display:inline-flex;align-items:center;gap:4px}
 .btn-dl:hover{background:#fef2f2;border-color:#b91c1c;color:#b91c1c}
-.act-btns{display:flex;gap:8px;flex-wrap:nowrap}
+.act-btns{display:flex;gap:4px;flex-wrap:nowrap}
 .add-inp-row{display:none;gap:4px;margin-top:6px;align-items:center}
 .add-inp-row input{flex:1;padding:6px 10px;border-radius:var(--rm);border:1.5px solid var(--bb);font-size:13px;min-width:0;background:var(--bp);color:var(--tp)}
 .sel-wrap{display:flex;flex-direction:column;flex:1 1 auto;min-width:76px}
-.form-btns{display:flex;gap:8px;margin-top:16px}
-.kind-toggle{display:flex;gap:6px;margin-bottom:16px;background:var(--bs);padding:4px;border-radius:var(--rm);width:fit-content}
+.form-btns{display:flex;gap:8px;margin-top:10px}
+.kind-toggle{display:flex;gap:4px;margin-bottom:10px;background:var(--bs);padding:3px;border-radius:var(--rm);width:fit-content}
 .kt-btn{border:none;background:transparent;padding:6px 18px;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;color:var(--ts);font-family:var(--fs)}
 .kt-btn.active{background:var(--bp);color:var(--ti);box-shadow:0 1px 3px rgba(0,0,0,.12)}
 .kt-btn:disabled{opacity:.45;cursor:default}
@@ -71,7 +70,7 @@ header span{font-size:13px;color:var(--ts)}
 .src-tag{font-size:11px;font-weight:600;padding:2px 9px;border-radius:10px;background:var(--bi);color:var(--ti);white-space:nowrap}
 .src-tag.indep{background:#fef3c7;color:#92400e}
 @media(prefers-color-scheme:dark){.src-tag.indep{background:#4a3a1a;color:#fcd34d}}
-.fit-card{background:var(--bs);border-radius:var(--rm);padding:10px;margin-bottom:8px;display:flex;flex-direction:column;gap:8px}
+.fit-card{background:var(--bs);border-radius:var(--rm);padding:8px;margin-bottom:6px;display:flex;flex-direction:column;gap:6px}
 .fit-top{display:flex;gap:8px;align-items:center}
 .port-group{background:var(--bp);border-radius:6px;padding:8px;border:1px solid var(--bt)}
 .port-hdr{font-size:11px;font-weight:700;color:var(--ts);margin-bottom:6px;letter-spacing:.05em}
@@ -104,30 +103,41 @@ tr.hl td{background:var(--bi)!important}
 .empty{text-align:center;padding:2.5rem;color:var(--tt);font-size:14px}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1a4a6e;color:#fff;padding:10px 22px;border-radius:20px;font-size:14px;font-weight:500;opacity:0;transition:opacity .25s;pointer-events:none;z-index:999;white-space:nowrap}
 .toast.show{opacity:1}
+.tab-nav{display:flex;border-bottom:2px solid var(--bt);margin-bottom:0.75rem;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tab-btn{background:transparent;border:none;border-bottom:2.5px solid transparent;padding:9px 16px;font-size:14px;font-weight:600;cursor:pointer;color:var(--ts);white-space:nowrap;font-family:var(--fs);margin-bottom:-2px}
+.tab-btn.active{color:var(--ti);border-bottom-color:var(--ti)}
+.tab-btn:hover{color:var(--tp)}
+.tab-page{display:none}
+.tab-page.active{display:block}
 </style>
 </head>
 <body>
 <div id="app">
 <header>
-  <h1>現場需求紀錄</h1>
-  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+  <h1 style="width:100%;text-align:center">現場需求紀錄</h1>
+  <div style="display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;width:100%">
     <span id="hdr-count"></span>
-    <span style="font-size:11px;font-weight:700;color:var(--tt);letter-spacing:.06em;padding:2px 8px;border:1px solid var(--bt);border-radius:20px">v3.0</span>
+    <span style="font-size:11px;font-weight:700;color:var(--tt);letter-spacing:.06em;padding:2px 8px;border:1px solid var(--bt);border-radius:20px">v3.2</span>
   </div>
 </header>
-<div style="margin-bottom:1rem">
-  <label style="font-size:13px;font-weight:500;color:var(--ts);display:block;margin-bottom:5px">專案名稱</label>
+<div style="margin-bottom:0.75rem">
+  <label style="font-size:13px;font-weight:500;color:var(--ts);display:block;margin-bottom:3px">專案名稱</label>
   <input type="text" id="inp-project" class="inp-b" placeholder="輸入專案名稱" autocomplete="off" style="max-width:400px">
 </div>
+<nav class="tab-nav">
+  <button class="tab-btn active" data-tab="main">需求紀錄</button>
+  <button class="tab-btn" data-tab="others">其他需求</button>
+  <button class="tab-btn" data-tab="memo">備忘</button>
+</nav>
+
+<!-- ── 需求紀錄頁面 ── -->
+<div id="tab-main" class="tab-page active">
 
 <div class="panel mode-new" id="form-panel">
-  <div class="stitle"><span id="form-title-txt">新增紀錄</span><span class="mbadge mb-new" id="mode-badge">新增</span></div>
-  <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap">
-    <button class="btn pri" id="btn-sub-top" type="button" style="padding:7px 14px;font-size:14px"><i class="ti ti-plus" id="ico-sub-top"></i></button>
-    <div class="kind-toggle" id="kind-toggle" style="margin-bottom:0">
-      <button type="button" class="kt-btn active" data-kind="hose">軟管需求</button>
-      <button type="button" class="kt-btn" data-kind="conn">接頭需求</button>
-    </div>
+  <div class="stitle"><span class="mbadge mb-new" id="mode-badge">新增</span></div>
+  <div class="kind-toggle" id="kind-toggle">
+    <button type="button" class="kt-btn active" data-kind="hose">軟管需求</button>
+    <button type="button" class="kt-btn" data-kind="conn">接頭需求</button>
   </div>
   <div class="field hose-only"><span class="lbl">A 端</span><div id="mntA"></div><div class="preview">→ <span style="color:var(--ti)" id="pvA"></span></div></div>
   <div class="field hose-only"><span class="lbl">B 端</span><div id="mntB"></div><div class="preview">→ <span style="color:var(--ti)" id="pvB"></span></div></div>
@@ -151,7 +161,7 @@ tr.hl td{background:var(--bi)!important}
   <div class="field">
     <span class="lbl">搭配接頭</span>
     <div id="fittings-container"></div>
-    <button class="btn add-fit sm" id="btn-add-fit" type="button" style="margin-top:4px"><i class="ti ti-plus"></i> 新增接頭</button>
+    <button class="btn add-fit sm" id="btn-add-fit" type="button" style="margin-top:4px">＋ 新增接頭</button>
   </div>
   <div class="field">
     <span class="lbl">編號 / 位置/功用/備註</span>
@@ -162,28 +172,94 @@ tr.hl td{background:var(--bi)!important}
   </div>
   <div class="field hose-only" style="margin-bottom:0"><span class="lbl">說明(給廠商)</span><input type="text" id="inp-vendor" class="inp-b" autocomplete="off"></div>
   <div class="form-btns">
-    <button class="btn pri" id="btn-sub"><i class="ti ti-plus" id="ico-sub"></i><span id="lbl-sub">新增</span></button>
-    <button class="btn" id="btn-cancel" style="display:none"><i class="ti ti-x"></i> 取消</button>
+    <button class="btn pri" id="btn-sub"><span id="ico-sub">＋</span><span id="lbl-sub">新增</span></button>
+    <button class="btn" id="btn-cancel" style="display:none">✕ 取消</button>
   </div>
 </div>
 
 <div class="panel" id="tbl-panel" style="display:none">
-  <div class="sec-title"><i class="ti ti-rotate-2"></i> 軟管清單 <button class="btn-cp" id="btn-copy-hose" type="button" style="margin-left:auto"><i class="ti ti-copy"></i> 複製軟管表</button></div>
+  <div class="sec-title">⟳ 軟管清單 <button class="btn-cp" id="btn-copy-hose" type="button" style="margin-left:auto">⎘ 複製軟管表</button></div>
   <div class="tbl-wrap"><table id="hose-table"><thead><tr id="hose-thead"></tr></thead><tbody id="hose-tbody"></tbody></table></div>
-  <div class="sec-title" style="margin-top:24px"><i class="ti ti-plug-connected"></i> 接頭彙總清單 <button class="btn-cp" id="btn-copy-conn" type="button" style="margin-left:auto"><i class="ti ti-copy"></i> 複製接頭表</button></div>
+  <div class="sec-title" style="margin-top:20px">⟐ 接頭彙總清單 <button class="btn-cp" id="btn-copy-conn" type="button" style="margin-left:auto">⎘ 複製接頭表</button></div>
   <div class="tbl-wrap"><table id="conn-table"><thead><tr id="conn-thead"></tr></thead><tbody id="conn-tbody"></tbody></table></div>
   <div class="stat-bar">軟管 <b id="sc">0</b> 筆<div class="vsep"></div>軟管總數 <b id="sq">0</b> 條<div class="vsep"></div>接頭 <b id="scn">0</b> 項</div>
   <div class="export-row">
-    <button class="btn" id="btn-x-hose-full" style="color:#16a34a;border-color:#16a34a"><i class="ti ti-file-spreadsheet"></i> 軟管清單保存</button>
-    <button class="btn" id="btn-x-hose-vendor" style="color:#b91c1c;border-color:#b91c1c"><i class="ti ti-file-spreadsheet"></i> 給廠商軟管清單</button>
-    <button class="btn" id="btn-x-conn-full" style="color:#16a34a;border-color:#16a34a"><i class="ti ti-file-spreadsheet"></i> 接頭清單保存</button>
-    <button class="btn" id="btn-x-conn-vendor" style="color:#b91c1c;border-color:#b91c1c"><i class="ti ti-file-spreadsheet"></i> 給廠商接頭清單</button>
+    <button class="btn" id="btn-x-hose-full" style="color:#16a34a;border-color:#16a34a">⬇ 軟管清單保存</button>
+    <button class="btn" id="btn-x-hose-vendor" style="color:#b91c1c;border-color:#b91c1c">⬇ 給廠商軟管清單</button>
+    <button class="btn" id="btn-x-conn-full" style="color:#16a34a;border-color:#16a34a">⬇ 接頭清單保存</button>
+    <button class="btn" id="btn-x-conn-vendor" style="color:#b91c1c;border-color:#b91c1c">⬇ 給廠商接頭清單</button>
   </div>
   <div class="hint">四個按鈕各下載一個 Excel（.xlsx），可直接開啟、框選複製、編修、歸檔；或用上方「複製表格」一鍵貼進 Excel。</div>
-  <div class="danger-zone"><button class="btn danger" id="btn-clear-all"><i class="ti ti-trash-x"></i> 清空所有數據</button></div>
+  <div class="danger-zone"><button class="btn danger" id="btn-clear-all">✕ 清空所有數據</button></div>
 </div>
 
-<div id="empty-msg" class="empty"><i class="ti ti-clipboard-list" style="font-size:28px;display:block;margin-bottom:8px"></i>尚無紀錄，填寫上方表單後新增</div>
+<div id="empty-msg" class="empty"><span style="font-size:28px;display:block;margin-bottom:8px">📋</span>尚無紀錄，填寫上方表單後新增</div>
+</div><!-- end tab-main -->
+
+<!-- ── 其他需求頁面 ── -->
+<div id="tab-others" class="tab-page">
+  <div class="panel mode-new" id="others-form-panel">
+    <div class="stitle"><span class="mbadge mb-new" id="others-mode-badge">新增</span></div>
+    <div class="field">
+      <span class="lbl">專案名稱</span>
+      <input type="text" id="oth-project" class="inp-b" placeholder="輸入專案名稱" autocomplete="off">
+    </div>
+    <div class="field">
+      <span class="lbl">名稱</span>
+      <input type="text" id="oth-name" class="inp-b" autocomplete="off">
+    </div>
+    <div class="field">
+      <span class="lbl">數量</span>
+      <input type="number" id="oth-qty" min="1" value="1" class="inp-b" style="width:100px">
+    </div>
+    <div class="field">
+      <span class="lbl">用途</span>
+      <input type="text" id="oth-usage" class="inp-b" autocomplete="off">
+    </div>
+    <div class="form-btns">
+      <button class="btn pri" id="oth-sub"><span id="oth-ico">＋</span><span id="oth-lbl">新增</span></button>
+      <button class="btn" id="oth-cancel" style="display:none">✕ 取消</button>
+    </div>
+  </div>
+  <div class="panel" id="oth-list-panel" style="display:none">
+    <div class="sec-title">其他需求清單</div>
+    <div class="tbl-wrap"><table id="oth-table"><thead><tr id="oth-thead"></tr></thead><tbody id="oth-tbody"></tbody></table></div>
+    <div class="export-row">
+      <button class="btn" id="oth-x-full" style="color:#16a34a;border-color:#16a34a">⬇ 其他需求清單保存</button>
+    </div>
+    <div class="danger-zone"><button class="btn danger" id="oth-clear">✕ 清空其他需求</button></div>
+  </div>
+  <div id="oth-empty" class="empty">尚無其他需求紀錄</div>
+</div>
+
+<!-- ── 備忘頁面 ── -->
+<div id="tab-memo" class="tab-page">
+  <div class="panel mode-new" id="memo-form-panel">
+    <div class="stitle"><span class="mbadge mb-new" id="memo-mode-badge">新增</span></div>
+    <div class="field">
+      <span class="lbl">專案名稱</span>
+      <input type="text" id="mem-project" class="inp-b" placeholder="輸入專案名稱" autocomplete="off">
+    </div>
+    <div class="field">
+      <span class="lbl">內容</span>
+      <textarea id="mem-content" class="inp-b" rows="3" style="resize:vertical" autocomplete="off"></textarea>
+    </div>
+    <div class="form-btns">
+      <button class="btn pri" id="mem-sub"><span id="mem-ico">＋</span><span id="mem-lbl">新增</span></button>
+      <button class="btn" id="mem-cancel" style="display:none">✕ 取消</button>
+    </div>
+  </div>
+  <div class="panel" id="mem-list-panel" style="display:none">
+    <div class="sec-title">備忘清單</div>
+    <div class="tbl-wrap"><table id="mem-table"><thead><tr id="mem-thead"></tr></thead><tbody id="mem-tbody"></tbody></table></div>
+    <div class="export-row">
+      <button class="btn" id="mem-x-full" style="color:#16a34a;border-color:#16a34a">⬇ 備忘清單保存</button>
+    </div>
+    <div class="danger-zone"><button class="btn danger" id="mem-clear">✕ 清空備忘</button></div>
+  </div>
+  <div id="mem-empty" class="empty">尚無備忘紀錄</div>
+</div>
+
 <div id="toast" class="toast"></div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/exceljs@4.3.0/dist/exceljs.min.js"></script>
@@ -221,7 +297,7 @@ const BORE_MAP={
 };
 const custom={THSz:[],STSz:[],types:[]};
 const COLS=[
-  {key:'num',label:'編號',sortCol:null,w:'48px',align:'center'},
+  {key:'num',label:'項次',sortCol:null,w:'48px',align:'center'},
   {key:'a',label:'A 端',sortCol:'a'},
   {key:'b',label:'B 端',sortCol:'b'},
   {key:'len',label:'長度',sortCol:'len',w:'70px',align:'right'},
@@ -237,7 +313,7 @@ const COLS=[
 
 // ── 持久化 ────────────────────────────────────────────────────────
 const STORAGE_KEY='hose_measurement_v3';
-function saveState(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify({records,nextId,custom,sessionDefaultPressure}));}catch(e){}}
+function saveState(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify({records,nextId,custom,sessionDefaultPressure,others,nextOthId,memos,nextMemId}));}catch(e){}}
 function loadState(){
   try{
     const d=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null');if(!d)return;
@@ -251,6 +327,10 @@ function loadState(){
     if(d.nextId)nextId=d.nextId;
     if(d.custom){custom.THSz=d.custom.THSz||[];custom.STSz=d.custom.STSz||[];custom.types=d.custom.types||[];}
     if(d.sessionDefaultPressure!==undefined)sessionDefaultPressure=d.sessionDefaultPressure;
+    if(Array.isArray(d.others))others=d.others;
+    if(d.nextOthId)nextOthId=d.nextOthId;
+    if(Array.isArray(d.memos))memos=d.memos;
+    if(d.nextMemId)nextMemId=d.nextMemId;
   }catch(e){}
 }
 
@@ -274,7 +354,7 @@ function mkSelWrap(opts,customArr,val,onchange,catKey){
   const addOpt=document.createElement('option');addOpt.value='__ADD__';addOpt.textContent='＋ 新增項目…';sel.appendChild(addOpt);
   const aRow=document.createElement('div');aRow.className='add-inp-row';
   const aInp=document.createElement('input');aInp.type='text';aInp.placeholder='輸入後按 Enter 確認';
-  const xBtn=document.createElement('button');xBtn.className='btn sm';xBtn.type='button';xBtn.innerHTML='<i class="ti ti-x"></i>';
+  const xBtn=document.createElement('button');xBtn.className='btn sm';xBtn.type='button';xBtn.textContent='✕';
   aRow.appendChild(aInp);aRow.appendChild(xBtn);
   let prev=val;
   sel.addEventListener('change',e=>{if(e.target.value==='__ADD__'){sel.value=prev;aRow.style.display='flex';aInp.focus();}else{prev=e.target.value;aRow.style.display='none';onchange(e.target.value);}});
@@ -401,7 +481,7 @@ function buildFitCard(f,idx){
     renderFittingsForm();
   },'選擇外型...');
   shapeSel.style.flex='1';
-  const del=document.createElement('button');del.type='button';del.className='btn-dl';del.style.cssText='flex:0 0 auto;padding:7px 14px;font-size:13px;font-weight:500';del.innerHTML='<i class="ti ti-trash"></i> 刪除接頭';
+  const del=document.createElement('button');del.type='button';del.className='btn-dl';del.style.cssText='flex:0 0 auto;padding:5px 10px;font-size:15px';del.textContent='✕';del.title='刪除接頭';
   del.addEventListener('click',()=>{formFittings.splice(idx,1);renderFittingsForm();});
   top.appendChild(shapeLbl);top.appendChild(shapeSel);top.appendChild(del);card.appendChild(top);
   if(f.shape&&SHAPES_CONFIG[f.shape]){
@@ -460,15 +540,12 @@ document.getElementById('btn-add-fit').addEventListener('click',()=>{formFitting
 // ── 初始化 ────────────────────────────────────────────────────────
 let records=[],nextId=1,sortCol=null,sortDir='asc',editId=null,sessionDefaultPressure='',lastFormState=null;
 let currentKind='hose';
-function updateFormTitle(){
-  const on=editId!=null;
-  document.getElementById('form-title-txt').textContent=on?(currentKind==='conn'?'編輯接頭':'編輯紀錄'):(currentKind==='conn'?'新增接頭':'新增紀錄');
-}
+let others=[],nextOthId=1,othEditId=null;
+let memos=[],nextMemId=1,memEditId=null;
 function setKind(kind){
   currentKind=kind;
   document.querySelectorAll('.kt-btn').forEach(b=>b.classList.toggle('active',b.dataset.kind===kind));
   document.querySelectorAll('.hose-only').forEach(el=>{el.style.display=kind==='hose'?'':'none';});
-  updateFormTitle();
 }
 document.querySelectorAll('.kt-btn').forEach(b=>b.addEventListener('click',()=>{if(editId!=null)return;setKind(b.dataset.kind);}));
 
@@ -514,9 +591,9 @@ document.getElementById('inp-pressure').value=sessionDefaultPressure||'';
     else th.style.cursor='default';
     tr.appendChild(th);
   });
-  const ot=document.createElement('th');ot.innerHTML='<div class="th-inner"></div>';tr.appendChild(ot);
+  const ot=document.createElement('th');ot.innerHTML='<div class="th-inner" style="justify-content:center">選項</div>';tr.appendChild(ot);
   const ctr=document.getElementById('conn-thead');ctr.innerHTML='';
-  [['規格','l'],['數量','c'],['端頭材質','c'],['來源','c'],['備註','l'],['','l']].forEach(([h,al])=>{
+  [['規格','l'],['數量','c'],['端頭材質','c'],['來源','c'],['備註','l'],['選項','c']].forEach(([h,al])=>{
     const th=document.createElement('th');if(al==='c')th.classList.add('c');
     const inner=document.createElement('div');inner.className='th-inner';inner.textContent=h;th.appendChild(inner);ctr.appendChild(th);
   });
@@ -527,9 +604,8 @@ renderFittingsForm();
 function setEditMode(on,id){
   editId=on?id:null;
   const fp=document.getElementById('form-panel');fp.classList.toggle('mode-new',!on);fp.classList.toggle('mode-edit',on);
-  updateFormTitle();
   const badge=document.getElementById('mode-badge');badge.textContent=on?'編輯':'新增';badge.className='mbadge '+(on?'mb-edit':'mb-new');
-  document.getElementById('ico-sub').className=on?'ti ti-check':'ti ti-plus';
+  document.getElementById('ico-sub').textContent=on?'✓':'＋';
   document.getElementById('lbl-sub').textContent=on?'儲存':'新增';
   document.getElementById('btn-cancel').style.display=on?'inline-flex':'none';
   document.querySelectorAll('.kt-btn').forEach(b=>b.disabled=on);
@@ -660,7 +736,7 @@ function renderTable(){
     tr.appendChild(mkTd(r.note?`<span class="note-c" title="${esc(r.note)}">${esc(r.note)}</span>`:'<span style="color:var(--tt)">—</span>'));
     tr.appendChild(mkTd(r.vendor?`<span class="note-c" title="${esc(r.vendor)}">${esc(r.vendor)}</span>`:'<span style="color:var(--tt)">—</span>'));
     const ops=document.createElement('td');ops.style.cssText='white-space:nowrap;padding:4px 6px';
-    ops.innerHTML=`<div class="act-btns"><button class="btn-cp cp-btn" data-id="${r.id}" title="複製"><i class="ti ti-copy"></i></button><button class="btn-ed ed-btn" data-id="${r.id}" title="編輯"><i class="ti ti-pencil"></i></button><button class="btn-dl dl-btn" data-id="${r.id}" title="刪除"><i class="ti ti-trash"></i></button></div>`;
+    ops.innerHTML=`<div class="act-btns"><button class="btn-cp cp-btn" data-id="${r.id}" title="複製">⎘</button><button class="btn-ed ed-btn" data-id="${r.id}" title="編輯">✏</button><button class="btn-dl dl-btn" data-id="${r.id}" title="刪除">✕</button></div>`;
     tr.appendChild(ops);htb.appendChild(tr);
   });
   // ── 接頭彙總表 ──
@@ -675,19 +751,21 @@ function renderTable(){
     tr.appendChild(mkTd(`<span class="src-tag${x.indep?' indep':''}">${esc(x.source)}</span>`,'','text-align:center'));
     tr.appendChild(mkTd(x.note?`<span class="note-c" title="${esc(x.note)}">${esc(x.note)}</span>`:'<span style="color:var(--tt)">—</span>'));
     const ops=document.createElement('td');ops.style.cssText='white-space:nowrap;padding:4px 6px';
-    if(x.indep)ops.innerHTML=`<div class="act-btns"><button class="btn-ed ced-btn" data-id="${x.recId}" title="編輯"><i class="ti ti-pencil"></i></button><button class="btn-dl cdl-btn" data-id="${x.recId}" title="刪除"><i class="ti ti-trash"></i></button></div>`;
-    else ops.innerHTML='<span style="color:var(--tt);font-size:12px">—</span>';
+    if(x.indep)ops.innerHTML=`<div class="act-btns"><button class="btn-ed ced-btn" data-id="${x.recId}" title="編輯">✏</button><button class="btn-dl cdl-btn" data-id="${x.recId}" title="刪除">✕</button></div>`;
+    else ops.innerHTML='<span style="color:var(--tt);font-size:11px;white-space:normal;line-height:1.4">編修需到軟管清單進行</span>';
     tr.appendChild(ops);ctb.appendChild(tr);
   });
   // ── 軟管操作 ──
   htb.querySelectorAll('.cp-btn').forEach(b=>b.addEventListener('click',()=>{
     const r=records.find(x=>x.id===parseInt(b.dataset.id));if(!r)return;
-    const nr={id:nextId++,kind:'hose',a:{...r.a},b:{...r.b},len:r.len,bore:r.bore,layers:r.layers,pressure:r.pressure,qty:r.qty||1,material:r.material||'鐵',note:r.note,vendor:r.vendor,fittings:(r.fittings||[]).map(f=>({shape:f.shape,ports:f.ports.map(p=>({...p})),qty:f.qty,material:f.material||'鐵'}))};
+    const nr={id:nextId++,kind:'hose',a:{...r.a},b:{...r.b},len:r.len,bore:r.bore,layers:r.layers,pressure:r.pressure,qty:r.qty||1,material:r.material||'鐵',note:r.note,vendor:r.vendor,seq:r.seq,fittings:(r.fittings||[]).map(f=>({shape:f.shape,ports:f.ports.map(p=>({...p})),qty:f.qty,material:f.material||'鐵'}))};
     records.splice(records.findIndex(x=>x.id===r.id)+1,0,nr);
     fillForm(nr);setEditMode(true,nr.id);renderTable();saveState();
+    document.getElementById('form-panel').scrollIntoView({behavior:'smooth',block:'start'});
   }));
   htb.querySelectorAll('.ed-btn').forEach(b=>b.addEventListener('click',()=>{
     const r=records.find(x=>x.id===parseInt(b.dataset.id));if(!r)return;fillForm(r);setEditMode(true,r.id);renderTable();
+    document.getElementById('form-panel').scrollIntoView({behavior:'smooth',block:'start'});
   }));
   htb.querySelectorAll('.dl-btn').forEach(b=>b.addEventListener('click',()=>{
     const r=records.find(x=>x.id===parseInt(b.dataset.id));if(!r)return;
@@ -699,6 +777,7 @@ function renderTable(){
   // ── 接頭操作（僅獨立紀錄）──
   ctb.querySelectorAll('.ced-btn').forEach(b=>b.addEventListener('click',()=>{
     const r=records.find(x=>x.id===parseInt(b.dataset.id));if(!r)return;fillForm(r);setEditMode(true,r.id);renderTable();
+    document.getElementById('form-panel').scrollIntoView({behavior:'smooth',block:'start'});
   }));
   ctb.querySelectorAll('.cdl-btn').forEach(b=>b.addEventListener('click',()=>{
     const r=records.find(x=>x.id===parseInt(b.dataset.id));if(!r)return;
@@ -732,6 +811,7 @@ document.getElementById('btn-clear-all').addEventListener('click',()=>{
     showConfirm('⚠️ 最後確認\n\n所有紀錄將被永久清除且無法恢復。\n確定要繼續嗎？',()=>{
       records=[];nextId=1;sessionDefaultPressure='';lastFormState=null;
       try{localStorage.removeItem(STORAGE_KEY);}catch(e){}
+      document.getElementById('inp-project').value='';
       resetForm();renderTable();showToast('✓ 已清空所有紀錄');
     },'確定清空');
   },'繼續');
@@ -740,22 +820,37 @@ document.getElementById('btn-clear-all').addEventListener('click',()=>{
 // ── Excel 匯出 / 複製表格 ─────────────────────────────────────────
 function dateStr(){const d=new Date();return d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0');}
 function dateTimeStr(){const d=new Date();return d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')+'_'+String(d.getHours()).padStart(2,'0')+String(d.getMinutes()).padStart(2,'0');}
+function cellDateStr(){const d=new Date();return d.getFullYear()+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+String(d.getDate()).padStart(2,'0')+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');}
 function fitInline(r){return(r.fittings||[]).filter(f=>f.shape).map(f=>fittingSpec(f)+' ×'+f.qty).join('\n');}
 function aoaHoseFull(){
-  const head=['編號','A端','B端','長度(mm)','管徑','層數','耐壓(BAR)','數量','端頭材質','自訂編號','位置/功用/備註','說明(給廠商)'];
+  const head=['項次','A端','B端','長度(mm)','管徑','層數','耐壓(BAR)','數量','端頭材質','編號','位置/功用/備註','說明(給廠商)'];
   return[head,...sortedRecs().map((r,i)=>[i+1,buildLabel(r.a),buildLabel(r.b),r.len,r.bore||'',r.layers?r.layers+'層':'',r.pressure||'',r.qty||1,r.material||'鐵',r.seq!=null?r.seq:'',r.note||'',r.vendor||''])];
 }
 function aoaHoseVendor(){
-  const head=['編號','A端','B端','長度(mm)','管徑','層數','耐壓(BAR)','數量','端頭材質','自訂編號','說明(給廠商)'];
-  return[head,...sortedRecs().map((r,i)=>[i+1,buildLabel(r.a),buildLabel(r.b),r.len,r.bore||'',r.layers?r.layers+'層':'',r.pressure||'',r.qty||1,r.material||'鐵',r.seq!=null?r.seq:'',r.vendor||''])];
+  // 排除項次/數量/編號/位置功用備註，合併相同規格並累加數量
+  const head=['A端','B端','長度(mm)','管徑','層數','耐壓(BAR)','端頭材質','說明(給廠商)','數量'];
+  const map=new Map();
+  sortedRecs().forEach(r=>{
+    const key=[buildLabel(r.a),buildLabel(r.b),r.len,r.bore||'',r.layers?r.layers+'層':'',r.pressure||'',r.material||'鐵',r.vendor||''].join('\x00');
+    if(map.has(key)){map.get(key).qty+=(r.qty||1);}
+    else{map.set(key,{a:buildLabel(r.a),b:buildLabel(r.b),len:r.len,bore:r.bore||'',layers:r.layers?r.layers+'層':'',pressure:r.pressure||'',material:r.material||'鐵',vendor:r.vendor||'',qty:r.qty||1});}
+  });
+  return[head,...[...map.values()].map(x=>[x.a,x.b,x.len,x.bore,x.layers,x.pressure,x.material,x.vendor,x.qty])];
 }
 function aoaConnFull(){
   const head=['規格','數量','材質','來源','備註'];
   return[head,...buildConnRows().map(x=>[x.spec,x.qty,x.material,x.source,x.note||''])];
 }
 function aoaConnVendor(){
-  const head=['規格','數量','材質'];
-  return[head,...buildConnRows().map(x=>[x.spec,x.qty,x.material])];
+  // 排除來源/備註，合併相同規格+材質並累加數量
+  const head=['規格','材質','數量'];
+  const map=new Map();
+  buildConnRows().forEach(x=>{
+    const key=x.spec+'\x00'+(x.material||'鐵');
+    if(map.has(key)){map.get(key).qty+=x.qty;}
+    else{map.set(key,{spec:x.spec,material:x.material||'鐵',qty:x.qty});}
+  });
+  return[head,...[...map.values()].map(x=>[x.spec,x.material,x.qty])];
 }
 // 字串拆分：中文→標楷體，英數→Times New Roman
 function toRichRuns(s,sz){
@@ -769,30 +864,30 @@ function toRichRuns(s,sz){
   if(cur)runs.push({font:{name:inCJK?'標楷體':'Times New Roman',size:sz},text:cur});
   return runs.length>1?{richText:runs}:null;
 }
-async function dlStyledXlsx(listTitle,aoa,filename){
+async function dlStyledXlsx(listTitle,aoa,filename,includeProject=true){
   if(typeof ExcelJS==='undefined'){showToast('Excel 套件未載入（需連網）');return;}
   if(aoa.length<=1){showToast('清單為空，無法匯出');return;}
-  const wb=new ExcelJS.Workbook();wb.creator='HoseApp v3.0';
+  const wb=new ExcelJS.Workbook();wb.creator='HoseApp v3.1';
   const ws=wb.addWorksheet(listTitle);
-  const nc=aoa[0].length;const dt=dateTimeStr();
-  const projName=document.getElementById('inp-project')?.value.trim()||'';
+  const nc=aoa[0].length;const dt=cellDateStr();
+  const projName=(includeProject&&document.getElementById('inp-project')?.value.trim())||'';
   const titleText=projName?projName+' '+listTitle:listTitle;
   // 第1列：標題 18pt 粗體 置中
   ws.addRow([titleText]);ws.mergeCells(1,1,1,nc);
   const r1c1=ws.getCell(1,1);r1c1.value=titleText;
-  r1c1.font={name:'標楷體',size:18,bold:true};r1c1.alignment={horizontal:'center',vertical:'middle'};ws.getRow(1).height=32;
+  r1c1.font={name:'標楷體',size:18,bold:true};r1c1.alignment={horizontal:'center',vertical:'middle',wrapText:false};ws.getRow(1).height=32;
   // 第2列：日期 12pt 水平靠左 垂直置中
   ws.addRow(['建檔日期：'+dt]);ws.mergeCells(2,1,2,nc);
   const r2c1=ws.getCell(2,1);r2c1.value='建檔日期：'+dt;
-  r2c1.font={name:'標楷體',size:12};r2c1.alignment={horizontal:'left',vertical:'middle'};ws.getRow(2).height=20;
-  // 第3列：欄位頭 12pt 水平垂直置中
+  r2c1.font={name:'標楷體',size:12};r2c1.alignment={horizontal:'left',vertical:'middle',wrapText:false};ws.getRow(2).height=20;
+  // 第3列：欄位頭 12pt 水平垂直置中 粗體
   ws.addRow(aoa[0]);
   ws.getRow(3).eachCell({includeEmpty:true},(cell,col)=>{
     if(col>nc)return;
-    cell.font={name:'標楷體',size:12,bold:true};cell.alignment={horizontal:'center',vertical:'middle'};
+    cell.font={name:'標楷體',size:12,bold:true};cell.alignment={horizontal:'center',vertical:'middle',wrapText:false};
     cell.border={bottom:{style:'thin',color:{argb:'FF888888'}}};
   });ws.getRow(3).height=20;
-  // 第4列起：內容 12pt 靠左（混排）
+  // 第4列起：內容 12pt 靠左（混排）不自動換行
   aoa.slice(1).forEach(rowData=>{
     const row=ws.addRow(rowData.map(v=>v==null?'':v));
     row.eachCell({includeEmpty:true},(cell,col)=>{
@@ -804,25 +899,16 @@ async function dlStyledXlsx(listTitle,aoa,filename){
         const rich=toRichRuns(str,12);
         if(rich){cell.value=rich;}else{cell.font={name:/[\u4e00-\u9fff]/.test(str)?'標楷體':'Times New Roman',size:12};}
       }
-      cell.alignment={horizontal:'left',vertical:'middle',wrapText:true};
+      cell.alignment={horizontal:'left',vertical:'middle',wrapText:false};
     });
   });
-  // 自動調整欄寬
+  // 自動調整欄寬（所有列內容寫完後執行）
   ws.columns=aoa[0].map((_,ci)=>{
-    const maxLen=Math.max(...aoa.map(r=>String(r[ci]==null?'':r[ci]).length));
-    return{width:Math.min(Math.max(maxLen*1.6,10),55)};
+    const maxLen=Math.max(...aoa.map(r=>{const s=String(r[ci]==null?'':r[ci]);return [...s].reduce((n,c)=>/[\u4e00-\u9fff\uff00-\uffef]/.test(c)?n+2:n+1,0);}));
+    return{width:Math.min(Math.max(maxLen+2,10),55)};
   });
-  // 自動調整列高（第4列起）
-  ws.eachRow((row,rn)=>{
-    if(rn<=3)return;
-    let maxLines=1;
-    row.eachCell({includeEmpty:false},cell=>{
-      const txt=String(cell.value==null?'':cell.value);
-      const lines=txt.split('\n').length;
-      if(lines>maxLines)maxLines=lines;
-    });
-    row.height=Math.max(16,maxLines*16);
-  });
+  // 自動調整列高（不換行，固定高度 18）
+  ws.eachRow((row,rn)=>{if(rn<=3)return;row.height=18;});
   const buf=await wb.xlsx.writeBuffer();
   const blob=new Blob([buf],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
   const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;a.click();
@@ -832,21 +918,21 @@ document.getElementById('btn-x-hose-full').addEventListener('click',async()=>{
   const proj=document.getElementById('inp-project')?.value.trim()||'';
   const dt=dateTimeStr();
   const fn=(proj?proj+' ':'')+dt+' 軟管清單.xlsx';
-  try{await dlStyledXlsx('軟管清單',aoaHoseFull(),fn);}catch(e){showToast('匯出失敗');}
+  try{await dlStyledXlsx('軟管清單',aoaHoseFull(),fn,true);}catch(e){showToast('匯出失敗');}
 });
 document.getElementById('btn-x-hose-vendor').addEventListener('click',async()=>{
   const dt=dateTimeStr();
-  try{await dlStyledXlsx('軟管清單',aoaHoseVendor(),dt+' 軟管清單.xlsx');}catch(e){showToast('匯出失敗');}
+  try{await dlStyledXlsx('軟管清單',aoaHoseVendor(),dt+' 軟管清單.xlsx',false);}catch(e){showToast('匯出失敗');}
 });
 document.getElementById('btn-x-conn-full').addEventListener('click',async()=>{
   const proj=document.getElementById('inp-project')?.value.trim()||'';
   const dt=dateTimeStr();
   const fn=(proj?proj+' ':'')+dt+' 接頭清單.xlsx';
-  try{await dlStyledXlsx('接頭清單',aoaConnFull(),fn);}catch(e){showToast('匯出失敗');}
+  try{await dlStyledXlsx('接頭清單',aoaConnFull(),fn,true);}catch(e){showToast('匯出失敗');}
 });
 document.getElementById('btn-x-conn-vendor').addEventListener('click',async()=>{
   const dt=dateTimeStr();
-  try{await dlStyledXlsx('接頭清單',aoaConnVendor(),dt+' 接頭清單.xlsx');}catch(e){showToast('匯出失敗');}
+  try{await dlStyledXlsx('接頭清單',aoaConnVendor(),dt+' 接頭清單.xlsx',false);}catch(e){showToast('匯出失敗');}
 });
 
 async function copyAoa(aoa){
@@ -864,9 +950,164 @@ async function copyAoa(aoa){
 document.getElementById('btn-copy-hose').addEventListener('click',()=>copyAoa(aoaHoseFull()));
 document.getElementById('btn-copy-conn').addEventListener('click',()=>copyAoa(aoaConnFull()));
 
-document.getElementById('btn-sub-top').addEventListener('click',()=>document.getElementById('btn-sub').click());
+// ── Tab 切換 ─────────────────────────────────────────────────────
+document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>{
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-page').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
+  // 切換到其他需求/備忘時同步主頁專案名稱
+  const proj=document.getElementById('inp-project').value;
+  if(btn.dataset.tab==='others'){const el=document.getElementById('oth-project');if(!el.value)el.value=proj;}
+  if(btn.dataset.tab==='memo'){const el=document.getElementById('mem-project');if(!el.value)el.value=proj;}
+}));
+// 主頁專案名稱變動時同步（若子頁面欄位為空或與舊值相同則同步）
+document.getElementById('inp-project').addEventListener('input',e=>{
+  const v=e.target.value;
+  ['oth-project','mem-project'].forEach(id=>{const el=document.getElementById(id);if(!el.value||el.value===e.target._prev)el.value=v;});
+  e.target._prev=v;
+});
+
+// ── 其他需求 ─────────────────────────────────────────────────────
+function renderOthers(){
+  const panel=document.getElementById('oth-list-panel'),empty=document.getElementById('oth-empty');
+  if(!others.length){panel.style.display='none';empty.style.display='block';return;}
+  panel.style.display='block';empty.style.display='none';
+  // 建表頭
+  const thead=document.getElementById('oth-thead');thead.innerHTML='';
+  ['項次','專案名稱','名稱','數量','用途','選項'].forEach((h,i)=>{
+    const th=document.createElement('th');th.innerHTML=`<div class="th-inner"${i===0||i===3||i===5?' style="justify-content:center"':''}>${h}</div>`;thead.appendChild(th);
+  });
+  const tbody=document.getElementById('oth-tbody');tbody.innerHTML='';
+  others.forEach((r,i)=>{
+    const tr=document.createElement('tr');
+    tr.appendChild(mkTd(i+1,'ctr'));
+    tr.appendChild(mkTd(esc(r.proj||'')));
+    tr.appendChild(mkTd(esc(r.name||'')));
+    tr.appendChild(mkTd(r.qty||1,'ctr'));
+    tr.appendChild(mkTd(esc(r.usage||'')));
+    const ops=document.createElement('td');ops.style.cssText='white-space:nowrap;padding:4px 6px;text-align:center';
+    ops.innerHTML=`<div class="act-btns"><button class="btn-ed oth-ed-btn" data-id="${r.id}" title="編輯">✏</button><button class="btn-dl oth-dl-btn" data-id="${r.id}" title="刪除">✕</button></div>`;
+    tr.appendChild(ops);tbody.appendChild(tr);
+  });
+  tbody.querySelectorAll('.oth-ed-btn').forEach(b=>b.addEventListener('click',()=>{
+    const r=others.find(x=>x.id===parseInt(b.dataset.id));if(!r)return;
+    document.getElementById('oth-project').value=r.proj||'';
+    document.getElementById('oth-name').value=r.name||'';
+    document.getElementById('oth-qty').value=r.qty||1;
+    document.getElementById('oth-usage').value=r.usage||'';
+    othEditId=r.id;
+    const fp=document.getElementById('others-form-panel');fp.classList.replace('mode-new','mode-edit');
+    const badge=document.getElementById('others-mode-badge');badge.textContent='編輯';badge.className='mbadge mb-edit';
+    document.getElementById('oth-ico').textContent='✓';document.getElementById('oth-lbl').textContent='儲存';
+    document.getElementById('oth-cancel').style.display='inline-flex';
+    fp.scrollIntoView({behavior:'smooth',block:'start'});
+  }));
+  tbody.querySelectorAll('.oth-dl-btn').forEach(b=>b.addEventListener('click',()=>{
+    showConfirm('確定刪除這筆其他需求？',()=>{others=others.filter(x=>x.id!==parseInt(b.dataset.id));renderOthers();saveState();showToast('✓ 已刪除');});
+  }));
+}
+function othResetForm(){
+  document.getElementById('oth-project').value=document.getElementById('inp-project').value||'';
+  document.getElementById('oth-name').value='';document.getElementById('oth-qty').value=1;document.getElementById('oth-usage').value='';
+  othEditId=null;
+  const fp=document.getElementById('others-form-panel');fp.classList.replace('mode-edit','mode-new');
+  const badge=document.getElementById('others-mode-badge');badge.textContent='新增';badge.className='mbadge mb-new';
+  document.getElementById('oth-ico').textContent='＋';document.getElementById('oth-lbl').textContent='新增';
+  document.getElementById('oth-cancel').style.display='none';
+}
+document.getElementById('oth-sub').addEventListener('click',()=>{
+  const proj=document.getElementById('oth-project').value.trim();
+  const name=document.getElementById('oth-name').value.trim();
+  const qty=Math.max(1,parseInt(document.getElementById('oth-qty').value)||1);
+  const usage=document.getElementById('oth-usage').value.trim();
+  if(!name){document.getElementById('oth-name').focus();showToast('請填寫名稱');return;}
+  if(othEditId!==null){
+    const r=others.find(x=>x.id===othEditId);if(r){r.proj=proj;r.name=name;r.qty=qty;r.usage=usage;}
+  }else{others.push({id:nextOthId++,proj,name,qty,usage});}
+  othResetForm();renderOthers();saveState();
+});
+document.getElementById('oth-cancel').addEventListener('click',()=>othResetForm());
+document.getElementById('oth-clear').addEventListener('click',()=>{
+  showConfirm('確定清空所有其他需求？',()=>{others=[];nextOthId=1;othResetForm();renderOthers();saveState();showToast('✓ 已清空');});
+});
+document.getElementById('oth-x-full').addEventListener('click',async()=>{
+  if(!others.length){showToast('清單為空');return;}
+  const proj=document.getElementById('inp-project').value.trim();
+  const dt=dateTimeStr();
+  const fn=(proj?proj+' ':'')+dt+' 其他需求清單.xlsx';
+  const aoa=[['專案名稱','名稱','數量','用途'],...others.map(r=>[r.proj||'',r.name||'',r.qty||1,r.usage||''])];
+  try{await dlStyledXlsx('其他需求清單',aoa,fn,true);}catch(e){showToast('匯出失敗');}
+});
+
+// ── 備忘 ─────────────────────────────────────────────────────────
+function renderMemos(){
+  const panel=document.getElementById('mem-list-panel'),empty=document.getElementById('mem-empty');
+  if(!memos.length){panel.style.display='none';empty.style.display='block';return;}
+  panel.style.display='block';empty.style.display='none';
+  const thead=document.getElementById('mem-thead');thead.innerHTML='';
+  ['項次','專案名稱','內容','選項'].forEach((h,i)=>{
+    const th=document.createElement('th');th.innerHTML=`<div class="th-inner"${i===0||i===3?' style="justify-content:center"':''}>${h}</div>`;thead.appendChild(th);
+  });
+  const tbody=document.getElementById('mem-tbody');tbody.innerHTML='';
+  memos.forEach((r,i)=>{
+    const tr=document.createElement('tr');
+    tr.appendChild(mkTd(i+1,'ctr'));
+    tr.appendChild(mkTd(esc(r.proj||'')));
+    tr.appendChild(mkTd(`<span style="white-space:pre-wrap;font-size:13px">${esc(r.content||'')}</span>`));
+    const ops=document.createElement('td');ops.style.cssText='white-space:nowrap;padding:4px 6px;text-align:center';
+    ops.innerHTML=`<div class="act-btns"><button class="btn-ed mem-ed-btn" data-id="${r.id}" title="編輯">✏</button><button class="btn-dl mem-dl-btn" data-id="${r.id}" title="刪除">✕</button></div>`;
+    tr.appendChild(ops);tbody.appendChild(tr);
+  });
+  tbody.querySelectorAll('.mem-ed-btn').forEach(b=>b.addEventListener('click',()=>{
+    const r=memos.find(x=>x.id===parseInt(b.dataset.id));if(!r)return;
+    document.getElementById('mem-project').value=r.proj||'';
+    document.getElementById('mem-content').value=r.content||'';
+    memEditId=r.id;
+    const fp=document.getElementById('memo-form-panel');fp.classList.replace('mode-new','mode-edit');
+    const badge=document.getElementById('memo-mode-badge');badge.textContent='編輯';badge.className='mbadge mb-edit';
+    document.getElementById('mem-ico').textContent='✓';document.getElementById('mem-lbl').textContent='儲存';
+    document.getElementById('mem-cancel').style.display='inline-flex';
+    fp.scrollIntoView({behavior:'smooth',block:'start'});
+  }));
+  tbody.querySelectorAll('.mem-dl-btn').forEach(b=>b.addEventListener('click',()=>{
+    showConfirm('確定刪除這筆備忘？',()=>{memos=memos.filter(x=>x.id!==parseInt(b.dataset.id));renderMemos();saveState();showToast('✓ 已刪除');});
+  }));
+}
+function memResetForm(){
+  document.getElementById('mem-project').value=document.getElementById('inp-project').value||'';
+  document.getElementById('mem-content').value='';
+  memEditId=null;
+  const fp=document.getElementById('memo-form-panel');fp.classList.replace('mode-edit','mode-new');
+  const badge=document.getElementById('memo-mode-badge');badge.textContent='新增';badge.className='mbadge mb-new';
+  document.getElementById('mem-ico').textContent='＋';document.getElementById('mem-lbl').textContent='新增';
+  document.getElementById('mem-cancel').style.display='none';
+}
+document.getElementById('mem-sub').addEventListener('click',()=>{
+  const proj=document.getElementById('mem-project').value.trim();
+  const content=document.getElementById('mem-content').value.trim();
+  if(!content){document.getElementById('mem-content').focus();showToast('請填寫內容');return;}
+  if(memEditId!==null){
+    const r=memos.find(x=>x.id===memEditId);if(r){r.proj=proj;r.content=content;}
+  }else{memos.push({id:nextMemId++,proj,content});}
+  memResetForm();renderMemos();saveState();
+});
+document.getElementById('mem-cancel').addEventListener('click',()=>memResetForm());
+document.getElementById('mem-clear').addEventListener('click',()=>{
+  showConfirm('確定清空所有備忘？',()=>{memos=[];nextMemId=1;memResetForm();renderMemos();saveState();showToast('✓ 已清空');});
+});
+document.getElementById('mem-x-full').addEventListener('click',async()=>{
+  if(!memos.length){showToast('清單為空');return;}
+  const proj=document.getElementById('inp-project').value.trim();
+  const dt=dateTimeStr();
+  const fn=(proj?proj+' ':'')+dt+' 備忘清單.xlsx';
+  const aoa=[['專案名稱','內容'],...memos.map(r=>[r.proj||'',r.content||''])];
+  try{await dlStyledXlsx('備忘清單',aoa,fn,true);}catch(e){showToast('匯出失敗');}
+});
 
 renderTable();
+renderOthers();
+renderMemos();
 </script>
 </body>
 </html>
