@@ -1,9 +1,10 @@
 <!DOCTYPE html>
+<!-- Version: v3.0 - Issac - 2026-06-06 -->
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>軟管丈量記錄 v1.9</title>
+<title>現場需求紀錄 v3.0</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.0.0/tabler-icons.min.css">
 <style>
 :root{
@@ -37,8 +38,8 @@ header span{font-size:13px;color:var(--ts)}
 .lbl{font-size:13px;font-weight:500;color:var(--ts);margin-bottom:5px;display:block}
 .preview{font-size:13px;color:var(--tt);margin-top:6px;font-family:var(--fm);min-height:18px;word-break:break-all}
 .field{margin-bottom:14px}
-.conn-row{display:flex;gap:6px;flex-wrap:wrap}
-.ssel{padding:7px 8px;border-radius:var(--rm);border:1.5px solid var(--bb);font-size:14px;flex:1 1 auto;min-width:76px;max-width:100%;background:var(--bp);color:var(--tp)}
+.conn-row{display:flex;gap:4px;flex-wrap:wrap;align-items:center}
+.ssel{padding:6px 4px;border-radius:var(--rm);border:1.5px solid var(--bb);font-size:14px;flex:1 1 auto;min-width:0;max-width:100%;background:var(--bp);color:var(--tp);width:auto}
 .ssel:focus{outline:2px solid var(--ti);outline-offset:1px}
 .ssel:disabled{opacity:.4}
 .inp-b{padding:8px 12px;border-radius:var(--rm);border:1.5px solid var(--bb);font-size:15px;background:var(--bp);color:var(--tp);width:100%}
@@ -62,6 +63,14 @@ header span{font-size:13px;color:var(--ts)}
 .add-inp-row input{flex:1;padding:6px 10px;border-radius:var(--rm);border:1.5px solid var(--bb);font-size:13px;min-width:0;background:var(--bp);color:var(--tp)}
 .sel-wrap{display:flex;flex-direction:column;flex:1 1 auto;min-width:76px}
 .form-btns{display:flex;gap:8px;margin-top:16px}
+.kind-toggle{display:flex;gap:6px;margin-bottom:16px;background:var(--bs);padding:4px;border-radius:var(--rm);width:fit-content}
+.kt-btn{border:none;background:transparent;padding:6px 18px;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;color:var(--ts);font-family:var(--fs)}
+.kt-btn.active{background:var(--bp);color:var(--ti);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.kt-btn:disabled{opacity:.45;cursor:default}
+.sec-title{font-size:14px;font-weight:700;color:var(--tp);margin:4px 0 10px;display:flex;align-items:center;gap:7px}
+.src-tag{font-size:11px;font-weight:600;padding:2px 9px;border-radius:10px;background:var(--bi);color:var(--ti);white-space:nowrap}
+.src-tag.indep{background:#fef3c7;color:#92400e}
+@media(prefers-color-scheme:dark){.src-tag.indep{background:#4a3a1a;color:#fcd34d}}
 .fit-card{background:var(--bs);border-radius:var(--rm);padding:10px;margin-bottom:8px;display:flex;flex-direction:column;gap:8px}
 .fit-top{display:flex;gap:8px;align-items:center}
 .port-group{background:var(--bp);border-radius:6px;padding:8px;border:1px solid var(--bt)}
@@ -77,7 +86,7 @@ th:hover{color:var(--tp)}
 .th-inner{display:flex;align-items:center;gap:4px;padding:8px 10px;white-space:nowrap}
 .th-text{display:inline-flex;align-items:center;gap:2px}
 th.r .th-inner{justify-content:flex-end}th.c .th-inner{justify-content:center}
-td{padding:9px 10px;border-bottom:1px solid var(--bt);vertical-align:middle}
+td{padding:5px 8px;border-bottom:1px solid var(--bt);vertical-align:middle}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:var(--bs)}
 tr.hl td{background:var(--bi)!important}
@@ -95,39 +104,35 @@ tr.hl td{background:var(--bi)!important}
 .empty{text-align:center;padding:2.5rem;color:var(--tt);font-size:14px}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1a4a6e;color:#fff;padding:10px 22px;border-radius:20px;font-size:14px;font-weight:500;opacity:0;transition:opacity .25s;pointer-events:none;z-index:999;white-space:nowrap}
 .toast.show{opacity:1}
-#print-area{display:none}
-@media print{
-  html,body{background:#fff!important}
-  #app{display:none!important}
-  @page{size:A4 landscape;margin:9mm}
-  #print-area{display:block!important;color:#000;font-family:'Times New Roman','標楷體','DFKai-SB','STKaiti',serif}
-  #print-area h1{font-size:16pt;font-weight:700;line-height:18pt;margin:0 0 6px}
-  #print-area h2{font-size:16pt;font-weight:700;line-height:18pt;margin:18px 0 6px}
-  #print-area .meta{font-size:12pt;line-height:14pt;color:#333;margin-bottom:8px}
-  #print-area table{border-collapse:collapse;font-size:12pt;line-height:14pt;margin:0 auto 14px 0}
-  #print-area th{border:1px solid #000;padding:0 6px;height:15pt;background:#e5e5e5;font-weight:700;text-align:center;vertical-align:middle;white-space:nowrap}
-  #print-area td{border:1px solid #777;padding:0 6px;height:15pt;text-align:center;vertical-align:middle}
-  #print-area td.col-text{text-align:left}
-  #print-area tr{page-break-inside:avoid}
-}
 </style>
 </head>
 <body>
 <div id="app">
 <header>
-  <h1>軟管丈量記錄</h1>
+  <h1>現場需求紀錄</h1>
   <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
     <span id="hdr-count"></span>
-    <span style="font-size:11px;font-weight:700;color:var(--tt);letter-spacing:.06em;padding:2px 8px;border:1px solid var(--bt);border-radius:20px">v1.9</span>
+    <span style="font-size:11px;font-weight:700;color:var(--tt);letter-spacing:.06em;padding:2px 8px;border:1px solid var(--bt);border-radius:20px">v3.0</span>
   </div>
 </header>
+<div style="margin-bottom:1rem">
+  <label style="font-size:13px;font-weight:500;color:var(--ts);display:block;margin-bottom:5px">專案名稱</label>
+  <input type="text" id="inp-project" class="inp-b" placeholder="輸入專案名稱" autocomplete="off" style="max-width:400px">
+</div>
 
 <div class="panel mode-new" id="form-panel">
   <div class="stitle"><span id="form-title-txt">新增紀錄</span><span class="mbadge mb-new" id="mode-badge">新增</span></div>
-  <div class="field"><span class="lbl">A 端</span><div id="mntA"></div><div class="preview">→ <span style="color:var(--ti)" id="pvA"></span></div></div>
-  <div class="field"><span class="lbl">B 端</span><div id="mntB"></div><div class="preview">→ <span style="color:var(--ti)" id="pvB"></span></div></div>
-  <div class="field"><span class="lbl">長度 (mm)</span><input type="number" id="inp-len" inputmode="numeric" class="inp-b" style="width:130px" autocomplete="off"></div>
-  <div class="field">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+    <button class="btn pri" id="btn-sub-top" type="button" style="padding:7px 14px;font-size:14px"><i class="ti ti-plus" id="ico-sub-top"></i></button>
+    <div class="kind-toggle" id="kind-toggle" style="margin-bottom:0">
+      <button type="button" class="kt-btn active" data-kind="hose">軟管需求</button>
+      <button type="button" class="kt-btn" data-kind="conn">接頭需求</button>
+    </div>
+  </div>
+  <div class="field hose-only"><span class="lbl">A 端</span><div id="mntA"></div><div class="preview">→ <span style="color:var(--ti)" id="pvA"></span></div></div>
+  <div class="field hose-only"><span class="lbl">B 端</span><div id="mntB"></div><div class="preview">→ <span style="color:var(--ti)" id="pvB"></span></div></div>
+  <div class="field hose-only"><span class="lbl">長度 (mm)</span><input type="number" id="inp-len" inputmode="numeric" class="inp-b" style="width:130px" autocomplete="off"></div>
+  <div class="field hose-only">
     <span class="lbl">管徑 / 層數 / 工作壓力</span>
     <div class="spec-row">
       <div class="spec-item"><span class="lbl" style="font-size:12px;margin-bottom:3px">管徑</span><select id="inp-bore" class="ssel"></select></div>
@@ -135,21 +140,27 @@ tr.hl td{background:var(--bi)!important}
       <div class="spec-item"><span class="lbl" style="font-size:12px;margin-bottom:3px">工作壓力(可留空) (BAR)</span><input type="number" id="inp-pressure" inputmode="numeric" class="inp-b" style="font-size:14px" autocomplete="off"></div>
     </div>
   </div>
-  <div class="field"><span class="lbl">數量</span><input type="number" id="inp-qty" min="1" value="1" class="inp-b" style="width:100px"></div>
-  <div class="field">
-    <span class="lbl">材質</span>
+  <div class="field hose-only"><span class="lbl">數量</span><input type="number" id="inp-qty" min="1" value="1" class="inp-b" style="width:100px"></div>
+  <div class="field hose-only">
+    <span class="lbl">端頭材質</span>
     <select id="inp-material" class="ssel" style="width:120px">
       <option value="鐵">鐵</option>
       <option value="不鏽鋼">不鏽鋼</option>
     </select>
   </div>
   <div class="field">
-    <span class="lbl">使用接頭</span>
+    <span class="lbl">搭配接頭</span>
     <div id="fittings-container"></div>
     <button class="btn add-fit sm" id="btn-add-fit" type="button" style="margin-top:4px"><i class="ti ti-plus"></i> 新增接頭</button>
   </div>
-  <div class="field"><span class="lbl">位置/功用/備註</span><input type="text" id="inp-note" class="inp-b" autocomplete="off"></div>
-  <div class="field" style="margin-bottom:0"><span class="lbl">說明(給廠商)</span><input type="text" id="inp-vendor" class="inp-b" autocomplete="off"></div>
+  <div class="field">
+    <span class="lbl">編號 / 位置/功用/備註</span>
+    <div style="display:flex;gap:8px;align-items:center">
+      <input type="text" id="inp-seq" class="inp-b" style="width:72px;flex:0 0 auto" placeholder="編號" autocomplete="off">
+      <input type="text" id="inp-note" class="inp-b" autocomplete="off" style="flex:1">
+    </div>
+  </div>
+  <div class="field hose-only" style="margin-bottom:0"><span class="lbl">說明(給廠商)</span><input type="text" id="inp-vendor" class="inp-b" autocomplete="off"></div>
   <div class="form-btns">
     <button class="btn pri" id="btn-sub"><i class="ti ti-plus" id="ico-sub"></i><span id="lbl-sub">新增</span></button>
     <button class="btn" id="btn-cancel" style="display:none"><i class="ti ti-x"></i> 取消</button>
@@ -157,43 +168,51 @@ tr.hl td{background:var(--bi)!important}
 </div>
 
 <div class="panel" id="tbl-panel" style="display:none">
-  <div class="tbl-wrap"><table id="main-table"><thead><tr id="thead-row"></tr></thead><tbody id="tbody"></tbody></table></div>
-  <div class="stat-bar">筆數 <b id="sc">0</b><div class="vsep"></div>軟管總數 <b id="sq">0</b> 條</div>
+  <div class="sec-title"><i class="ti ti-rotate-2"></i> 軟管清單 <button class="btn-cp" id="btn-copy-hose" type="button" style="margin-left:auto"><i class="ti ti-copy"></i> 複製軟管表</button></div>
+  <div class="tbl-wrap"><table id="hose-table"><thead><tr id="hose-thead"></tr></thead><tbody id="hose-tbody"></tbody></table></div>
+  <div class="sec-title" style="margin-top:24px"><i class="ti ti-plug-connected"></i> 接頭彙總清單 <button class="btn-cp" id="btn-copy-conn" type="button" style="margin-left:auto"><i class="ti ti-copy"></i> 複製接頭表</button></div>
+  <div class="tbl-wrap"><table id="conn-table"><thead><tr id="conn-thead"></tr></thead><tbody id="conn-tbody"></tbody></table></div>
+  <div class="stat-bar">軟管 <b id="sc">0</b> 筆<div class="vsep"></div>軟管總數 <b id="sq">0</b> 條<div class="vsep"></div>接頭 <b id="scn">0</b> 項</div>
   <div class="export-row">
-    <button class="btn" id="btn-pdf"><i class="ti ti-file-type-pdf"></i> 保存成PDF</button>
-    <button class="btn" id="btn-vendor"><i class="ti ti-file-type-pdf"></i> 給廠商PDF</button>
+    <button class="btn" id="btn-x-hose-full" style="color:#16a34a;border-color:#16a34a"><i class="ti ti-file-spreadsheet"></i> 軟管清單保存</button>
+    <button class="btn" id="btn-x-hose-vendor" style="color:#b91c1c;border-color:#b91c1c"><i class="ti ti-file-spreadsheet"></i> 給廠商軟管清單</button>
+    <button class="btn" id="btn-x-conn-full" style="color:#16a34a;border-color:#16a34a"><i class="ti ti-file-spreadsheet"></i> 接頭清單保存</button>
+    <button class="btn" id="btn-x-conn-vendor" style="color:#b91c1c;border-color:#b91c1c"><i class="ti ti-file-spreadsheet"></i> 給廠商接頭清單</button>
   </div>
-  <div class="hint">PDF 透過瀏覽器列印產生，請於對話框選擇「另存為 PDF」即可下載或分享。</div>
+  <div class="hint">四個按鈕各下載一個 Excel（.xlsx），可直接開啟、框選複製、編修、歸檔；或用上方「複製表格」一鍵貼進 Excel。</div>
   <div class="danger-zone"><button class="btn danger" id="btn-clear-all"><i class="ti ti-trash-x"></i> 清空所有數據</button></div>
 </div>
 
 <div id="empty-msg" class="empty"><i class="ti ti-clipboard-list" style="font-size:28px;display:block;margin-bottom:8px"></i>尚無紀錄，填寫上方表單後新增</div>
 <div id="toast" class="toast"></div>
 </div>
-<div id="print-area"></div>
+<script src="https://cdn.jsdelivr.net/npm/exceljs@4.3.0/dist/exceljs.min.js"></script>
 
 <script>
 // ── 接頭規格資料 ──────────────────────────────────────────────────
 const SHAPES_CONFIG={
   '直接頭':{ports:['#1','#2']},
-  '90度接頭':{ports:['#1','#2']},
-  '45度接頭':{ports:['#1','#2']},
+  '90度':{ports:['#1','#2']},
+  '三通':{ports:['#1','#2','#3']},
   'BANJO':{ports:['#1','#2']},
-  '三通':{ports:['#1','#2','#3']}
+  '穿艙':{ports:['#1','#2']},
+  '45度':{ports:['#1','#2']}
 };
 const PORT_SPECS={
   Steel_Tube_Fitting:{name:'鋼管頭',genders:['公','母'],sizes:['6L','8L','10L','12L','15L','18L','22L','28L','35L','42L','6S','8S','10S','12S','14S','16S','20S','25S','30S','38S']},
   TH_Fitting:{name:'TH頭',genders:['公','母'],sizes:['1/8"','3/16"','1/4"','5/16"','3/8"','1/2"','5/8"','3/4"','7/8"','1"','1-1/4"','1-1/2"','2"']},
-  Metric_Port:{name:'公制牙口',genders:null,sizes:['M8x1','M10x1','M12x1.5','M14x1.5','M16x1.5','M18x1.5','M22x1.5','M27x2','M33x2','M42x2','M48x2','M60x2']},
   PT_Thread:{name:'PT牙口',genders:null,sizes:['1/8"','1/4"','3/8"','1/2"','3/4"','1"','1-1/4"','1-1/2"','2"']},
-  G_Thread:{name:'G牙口',genders:null,sizes:['1/8"','1/4"','3/8"','1/2"','5/8"','3/4"','1"','1-1/4"','1-1/2"','2"']}
+  Metric_Port:{name:'公制牙口',genders:null,sizes:['M8x1','M10x1','M12x1.5','M14x1.5','M16x1.5','M18x1.5','M22x1.5','M27x2','M33x2','M42x2','M48x2','M60x2']},
+  G_Thread:{name:'G牙口',genders:null,sizes:['1/8"','1/4"','3/8"','1/2"','5/8"','3/4"','1"','1-1/4"','1-1/2"','2"']},
+  Insert_Fitting:{name:'插心',genders:null,sizes:['1/8"','3/16"','1/4"','5/16"','3/8"','1/2"','5/8"','3/4"','1"','1-1/4"','1-1/2"','2"']},
+  Ball_Eye_Fitting:{name:'魚眼',genders:null,sizes:['M6','M8','M10','M12','M14','M16','M18','M20','M22','M24','M27','M30']}
 };
-const SHORT={Steel_Tube_Fitting:'鋼管頭',TH_Fitting:'TH',Metric_Port:'公制',PT_Thread:'PT',G_Thread:'G'};
+const SHORT={Steel_Tube_Fitting:'鋼管頭',TH_Fitting:'TH',PT_Thread:'PT',Metric_Port:'公制',G_Thread:'G',Insert_Fitting:'插心',Ball_Eye_Fitting:'魚眼'};
 
 // ── 軟管接頭/管徑常數 ─────────────────────────────────────────────
 const TH_SZ=['1/8"','1/4"','3/8"','1/2"','3/4"','1"','1 1/4"','1 1/2"'];
 const ST_SZ=['6L','8L','10L','12L','15L','18L','22L','8S','10S','12S','14S','16S','20S','25S'];
-const BASE_TYPES=['母直頭','母90度頭','公直頭','公90度頭'];
+const BASE_TYPES=['母直','母90度','母45度'];
 const BORE_OPT=['1/4','3/8','1/2','5/8','3/4','1"','1-1/4','1-1/2','2"'];
 const BORE_LAYERS={'1/4':[1,2],'3/8':[1,2,4],'1/2':[1,2,4],'5/8':[1,2,4],'3/4':[1,2,4],'1"':[1,2,4],'1-1/4':[1,2,4],'1-1/2':[1,2,4],'2"':[1,2,4]};
 const BORE_MAP={
@@ -210,8 +229,8 @@ const COLS=[
   {key:'layers',label:'層數',sortCol:'layers',w:'52px',align:'center'},
   {key:'pressure',label:'耐壓',sortCol:'pressure',w:'64px',align:'right'},
   {key:'qty',label:'數量',sortCol:'qty',w:'48px',align:'center'},
-  {key:'material',label:'材質',sortCol:'material',w:'64px',align:'center'},
-  {key:'fittings',label:'使用接頭',sortCol:null},
+  {key:'material',label:'端頭材質',sortCol:'material',w:'64px',align:'center'},
+  {key:'seq',label:'編號',sortCol:'seq',w:'52px',align:'center'},
   {key:'note',label:'位置/功用/備註',sortCol:'note'},
   {key:'vendor',label:'說明(給廠商)',sortCol:'vendor'}
 ];
@@ -222,7 +241,13 @@ function saveState(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify({record
 function loadState(){
   try{
     const d=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null');if(!d)return;
-    if(Array.isArray(d.records))records=d.records;
+    if(Array.isArray(d.records)){
+      records=d.records;
+      records.forEach(r=>{
+        if(!r.kind)r.kind='hose';
+        ['a','b'].forEach(k=>{if(r[k]&&typeof r[k].type==='string'&&r[k].type.endsWith('頭'))r[k].type=r[k].type.slice(0,-1);});
+      });
+    }
     if(d.nextId)nextId=d.nextId;
     if(d.custom){custom.THSz=d.custom.THSz||[];custom.STSz=d.custom.STSz||[];custom.types=d.custom.types||[];}
     if(d.sessionDefaultPressure!==undefined)sessionDefaultPressure=d.sessionDefaultPressure;
@@ -230,7 +255,7 @@ function loadState(){
 }
 
 // ── Connector 工具 ────────────────────────────────────────────────
-const isDirect=t=>t.endsWith('直頭');
+const isDirect=t=>t.endsWith('直');
 function buildLabel(s){const p=s.cat==='TH'?'TH'+s.sz:s.sz;if(isDirect(s.type))return p+s.type;return p+s.type+(s.dir==='反向'?'(反向)':'');}
 function boreFromConn(cs){return cs.cat==='TH'?(BORE_MAP.TH[cs.sz]||null):(BORE_MAP.ST[cs.sz]||null);}
 function hasOpt(sel,val){for(const o of sel.options)if(o.value===val)return true;return false;}
@@ -244,7 +269,8 @@ function mkSelWrap(opts,customArr,val,onchange,catKey){
   const wrap=document.createElement('div');wrap.className='sel-wrap';
   const sel=document.createElement('select');sel.className='ssel';
   if(catKey)sel.dataset.cat=catKey;
-  [...opts,...customArr].forEach(o=>{const op=document.createElement('option');op.value=o;op.textContent=o;if(o===val)op.selected=true;sel.appendChild(op);});
+  const allOpts=[...opts,...customArr];if(val&&!allOpts.includes(val))allOpts.unshift(val);
+  allOpts.forEach(o=>{const op=document.createElement('option');op.value=o;op.textContent=o;if(o===val)op.selected=true;sel.appendChild(op);});
   const addOpt=document.createElement('option');addOpt.value='__ADD__';addOpt.textContent='＋ 新增項目…';sel.appendChild(addOpt);
   const aRow=document.createElement('div');aRow.className='add-inp-row';
   const aInp=document.createElement('input');aInp.type='text';aInp.placeholder='輸入後按 Enter 確認';
@@ -257,22 +283,28 @@ function mkSelWrap(opts,customArr,val,onchange,catKey){
   xBtn.addEventListener('click',()=>{aRow.style.display='none';aInp.value='';sel.value=prev;});
   wrap.appendChild(sel);wrap.appendChild(aRow);return{wrap,sel};
 }
-const csA={cat:'TH',sz:'1/4"',type:'母直頭',dir:'順向'};
-const csB={cat:'TH',sz:'1/4"',type:'母直頭',dir:'順向'};
+const csA={cat:'TH',sz:'1/4"',type:'母直',dir:'順向'};
+const csB={cat:'TH',sz:'1/4"',type:'母直',dir:'順向'};
+// A端→B端 規範+尺寸預設同步（仍可手動變動）
+function syncBfromA(mountId){
+  if(mountId!=='mntA')return;
+  csB.cat=csA.cat;csB.sz=csA.sz;
+  buildConn('mntB',csB,'pvB');
+}
 function buildConn(mountId,cs,pvId){
   const mnt=document.getElementById(mountId);mnt.innerHTML='';
   const row=document.createElement('div');row.className='conn-row';
   const catSel=document.createElement('select');catSel.className='ssel';
   ['TH','鋼管頭'].forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;if(v===cs.cat)o.selected=true;catSel.appendChild(o);});
   const szKey=cs.cat==='TH'?'THSz':'STSz';
-  const szCtrl=mkSelWrap(cs.cat==='TH'?TH_SZ:ST_SZ,cs.cat==='TH'?custom.THSz:custom.STSz,cs.sz,v=>{cs.sz=v;updPv(cs,pvId);},szKey);
+  const szCtrl=mkSelWrap(cs.cat==='TH'?TH_SZ:ST_SZ,cs.cat==='TH'?custom.THSz:custom.STSz,cs.sz,v=>{cs.sz=v;updPv(cs,pvId);if(mountId==='mntA'&&csB.cat===csA.cat){csB.sz=csA.sz;buildConn('mntB',csB,'pvB');}},szKey);
   const typeCtrl=mkSelWrap(BASE_TYPES,custom.types,cs.type,v=>{cs.type=v;dirWrap.style.display=isDirect(v)?'none':'block';if(isDirect(v))cs.dir='順向';updPv(cs,pvId);},'type');
   const dirWrap=document.createElement('div');dirWrap.style.cssText='flex:1 1 auto;min-width:76px;display:'+(isDirect(cs.type)?'none':'block');
   const dirSel=document.createElement('select');dirSel.className='ssel';
   ['順向','反向'].forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;if(v===cs.dir)o.selected=true;dirSel.appendChild(o);});
   dirSel.addEventListener('change',e=>{cs.dir=e.target.value;updPv(cs,pvId);});
   dirWrap.appendChild(dirSel);
-  catSel.addEventListener('change',e=>{cs.cat=e.target.value;cs.sz=cs.cat==='TH'?TH_SZ[1]:ST_SZ[0];buildConn(mountId,cs,pvId);});
+  catSel.addEventListener('change',e=>{cs.cat=e.target.value;cs.sz=cs.cat==='TH'?TH_SZ[1]:ST_SZ[0];buildConn(mountId,cs,pvId);syncBfromA(mountId);});
   row.appendChild(catSel);row.appendChild(szCtrl.wrap);row.appendChild(typeCtrl.wrap);row.appendChild(dirWrap);
   mnt.appendChild(row);updPv(cs,pvId);
 }
@@ -317,6 +349,17 @@ function setSpec(bore,layers,pressure){
 let formFittings=[];
 function defaultFitting(){const hoseMat=document.getElementById('inp-material')?.value||'鐵';return{shape:'',ports:[],qty:1,material:hoseMat};}
 function defaultPort(){return{spec:'',gender:null,size:''};}
+// 號碼大者的「首次預設」同步小1號者當下設定（規範+公母+尺寸全帶）；
+// 僅當小1號者規範為 TH頭 或 鋼管頭 時同步；大號 port 一旦已設定則不覆蓋（可自由改）
+function cascadeFitDefault(f,fromIdx){
+  const SYNC=['TH_Fitting','Steel_Tube_Fitting'];
+  for(let i=Math.max(0,fromIdx);i<f.ports.length-1;i++){
+    const from=f.ports[i],to=f.ports[i+1];
+    if(from.spec&&SYNC.includes(from.spec)&&!to.spec){
+      to.spec=from.spec;to.gender=from.gender;to.size=from.size;
+    }
+  }
+}
 function fittingLabel(f){
   if(!f.shape)return'(未完成)';
   const portStrs=(f.ports||[]).filter(p=>p.spec).map(p=>{
@@ -368,14 +411,18 @@ function buildFitCard(f,idx){
       const pg=document.createElement('div');pg.className='port-group fit-reveal';
       const ph=document.createElement('div');ph.className='port-hdr';ph.textContent=pl;pg.appendChild(ph);
       const pf=document.createElement('div');pf.className='port-fields';
-      const specSel=mkSimpleSel(Object.keys(PORT_SPECS).map(k=>({v:k,t:PORT_SPECS[k].name})),port.spec,o=>o.t,v=>{
+      const allowedSpecs=f.shape==='穿艙'?['Steel_Tube_Fitting','TH_Fitting']:Object.keys(PORT_SPECS);
+      const specSel=mkSimpleSel(allowedSpecs.map(k=>({v:k,t:PORT_SPECS[k].name})),port.spec,o=>o.t,v=>{
         port.spec=v;
         if(v){
           const sp=PORT_SPECS[v];
           port.gender=sp.genders?sp.genders[0]:null;
           const bore=document.getElementById('inp-bore')?.value||null;
-          port.size=(bore&&getSizeForBore(v,bore))||sp.sizes[0];
+          // #1 port：優先以軟管端頭尺寸作為預設
+          if(pi===0){port.size=getSizeFromEnd(v)||(bore&&getSizeForBore(v,bore))||sp.sizes[0];}
+          else{port.size=(bore&&getSizeForBore(v,bore))||sp.sizes[0];}
         }else{port.gender=null;port.size='';}
+        cascadeFitDefault(f,pi);
         renderFittingsForm();
       },'選擇規範...');
       specSel.style.cssText='flex:1 1 auto;min-width:80px';pf.appendChild(specSel);
@@ -391,7 +438,7 @@ function buildFitCard(f,idx){
           }
         }
         if(!port.size)port.size=sp.sizes[0];
-        const szSel=mkSimpleSel(sp.sizes,port.size,s=>s,v=>{port.size=v;});
+        const szSel=mkSimpleSel(sp.sizes,port.size,s=>s,v=>{port.size=v;if(cascadeSizeFromPort(f,pi))renderFittingsForm();});
         szSel.style.cssText='flex:1 1 auto;min-width:72px';pf.appendChild(szSel);
       }
       pg.appendChild(pf);card.appendChild(pg);
@@ -412,6 +459,18 @@ document.getElementById('btn-add-fit').addEventListener('click',()=>{formFitting
 
 // ── 初始化 ────────────────────────────────────────────────────────
 let records=[],nextId=1,sortCol=null,sortDir='asc',editId=null,sessionDefaultPressure='',lastFormState=null;
+let currentKind='hose';
+function updateFormTitle(){
+  const on=editId!=null;
+  document.getElementById('form-title-txt').textContent=on?(currentKind==='conn'?'編輯接頭':'編輯紀錄'):(currentKind==='conn'?'新增接頭':'新增紀錄');
+}
+function setKind(kind){
+  currentKind=kind;
+  document.querySelectorAll('.kt-btn').forEach(b=>b.classList.toggle('active',b.dataset.kind===kind));
+  document.querySelectorAll('.hose-only').forEach(el=>{el.style.display=kind==='hose'?'':'none';});
+  updateFormTitle();
+}
+document.querySelectorAll('.kt-btn').forEach(b=>b.addEventListener('click',()=>{if(editId!=null)return;setKind(b.dataset.kind);}));
 
 // 依軟管管徑推算接頭預設尺寸
 function getSizeForBore(specKey,bore){
@@ -422,12 +481,28 @@ function getSizeForBore(specKey,bore){
   if(sp.sizes.includes(bore))return bore;
   return null;
 }
+// 依軟管端頭規範匹配尺寸（#1 port 專用）
+function getSizeFromEnd(specKey){
+  if(currentKind!=='hose')return null;
+  if(specKey==='TH_Fitting'){if(csA.cat==='TH')return csA.sz;if(csB.cat==='TH')return csB.sz;}
+  else if(specKey==='Steel_Tube_Fitting'){if(csA.cat==='鋼管頭')return csA.sz;if(csB.cat==='鋼管頭')return csB.sz;}
+  return null;
+}
+// 變更 port[fromIdx] 尺寸後，將同規範的後續 port 尺寸同步
+function cascadeSizeFromPort(f,fromIdx){
+  const from=f.ports[fromIdx];if(!from.spec)return false;
+  let changed=false;
+  for(let i=fromIdx+1;i<f.ports.length;i++){
+    if(f.ports[i].spec===from.spec&&f.ports[i].size!==from.size){f.ports[i].size=from.size;changed=true;}
+  }
+  return changed;
+}
 loadState();
 skipBoreUpdate=true;buildConn('mntA',csA,'pvA');buildConn('mntB',csB,'pvB');skipBoreUpdate=false;
 initBoreSection();
 document.getElementById('inp-pressure').value=sessionDefaultPressure||'';
 (function buildThead(){
-  const tr=document.getElementById('thead-row');tr.innerHTML='';
+  const tr=document.getElementById('hose-thead');tr.innerHTML='';
   COLS.forEach(col=>{
     const th=document.createElement('th');if(col.w)th.style.width=col.w;
     if(col.align==='right')th.classList.add('r');if(col.align==='center')th.classList.add('c');
@@ -440,6 +515,11 @@ document.getElementById('inp-pressure').value=sessionDefaultPressure||'';
     tr.appendChild(th);
   });
   const ot=document.createElement('th');ot.innerHTML='<div class="th-inner"></div>';tr.appendChild(ot);
+  const ctr=document.getElementById('conn-thead');ctr.innerHTML='';
+  [['規格','l'],['數量','c'],['端頭材質','c'],['來源','c'],['備註','l'],['','l']].forEach(([h,al])=>{
+    const th=document.createElement('th');if(al==='c')th.classList.add('c');
+    const inner=document.createElement('div');inner.className='th-inner';inner.textContent=h;th.appendChild(inner);ctr.appendChild(th);
+  });
 })();
 renderFittingsForm();
 
@@ -447,19 +527,29 @@ renderFittingsForm();
 function setEditMode(on,id){
   editId=on?id:null;
   const fp=document.getElementById('form-panel');fp.classList.toggle('mode-new',!on);fp.classList.toggle('mode-edit',on);
-  document.getElementById('form-title-txt').textContent=on?'編輯紀錄':'新增紀錄';
+  updateFormTitle();
   const badge=document.getElementById('mode-badge');badge.textContent=on?'編輯':'新增';badge.className='mbadge '+(on?'mb-edit':'mb-new');
   document.getElementById('ico-sub').className=on?'ti ti-check':'ti ti-plus';
   document.getElementById('lbl-sub').textContent=on?'儲存':'新增';
   document.getElementById('btn-cancel').style.display=on?'inline-flex':'none';
+  document.querySelectorAll('.kt-btn').forEach(b=>b.disabled=on);
 }
 function fillForm(r){
+  if(r.kind==='conn'){
+    setKind('conn');
+    document.getElementById('inp-note').value=r.note||'';
+    document.getElementById('inp-seq').value=r.seq!=null?r.seq:'';
+    formFittings=(r.fittings||[]).map(f=>({shape:f.shape||'',ports:(f.ports||[]).map(p=>({...p})),qty:f.qty||1,material:f.material||'鐵'}));
+    renderFittingsForm();return;
+  }
+  setKind('hose');
   Object.assign(csA,r.a);Object.assign(csB,r.b);
   skipBoreUpdate=true;buildConn('mntA',csA,'pvA');buildConn('mntB',csB,'pvB');skipBoreUpdate=false;
   setSpec(r.bore,r.layers,r.pressure);
   document.getElementById('inp-len').value=r.len;document.getElementById('inp-qty').value=r.qty||1;
   document.getElementById('inp-material').value=r.material||'鐵';
   document.getElementById('inp-note').value=r.note||'';document.getElementById('inp-vendor').value=r.vendor||'';
+  document.getElementById('inp-seq').value=r.seq!=null?r.seq:'';
   formFittings=(r.fittings||[]).map(f=>({shape:f.shape||'',ports:(f.ports||[]).map(p=>({...p})),qty:f.qty||1,material:f.material||'鐵'}));
   renderFittingsForm();
 }
@@ -470,7 +560,7 @@ function resetForm(){
     setSpec(lastFormState.bore,lastFormState.layers,lastFormState.pressure);
     document.getElementById('inp-material').value=lastFormState.material||'鐵';
   }else{
-    Object.assign(csA,{cat:'TH',sz:'1/4"',type:'母直頭',dir:'順向'});Object.assign(csB,{cat:'TH',sz:'1/4"',type:'母直頭',dir:'順向'});
+    Object.assign(csA,{cat:'TH',sz:'1/4"',type:'母直',dir:'順向'});Object.assign(csB,{cat:'TH',sz:'1/4"',type:'母直',dir:'順向'});
     skipBoreUpdate=true;buildConn('mntA',csA,'pvA');buildConn('mntB',csB,'pvB');skipBoreUpdate=false;
     const bore=boreFromConn(csA);document.getElementById('inp-bore').value=bore||'';rebuildLayers(bore);
     document.getElementById('inp-layers').value='';
@@ -479,32 +569,52 @@ function resetForm(){
   }
   document.getElementById('inp-len').value='';
   document.getElementById('inp-qty').value='1';document.getElementById('inp-note').value='';document.getElementById('inp-vendor').value='';
-  formFittings=[];renderFittingsForm();setEditMode(false,null);
+  // 自動填入下一個流水號
+  const hoseRecs=records.filter(r=>r.kind!=='conn');
+  const used=hoseRecs.map(r=>Number(r.seq)).filter(n=>!isNaN(n)&&n>0);
+  const nextSeq=used.length?Math.max(...used)+1:1;
+  document.getElementById('inp-seq').value=nextSeq;
+  formFittings=[];renderFittingsForm();setEditMode(false,null);setKind('hose');
 }
 document.getElementById('btn-sub').addEventListener('click',()=>{
+  const note=document.getElementById('inp-note').value.trim();
+  const seqRaw=document.getElementById('inp-seq').value.trim();
+  const seq=seqRaw!==''?(isNaN(Number(seqRaw))?seqRaw:Number(seqRaw)):null;
+  const fittings=formFittings.map(f=>({shape:f.shape,ports:f.ports.map(p=>({...p})),qty:f.qty,material:f.material||'鐵'}));
+  if(currentKind==='conn'){
+    if(!fittings.filter(f=>f.shape).length){showToast('請至少新增一個接頭');return;}
+    if(editId!==null){
+      const r=records.find(x=>x.id===editId);
+      if(r){r.kind='conn';r.fittings=fittings;r.note=note;r.seq=seq;delete r.a;delete r.b;delete r.len;}
+      setEditMode(false);
+    }else{
+      records.push({id:nextId++,kind:'conn',fittings,note,seq});
+    }
+    resetForm();renderTable();saveState();return;
+  }
   const len=parseInt(document.getElementById('inp-len').value);if(!len||len<=0){document.getElementById('inp-len').focus();return;}
   const qty=Math.max(1,parseInt(document.getElementById('inp-qty').value)||1);
   const material=document.getElementById('inp-material').value||'鐵';
-  const spec=getSpec();const note=document.getElementById('inp-note').value.trim();const vendor=document.getElementById('inp-vendor').value.trim();
-  const fittings=formFittings.map(f=>({shape:f.shape,ports:f.ports.map(p=>({...p})),qty:f.qty,material:f.material||'鐵'}));
+  const spec=getSpec();const vendor=document.getElementById('inp-vendor').value.trim();
   if(editId!==null){
     const r=records.find(x=>x.id===editId);
-    if(r){r.a={...csA};r.b={...csB};r.len=len;Object.assign(r,spec);r.qty=qty;r.material=material;r.note=note;r.vendor=vendor;r.fittings=fittings;}
+    if(r){r.kind='hose';r.a={...csA};r.b={...csB};r.len=len;Object.assign(r,spec);r.qty=qty;r.material=material;r.note=note;r.vendor=vendor;r.fittings=fittings;r.seq=seq;}
     setEditMode(false);
   }else{
-    records.push({id:nextId++,a:{...csA},b:{...csB},len,...spec,qty,material,note,vendor,fittings});
+    records.push({id:nextId++,kind:'hose',a:{...csA},b:{...csB},len,...spec,qty,material,note,vendor,fittings,seq});
     if(!sessionDefaultPressure&&spec.pressure)sessionDefaultPressure=spec.pressure;
     lastFormState={csA:{...csA},csB:{...csB},bore:spec.bore,layers:spec.layers,pressure:spec.pressure,material};
   }
   resetForm();renderTable();saveState();
 });
 document.getElementById('btn-cancel').addEventListener('click',()=>{resetForm();renderTable();});
-['inp-len','inp-pressure','inp-qty','inp-note','inp-vendor'].forEach(id=>document.getElementById(id).addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('btn-sub').click();}));
+['inp-len','inp-pressure','inp-qty','inp-note','inp-vendor','inp-seq'].forEach(id=>document.getElementById(id).addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('btn-sub').click();}));
 
 // ── 表格 ──────────────────────────────────────────────────────────
 function sortedRecs(){
-  if(!sortCol)return[...records];
-  return[...records].sort((a,b)=>{
+  const base=records.filter(r=>r.kind!=='conn');
+  if(!sortCol)return base;
+  return base.sort((a,b)=>{
     let av,bv;
     if(sortCol==='a'){av=buildLabel(a.a);bv=buildLabel(b.a);}else if(sortCol==='b'){av=buildLabel(a.b);bv=buildLabel(b.b);}
     else if(sortCol==='len'){av=a.len;bv=b.len;}else if(sortCol==='bore'){av=a.bore||'';bv=b.bore||'';}
@@ -514,6 +624,13 @@ function sortedRecs(){
     return(av<bv?-1:av>bv?1:0)*(sortDir==='asc'?1:-1);
   });
 }
+// 接頭彙總：軟管衍生（用於#n）＋ 獨立接頭紀錄
+function buildConnRows(){
+  const rows=[];
+  sortedRecs().forEach((r,i)=>{(r.fittings||[]).filter(f=>f.shape).forEach(f=>rows.push({spec:fittingSpec(f),qty:f.qty,material:f.material||'鐵',source:'搭配軟管#'+(i+1),note:'',indep:false}));});
+  records.filter(r=>r.kind==='conn').forEach(r=>{(r.fittings||[]).filter(f=>f.shape).forEach(f=>rows.push({spec:fittingSpec(f),qty:f.qty,material:f.material||'鐵',source:'獨立',note:r.note||'',indep:true,recId:r.id}));});
+  return rows;
+}
 function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function mkTd(html,cls,style){const td=document.createElement('td');if(cls)td.className=cls;if(style)td.style.cssText=style;td.innerHTML=html;return td;}
 function renderTable(){
@@ -522,11 +639,14 @@ function renderTable(){
   panel.style.display='block';empty.style.display='none';
   document.getElementById('hdr-count').textContent='共 '+records.length+' 筆';
   COLS.forEach(col=>{const si=document.getElementById('si-'+col.key);if(si)si.textContent=sortCol===col.sortCol?(sortDir==='asc'?' ↑':' ↓'):'';});
-  const tbody=document.getElementById('tbody');tbody.innerHTML='';
-  sortedRecs().forEach((r,i)=>{
+  const hoses=sortedRecs();
+  // ── 軟管表 ──
+  const htb=document.getElementById('hose-tbody');htb.innerHTML='';
+  if(!hoses.length){const tr=document.createElement('tr');const td=document.createElement('td');td.colSpan=COLS.length+1;td.style.cssText='text-align:center;color:var(--tt);padding:18px';td.textContent='尚無軟管紀錄';tr.appendChild(td);htb.appendChild(tr);}
+  hoses.forEach((r,i)=>{
     const tr=document.createElement('tr');if(editId===r.id)tr.className='hl';
     const la=buildLabel(r.a),lb=buildLabel(r.b);
-    const fitsHtml=(r.fittings&&r.fittings.length)?r.fittings.map(f=>esc(fittingLabel(f))).join('<br>'):'<span style="color:var(--tt)">—</span>';
+    const fits=(r.fittings||[]).filter(f=>f.shape);
     tr.appendChild(mkTd(i+1,'','text-align:center;font-size:12px;color:var(--tt)'));
     tr.appendChild(mkTd(`<span class="mono" title="${esc(la)}">${esc(la)}</span>`));
     tr.appendChild(mkTd(`<span class="mono" title="${esc(lb)}">${esc(lb)}</span>`));
@@ -536,31 +656,59 @@ function renderTable(){
     tr.appendChild(mkTd(r.pressure?r.pressure+' BAR':'—','','text-align:right;font-family:var(--fm);font-size:12px;white-space:nowrap'));
     tr.appendChild(mkTd(r.qty||1,'ctr'));
     tr.appendChild(mkTd(esc(r.material||'鐵'),'ctr'));
-    tr.appendChild(mkTd(`<div class="fit-c">${fitsHtml}</div>`));
+    tr.appendChild(mkTd(r.seq!=null?`<span style="font-family:var(--fm);font-size:12px;font-weight:600;color:var(--ti)">${esc(String(r.seq))}</span>`:'<span style="color:var(--tt)">—</span>','','text-align:center'));
     tr.appendChild(mkTd(r.note?`<span class="note-c" title="${esc(r.note)}">${esc(r.note)}</span>`:'<span style="color:var(--tt)">—</span>'));
     tr.appendChild(mkTd(r.vendor?`<span class="note-c" title="${esc(r.vendor)}">${esc(r.vendor)}</span>`:'<span style="color:var(--tt)">—</span>'));
-    const ops=document.createElement('td');
-    ops.innerHTML=`<div class="act-btns"><button class="btn-cp cp-btn" data-id="${r.id}"><i class="ti ti-copy"></i> 複製</button><button class="btn-ed ed-btn" data-id="${r.id}"><i class="ti ti-pencil"></i> 編輯</button><button class="btn-dl dl-btn" data-id="${r.id}"><i class="ti ti-trash"></i> 刪除</button></div>`;
-    tr.appendChild(ops);tbody.appendChild(tr);
+    const ops=document.createElement('td');ops.style.cssText='white-space:nowrap;padding:4px 6px';
+    ops.innerHTML=`<div class="act-btns"><button class="btn-cp cp-btn" data-id="${r.id}" title="複製"><i class="ti ti-copy"></i></button><button class="btn-ed ed-btn" data-id="${r.id}" title="編輯"><i class="ti ti-pencil"></i></button><button class="btn-dl dl-btn" data-id="${r.id}" title="刪除"><i class="ti ti-trash"></i></button></div>`;
+    tr.appendChild(ops);htb.appendChild(tr);
   });
-  tbody.querySelectorAll('.cp-btn').forEach(b=>b.addEventListener('click',()=>{
+  // ── 接頭彙總表 ──
+  const ctb=document.getElementById('conn-tbody');ctb.innerHTML='';
+  const crows=buildConnRows();
+  if(!crows.length){const tr=document.createElement('tr');const td=document.createElement('td');td.colSpan=6;td.style.cssText='text-align:center;color:var(--tt);padding:14px';td.textContent='尚無接頭';tr.appendChild(td);ctb.appendChild(tr);}
+  crows.forEach(x=>{
+    const tr=document.createElement('tr');if(editId&&x.recId===editId)tr.className='hl';
+    tr.appendChild(mkTd(`<span class="mono" title="${esc(x.spec)}" style="max-width:none">${esc(x.spec)}</span>`));
+    tr.appendChild(mkTd(x.qty,'ctr'));
+    tr.appendChild(mkTd(esc(x.material),'ctr'));
+    tr.appendChild(mkTd(`<span class="src-tag${x.indep?' indep':''}">${esc(x.source)}</span>`,'','text-align:center'));
+    tr.appendChild(mkTd(x.note?`<span class="note-c" title="${esc(x.note)}">${esc(x.note)}</span>`:'<span style="color:var(--tt)">—</span>'));
+    const ops=document.createElement('td');ops.style.cssText='white-space:nowrap;padding:4px 6px';
+    if(x.indep)ops.innerHTML=`<div class="act-btns"><button class="btn-ed ced-btn" data-id="${x.recId}" title="編輯"><i class="ti ti-pencil"></i></button><button class="btn-dl cdl-btn" data-id="${x.recId}" title="刪除"><i class="ti ti-trash"></i></button></div>`;
+    else ops.innerHTML='<span style="color:var(--tt);font-size:12px">—</span>';
+    tr.appendChild(ops);ctb.appendChild(tr);
+  });
+  // ── 軟管操作 ──
+  htb.querySelectorAll('.cp-btn').forEach(b=>b.addEventListener('click',()=>{
     const r=records.find(x=>x.id===parseInt(b.dataset.id));if(!r)return;
-    const nr={id:nextId++,a:{...r.a},b:{...r.b},len:r.len,bore:r.bore,layers:r.layers,pressure:r.pressure,qty:r.qty||1,material:r.material||'鐵',note:r.note,vendor:r.vendor,fittings:(r.fittings||[]).map(f=>({shape:f.shape,ports:f.ports.map(p=>({...p})),qty:f.qty,material:f.material||'鐵'}))};
+    const nr={id:nextId++,kind:'hose',a:{...r.a},b:{...r.b},len:r.len,bore:r.bore,layers:r.layers,pressure:r.pressure,qty:r.qty||1,material:r.material||'鐵',note:r.note,vendor:r.vendor,fittings:(r.fittings||[]).map(f=>({shape:f.shape,ports:f.ports.map(p=>({...p})),qty:f.qty,material:f.material||'鐵'}))};
     records.splice(records.findIndex(x=>x.id===r.id)+1,0,nr);
     fillForm(nr);setEditMode(true,nr.id);renderTable();saveState();
   }));
-  tbody.querySelectorAll('.ed-btn').forEach(b=>b.addEventListener('click',()=>{
+  htb.querySelectorAll('.ed-btn').forEach(b=>b.addEventListener('click',()=>{
     const r=records.find(x=>x.id===parseInt(b.dataset.id));if(!r)return;fillForm(r);setEditMode(true,r.id);renderTable();
   }));
-  tbody.querySelectorAll('.dl-btn').forEach(b=>b.addEventListener('click',()=>{
+  htb.querySelectorAll('.dl-btn').forEach(b=>b.addEventListener('click',()=>{
     const r=records.find(x=>x.id===parseInt(b.dataset.id));if(!r)return;
     const idx=sortedRecs().findIndex(x=>x.id===r.id)+1;
-    showConfirm(`確定要刪除第 ${idx} 筆嗎？\n${buildLabel(r.a)} ＊ ${buildLabel(r.b)} ＊ ${r.len}mm\n\n此操作無法復原。`,()=>{
+    showConfirm(`確定要刪除軟管第 ${idx} 筆嗎？\n${buildLabel(r.a)} ＊ ${buildLabel(r.b)} ＊ ${r.len}mm\n\n此操作無法復原。`,()=>{
       if(editId===r.id)resetForm();records=records.filter(x=>x.id!==r.id);renderTable();saveState();
     },'確定刪除');
   }));
-  document.getElementById('sc').textContent=records.length;
-  document.getElementById('sq').textContent=records.reduce((s,r)=>s+(r.qty||1),0);
+  // ── 接頭操作（僅獨立紀錄）──
+  ctb.querySelectorAll('.ced-btn').forEach(b=>b.addEventListener('click',()=>{
+    const r=records.find(x=>x.id===parseInt(b.dataset.id));if(!r)return;fillForm(r);setEditMode(true,r.id);renderTable();
+  }));
+  ctb.querySelectorAll('.cdl-btn').forEach(b=>b.addEventListener('click',()=>{
+    const r=records.find(x=>x.id===parseInt(b.dataset.id));if(!r)return;
+    showConfirm('確定要刪除這筆接頭紀錄嗎？\n\n此操作無法復原。',()=>{
+      if(editId===r.id)resetForm();records=records.filter(x=>x.id!==r.id);renderTable();saveState();
+    },'確定刪除');
+  }));
+  document.getElementById('sc').textContent=hoses.length;
+  document.getElementById('sq').textContent=hoses.reduce((s,r)=>s+(r.qty||1),0);
+  document.getElementById('scn').textContent=crows.length;
 }
 
 // ── 確認框 / Toast ────────────────────────────────────────────────
@@ -589,45 +737,134 @@ document.getElementById('btn-clear-all').addEventListener('click',()=>{
   },'繼續');
 });
 
-// ── PDF (列印) ────────────────────────────────────────────────────
-function buildMainTbl(recs,inclNote,inclFit){
-  const cols=[{h:'編號',f:(r,i)=>i+1},{h:'A 端',f:r=>esc(buildLabel(r.a)),text:true},{h:'B 端',f:r=>esc(buildLabel(r.b)),text:true},
-    {h:'長度(mm)',f:r=>r.len},{h:'管徑',f:r=>esc(r.bore||'—')},{h:'層數',f:r=>r.layers?r.layers+'層':'—'},
-    {h:'耐壓(BAR)',f:r=>r.pressure||'—'},{h:'數量',f:r=>r.qty||1},{h:'材質',f:r=>esc(r.material||'鐵')}];
-  if(inclFit)cols.push({h:'使用接頭',f:r=>(r.fittings&&r.fittings.length)?r.fittings.map(x=>esc(fittingSpec(x))+' ×'+x.qty).join('<br>'):'—',text:true});
-  if(inclNote)cols.push({h:'位置/功用/備註',f:r=>esc(r.note||'—'),text:true});
-  cols.push({h:'說明(給廠商)',f:r=>esc(r.vendor||'—'),text:true});
-  // width:100% 撐滿頁面寬度
-  let h='<table style="width:100%"><thead><tr>'+cols.map(c=>`<th>${c.h}</th>`).join('')+'</tr></thead><tbody>';
-  recs.forEach((r,i)=>{h+='<tr>'+cols.map(c=>`<td${c.text?' class="col-text"':''}>${c.f(r,i)}</td>`).join('')+'</tr>';});
-  return h+'</tbody></table>';
+// ── Excel 匯出 / 複製表格 ─────────────────────────────────────────
+function dateStr(){const d=new Date();return d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0');}
+function dateTimeStr(){const d=new Date();return d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')+'_'+String(d.getHours()).padStart(2,'0')+String(d.getMinutes()).padStart(2,'0');}
+function fitInline(r){return(r.fittings||[]).filter(f=>f.shape).map(f=>fittingSpec(f)+' ×'+f.qty).join('\n');}
+function aoaHoseFull(){
+  const head=['編號','A端','B端','長度(mm)','管徑','層數','耐壓(BAR)','數量','端頭材質','自訂編號','位置/功用/備註','說明(給廠商)'];
+  return[head,...sortedRecs().map((r,i)=>[i+1,buildLabel(r.a),buildLabel(r.b),r.len,r.bore||'',r.layers?r.layers+'層':'',r.pressure||'',r.qty||1,r.material||'鐵',r.seq!=null?r.seq:'',r.note||'',r.vendor||''])];
 }
-function buildFitTbl(recs){
-  // inline-block wrapper 讓表格 shrink-wrap 到內容寬度，不跟隨主表格
-  let h='<div style="display:inline-block;max-width:100%"><table><thead><tr><th>規格</th><th>數量</th><th>材質</th></tr></thead><tbody>';
-  let any=false;
-  recs.forEach((r,i)=>{
-    (r.fittings||[]).filter(f=>f.shape).forEach(f=>{
-      any=true;
-      h+=`<tr><td class="col-text">${esc(fittingSpec(f))}</td><td>${f.qty}</td><td>${esc(f.material||'鐵')}</td></tr>`;
+function aoaHoseVendor(){
+  const head=['編號','A端','B端','長度(mm)','管徑','層數','耐壓(BAR)','數量','端頭材質','自訂編號','說明(給廠商)'];
+  return[head,...sortedRecs().map((r,i)=>[i+1,buildLabel(r.a),buildLabel(r.b),r.len,r.bore||'',r.layers?r.layers+'層':'',r.pressure||'',r.qty||1,r.material||'鐵',r.seq!=null?r.seq:'',r.vendor||''])];
+}
+function aoaConnFull(){
+  const head=['規格','數量','材質','來源','備註'];
+  return[head,...buildConnRows().map(x=>[x.spec,x.qty,x.material,x.source,x.note||''])];
+}
+function aoaConnVendor(){
+  const head=['規格','數量','材質'];
+  return[head,...buildConnRows().map(x=>[x.spec,x.qty,x.material])];
+}
+// 字串拆分：中文→標楷體，英數→Times New Roman
+function toRichRuns(s,sz){
+  if(!s)return null;const str=String(s);if(!str)return null;
+  const runs=[];let cur='';let inCJK=null;
+  for(const ch of str){
+    const c=/[\u4e00-\u9fff\u3000-\u303f\u3400-\u4dbf\uf900-\ufaff\uff01-\uffee]/.test(ch);
+    if(inCJK===null)inCJK=c;
+    if(c!==inCJK){if(cur)runs.push({font:{name:inCJK?'標楷體':'Times New Roman',size:sz},text:cur});cur=ch;inCJK=c;}else cur+=ch;
+  }
+  if(cur)runs.push({font:{name:inCJK?'標楷體':'Times New Roman',size:sz},text:cur});
+  return runs.length>1?{richText:runs}:null;
+}
+async function dlStyledXlsx(listTitle,aoa,filename){
+  if(typeof ExcelJS==='undefined'){showToast('Excel 套件未載入（需連網）');return;}
+  if(aoa.length<=1){showToast('清單為空，無法匯出');return;}
+  const wb=new ExcelJS.Workbook();wb.creator='HoseApp v3.0';
+  const ws=wb.addWorksheet(listTitle);
+  const nc=aoa[0].length;const dt=dateTimeStr();
+  const projName=document.getElementById('inp-project')?.value.trim()||'';
+  const titleText=projName?projName+' '+listTitle:listTitle;
+  // 第1列：標題 18pt 粗體 置中
+  ws.addRow([titleText]);ws.mergeCells(1,1,1,nc);
+  const r1c1=ws.getCell(1,1);r1c1.value=titleText;
+  r1c1.font={name:'標楷體',size:18,bold:true};r1c1.alignment={horizontal:'center',vertical:'middle'};ws.getRow(1).height=32;
+  // 第2列：日期 12pt 水平靠左 垂直置中
+  ws.addRow(['建檔日期：'+dt]);ws.mergeCells(2,1,2,nc);
+  const r2c1=ws.getCell(2,1);r2c1.value='建檔日期：'+dt;
+  r2c1.font={name:'標楷體',size:12};r2c1.alignment={horizontal:'left',vertical:'middle'};ws.getRow(2).height=20;
+  // 第3列：欄位頭 12pt 水平垂直置中
+  ws.addRow(aoa[0]);
+  ws.getRow(3).eachCell({includeEmpty:true},(cell,col)=>{
+    if(col>nc)return;
+    cell.font={name:'標楷體',size:12,bold:true};cell.alignment={horizontal:'center',vertical:'middle'};
+    cell.border={bottom:{style:'thin',color:{argb:'FF888888'}}};
+  });ws.getRow(3).height=20;
+  // 第4列起：內容 12pt 靠左（混排）
+  aoa.slice(1).forEach(rowData=>{
+    const row=ws.addRow(rowData.map(v=>v==null?'':v));
+    row.eachCell({includeEmpty:true},(cell,col)=>{
+      if(col>nc)return;
+      const v=cell.value;
+      if(typeof v==='number'){cell.font={name:'Times New Roman',size:12};}
+      else{
+        const str=String(v==null?'':v);
+        const rich=toRichRuns(str,12);
+        if(rich){cell.value=rich;}else{cell.font={name:/[\u4e00-\u9fff]/.test(str)?'標楷體':'Times New Roman',size:12};}
+      }
+      cell.alignment={horizontal:'left',vertical:'middle',wrapText:true};
     });
   });
-  if(!any)h+='<tr><td colspan="3" style="color:#888">無接頭資料</td></tr>';
-  return h+'</tbody></table></div>';
+  // 自動調整欄寬
+  ws.columns=aoa[0].map((_,ci)=>{
+    const maxLen=Math.max(...aoa.map(r=>String(r[ci]==null?'':r[ci]).length));
+    return{width:Math.min(Math.max(maxLen*1.6,10),55)};
+  });
+  // 自動調整列高（第4列起）
+  ws.eachRow((row,rn)=>{
+    if(rn<=3)return;
+    let maxLines=1;
+    row.eachCell({includeEmpty:false},cell=>{
+      const txt=String(cell.value==null?'':cell.value);
+      const lines=txt.split('\n').length;
+      if(lines>maxLines)maxLines=lines;
+    });
+    row.height=Math.max(16,maxLines*16);
+  });
+  const buf=await wb.xlsx.writeBuffer();
+  const blob=new Blob([buf],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+  const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;a.click();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
-function genPDF(mode){
-  if(!records.length){showToast('清單為空，無法產生 PDF');return;}
-  const recs=sortedRecs();
-  const d=new Date();const ds=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
-  const total=recs.reduce((s,r)=>s+(r.qty||1),0);
-  let html=`<h1>${mode==='full'?'軟管清單自用完整版':'軟管清單（給廠商）'}</h1><div class="meta">製表日期：${ds}　筆數：${recs.length}　軟管總數：${total} 條</div>`;
-  if(mode==='full'){html+=buildMainTbl(recs,true,true);}
-  else{html+=buildMainTbl(recs,false,false);html+='<h2>接頭需求量</h2>';html+=buildFitTbl(recs);}
-  document.getElementById('print-area').innerHTML=html;
-  window.print();
+document.getElementById('btn-x-hose-full').addEventListener('click',async()=>{
+  const proj=document.getElementById('inp-project')?.value.trim()||'';
+  const dt=dateTimeStr();
+  const fn=(proj?proj+' ':'')+dt+' 軟管清單.xlsx';
+  try{await dlStyledXlsx('軟管清單',aoaHoseFull(),fn);}catch(e){showToast('匯出失敗');}
+});
+document.getElementById('btn-x-hose-vendor').addEventListener('click',async()=>{
+  const dt=dateTimeStr();
+  try{await dlStyledXlsx('軟管清單',aoaHoseVendor(),dt+' 軟管清單.xlsx');}catch(e){showToast('匯出失敗');}
+});
+document.getElementById('btn-x-conn-full').addEventListener('click',async()=>{
+  const proj=document.getElementById('inp-project')?.value.trim()||'';
+  const dt=dateTimeStr();
+  const fn=(proj?proj+' ':'')+dt+' 接頭清單.xlsx';
+  try{await dlStyledXlsx('接頭清單',aoaConnFull(),fn);}catch(e){showToast('匯出失敗');}
+});
+document.getElementById('btn-x-conn-vendor').addEventListener('click',async()=>{
+  const dt=dateTimeStr();
+  try{await dlStyledXlsx('接頭清單',aoaConnVendor(),dt+' 接頭清單.xlsx');}catch(e){showToast('匯出失敗');}
+});
+
+async function copyAoa(aoa){
+  if(aoa.length<=1){showToast('清單為空');return;}
+  const html='<table border="1" style="border-collapse:collapse">'+aoa.map((row,ri)=>'<tr>'+row.map(c=>{const t=esc(String(c==null?'':c)).replace(/\n/g,'<br>');return ri===0?`<th>${t}</th>`:`<td>${t}</td>`;}).join('')+'</tr>').join('')+'</table>';
+  const tsv=aoa.map(row=>row.map(c=>String(c==null?'':c).replace(/\n/g,' / ').replace(/\t/g,' ')).join('\t')).join('\n');
+  try{
+    await navigator.clipboard.write([new ClipboardItem({'text/html':new Blob([html],{type:'text/html'}),'text/plain':new Blob([tsv],{type:'text/plain'})})]);
+    showToast('✓ 已複製，貼到 Excel 即成表格');
+  }catch(e){
+    try{await navigator.clipboard.writeText(tsv);showToast('✓ 已複製（純文字 Tab 分隔）');}
+    catch(_){showToast('複製失敗，請改用匯出按鈕');}
+  }
 }
-document.getElementById('btn-pdf').addEventListener('click',()=>genPDF('full'));
-document.getElementById('btn-vendor').addEventListener('click',()=>genPDF('vendor'));
+document.getElementById('btn-copy-hose').addEventListener('click',()=>copyAoa(aoaHoseFull()));
+document.getElementById('btn-copy-conn').addEventListener('click',()=>copyAoa(aoaConnFull()));
+
+document.getElementById('btn-sub-top').addEventListener('click',()=>document.getElementById('btn-sub').click());
 
 renderTable();
 </script>
