@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- Version: v3.4 - Issac - 2026-06-06 -->
+<!-- Version: v3.5 - Issac - 2026-06-08 -->
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>現場需求紀錄 v3.4</title>
+<title>現場需求紀錄 v3.5</title>
 <style>
 :root{
   --fs:system-ui,-apple-system,sans-serif;--fm:'Menlo','Consolas',monospace;
@@ -119,7 +119,7 @@ tr.hl td{background:var(--bi)!important}
 <div id="app">
 <header>
   <h1>現場需求紀錄</h1>
-  <span>v3.4</span>
+  <span>v3.5</span>
 </header>
 
 <div style="display:flex;align-items:center;gap:8px;margin-bottom:0.75rem">
@@ -465,8 +465,7 @@ function initBoreSection(){
   boreSel.value=boreFromConn(csA)||'';
   rebuildLayers(boreFromConn(csA));
   boreSel.addEventListener('change',e=>rebuildLayers(e.target.value||null));
-  document.getElementById('inp-layers').addEventListener('change',e=>{if(e.target.value)document.getElementById('inp-pressure').value='';});
-  document.getElementById('inp-pressure').addEventListener('input',e=>{if(e.target.value.trim())document.getElementById('inp-layers').value='';});
+  // 層數與耐壓可並存，各自獨立
 }
 function getSpec(){
   const bore=document.getElementById('inp-bore').value||null;
@@ -598,7 +597,7 @@ let memos=[],nextMemId=1,memEditId=null;
 // ── 計數更新 ──────────────────────────────────────────────────────
 function updateMainCount(){
   const el=document.getElementById('stitle-main-count');if(!el)return;
-  const count=currentKind==='hose'?records.filter(r=>r.kind!=='conn').length:records.filter(r=>r.kind==='conn').length;
+  const count=currentKind==='hose'?records.filter(r=>r.kind!=='conn').length:buildConnRows().length;
   el.textContent=count+' 筆';
 }
 function updateOthCount(){const el=document.getElementById('stitle-oth-count');if(el)el.textContent=others.length+' 筆';}
@@ -658,6 +657,8 @@ skipBoreUpdate=true;buildConn('mntA',csA,'pvA');buildConn('mntB',csB,'pvB');skip
 initBoreSection();
 document.getElementById('inp-pressure').value=sessionDefaultPressure||'';
 document.getElementById('inp-brand').value=sessionDefaultBrand||'-';
+// 初始化編號預設值
+{const _hr=records.filter(r=>r.kind!=='conn');const _u=_hr.map(r=>Number(r.seq)).filter(n=>!isNaN(n)&&n>0);document.getElementById('inp-seq').value=_u.length?Math.max(..._u)+1:1;}
 
 // ── 建表頭 ────────────────────────────────────────────────────────
 (function buildThead(){
@@ -795,7 +796,7 @@ function sortedRecs(){
 }
 function buildConnRows(){
   const rows=[];
-  sortedRecs().forEach((r,i)=>{(r.fittings||[]).filter(f=>f.shape).forEach(f=>rows.push({spec:fittingSpec(f),qty:f.qty,material:f.material||'鐵',source:'搭配軟管#'+(i+1),note:'',indep:false}));});
+  sortedRecs().forEach((r,i)=>{(r.fittings||[]).filter(f=>f.shape).forEach(f=>rows.push({spec:fittingSpec(f),qty:f.qty,material:f.material||'鐵',source:(r.seq!=null&&r.seq!==''?'搭配軟管[編號 '+r.seq+']':'搭配軟管(未編號)'),note:'',indep:false}));});
   records.filter(r=>r.kind==='conn').forEach(r=>{(r.fittings||[]).filter(f=>f.shape).forEach(f=>rows.push({spec:fittingSpec(f),qty:f.qty,material:f.material||'鐵',source:'獨立',note:r.note||'',indep:true,recId:r.id}));});
   return rows;
 }
@@ -905,9 +906,8 @@ document.getElementById('btn-clear-all').addEventListener('click',()=>{
   showConfirm('確定要清空所有紀錄嗎？\n\n確認後仍需要第二次確認。',()=>{
     showConfirm('⚠️ 最後確認\n\n所有紀錄將被永久清除且無法恢復。\n確定要繼續嗎？',()=>{
       records=[];nextId=1;sessionDefaultPressure='';lastFormState=null;
-      try{localStorage.removeItem(STORAGE_KEY);}catch(e){}
       document.getElementById('inp-project').value='';
-      resetForm();renderTable();showToast('✓ 已清空所有紀錄');
+      saveState();resetForm();renderTable();showToast('✓ 已清空所有紀錄');
     },'確定清空');
   },'繼續');
 });
@@ -1005,8 +1005,8 @@ async function dlStyledXlsx(listTitle,aoa,filename,includeProject=true,hasSummar
     });
   });
   ws.columns=aoa[0].map((_,ci)=>{
-    const maxLen=Math.max(...aoa.map(r=>{const s=String(r[ci]==null?'':r[ci]);return [...s].reduce((n,c)=>/[\u4e00-\u9fff\uff00-\uffef]/.test(c)?n+2:n+1,0);}));
-    return{width:Math.min(Math.max(maxLen+2,10),55)};
+    const maxLen=Math.max(...aoa.map(r=>{const s=String(r[ci]==null?'':r[ci]);let w=0;for(const ch of s){w+=/[\u1100-\u11FF\u2E80-\u9FFF\uA960-\uA97F\uAC00-\uD7FF\uF900-\uFAFF\uFE10-\uFE1F\uFE30-\uFE6F\uFF01-\uFF60\uFFE0-\uFFE6]/.test(ch)?2.2:1.1;}return w;}));
+    return{width:Math.min(Math.max(Math.ceil(maxLen)+2,10),60)};
   });
   ws.eachRow((row,rn)=>{if(rn<=3)return;row.height=18;});
   const buf=await wb.xlsx.writeBuffer();
