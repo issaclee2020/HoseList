@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- Version: v3.5 - Issac - 2026-06-08 -->
+<!-- Version: v4.0 - Issac - 2026-06-16 -->
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>現場需求紀錄 v3.5</title>
+<title>現場需求紀錄 v4.0</title>
 <style>
 :root{
   --fs:system-ui,-apple-system,sans-serif;--fm:'Menlo','Consolas',monospace;
@@ -73,9 +73,9 @@ header span{flex:0 0 auto;font-size:11px;font-weight:700;color:var(--tt);letter-
 @media(prefers-color-scheme:dark){.src-tag.indep{background:#4a3a1a;color:#fcd34d}}
 .fit-card{background:var(--bs);border-radius:var(--rm);padding:8px;margin-bottom:6px;display:flex;flex-direction:column;gap:6px}
 .fit-top{display:flex;gap:8px;align-items:center}
-.port-group{background:var(--bp);border-radius:6px;padding:8px;border:1px solid var(--bt)}
-.port-hdr{font-size:11px;font-weight:700;color:var(--ts);margin-bottom:6px;letter-spacing:.05em}
-.port-fields{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+.port-group{background:var(--bp);border-radius:6px;padding:8px;border:1px solid var(--bt);display:flex;align-items:center;gap:8px}
+.port-hdr{font-size:12px;font-weight:700;color:var(--ts);margin-bottom:0;letter-spacing:.05em;flex:0 0 auto;white-space:nowrap}
+.port-fields{display:flex;gap:5px;flex-wrap:wrap;align-items:center;flex:1;min-width:0}
 .gender-fixed{padding:6px 10px;border-radius:var(--rm);border:1.5px solid var(--bt);font-size:13px;color:var(--ts);background:var(--bs);flex:0 0 auto;white-space:nowrap}
 .fit-reveal{animation:fadeSlide .18s ease}
 @keyframes fadeSlide{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
@@ -119,7 +119,7 @@ tr.hl td{background:var(--bi)!important}
 <div id="app">
 <header>
   <h1>現場需求紀錄</h1>
-  <span>v3.5</span>
+  <span>v4.0</span>
 </header>
 
 <div style="display:flex;align-items:center;gap:8px;margin-bottom:0.75rem">
@@ -147,8 +147,8 @@ tr.hl td{background:var(--bi)!important}
   </div>
 
   <!-- A端 B端 -->
-  <div class="field hose-only"><span class="lbl">A 端</span><div id="mntA"></div><div class="preview">→ <span style="color:var(--ti)" id="pvA"></span></div></div>
-  <div class="field hose-only"><span class="lbl">B 端</span><div id="mntB"></div><div class="preview">→ <span style="color:var(--ti)" id="pvB"></span></div></div>
+  <div class="field hose-only"><div style="display:flex;align-items:center;gap:8px"><span class="lbl" style="margin-bottom:0;flex:0 0 auto">A 端</span><div id="mntA" style="flex:1;min-width:0"></div></div></div>
+  <div class="field hose-only"><div style="display:flex;align-items:center;gap:8px"><span class="lbl" style="margin-bottom:0;flex:0 0 auto">B 端</span><div id="mntB" style="flex:1;min-width:0"></div></div></div>
 
   <!-- 長度 - inline -->
   <div class="inline-row hose-only">
@@ -185,6 +185,7 @@ tr.hl td{background:var(--bi)!important}
           <option value="-">-</option>
           <option value="Parker">Parker</option>
           <option value="Aeroquip">Aeroquip</option>
+          <option value="常規品">常規品</option>
         </select>
       </div>
     </div>
@@ -197,8 +198,8 @@ tr.hl td{background:var(--bi)!important}
         <span class="lbl">編號</span>
         <input type="text" id="inp-seq" class="inp-b" style="width:72px" placeholder="編號" autocomplete="off">
       </div>
-      <div style="flex:1;min-width:0">
-        <span class="lbl">位置/功用/備註</span>
+      <div id="note-wrap" style="flex:1;min-width:0">
+        <span class="lbl" id="note-lbl">位置/功用/備註</span>
         <input type="text" id="inp-note" class="inp-b" autocomplete="off">
       </div>
     </div>
@@ -226,8 +227,16 @@ tr.hl td{background:var(--bi)!important}
 <div class="panel" id="tbl-panel" style="display:none">
   <div class="sec-title">⟳ 軟管清單 <button class="btn-cp" id="btn-copy-hose" type="button" style="margin-left:auto">⎘ 複製到剪貼簿</button></div>
   <div class="tbl-wrap"><table id="hose-table"><thead><tr id="hose-thead"></tr></thead><tbody id="hose-tbody"></tbody></table></div>
+  <div style="margin-top:8px">
+    <span class="lbl">軟管清單說明（隨「給廠商軟管清單」匯出）</span>
+    <textarea id="hose-note" class="inp-b" rows="2" style="resize:vertical" autocomplete="off"></textarea>
+  </div>
   <div class="sec-title" style="margin-top:20px">⟐ 接頭清單 <button class="btn-cp" id="btn-copy-conn" type="button" style="margin-left:auto">⎘ 複製到剪貼簿</button></div>
   <div class="tbl-wrap"><table id="conn-table"><thead><tr id="conn-thead"></tr></thead><tbody id="conn-tbody"></tbody></table></div>
+  <div style="margin-top:8px">
+    <span class="lbl">接頭清單說明（隨「給廠商接頭清單」匯出）</span>
+    <textarea id="conn-note" class="inp-b" rows="2" style="resize:vertical" autocomplete="off"></textarea>
+  </div>
   <div class="stat-bar">軟管 <b id="sc">0</b> 筆<div class="vsep"></div>軟管總數 <b id="sq">0</b> 條<div class="vsep"></div>接頭 <b id="scn">0</b> 項</div>
   <div class="export-row">
     <button class="btn" id="btn-x-hose-full" style="color:#16a34a;border-color:#16a34a">⬇ 軟管清單保存</button>
@@ -249,19 +258,13 @@ tr.hl td{background:var(--bi)!important}
       <span class="mbadge mb-new" id="others-mode-badge">新增</span>
       <span id="stitle-oth-count" style="margin-left:auto;font-size:14px;color:var(--ts);text-transform:none;letter-spacing:0;font-weight:500">0 筆</span>
     </div>
-    <div class="field">
-      <span class="lbl">專案名稱</span>
-      <input type="text" id="oth-project" class="inp-b" placeholder="輸入專案名稱" autocomplete="off">
-    </div>
-    <div class="field">
-      <span class="lbl">名稱</span>
-      <input type="text" id="oth-name" class="inp-b" autocomplete="off">
-    </div>
-    <div class="field">
+    <div class="inline-row">
+      <span class="lbl">品名</span>
+      <input type="text" id="oth-name" class="inp-b" autocomplete="off" style="flex:1;min-width:0">
       <span class="lbl">數量</span>
-      <input type="number" id="oth-qty" min="1" value="1" class="inp-b" style="width:100px">
+      <input type="number" id="oth-qty" min="1" value="1" class="inp-b" style="width:90px;flex:0 0 auto">
     </div>
-    <div class="field">
+    <div class="inline-row">
       <span class="lbl">用途</span>
       <input type="text" id="oth-usage" class="inp-b" autocomplete="off">
     </div>
@@ -287,10 +290,6 @@ tr.hl td{background:var(--bi)!important}
     <div class="stitle">
       <span class="mbadge mb-new" id="memo-mode-badge">新增</span>
       <span id="stitle-mem-count" style="margin-left:auto;font-size:14px;color:var(--ts);text-transform:none;letter-spacing:0;font-weight:500">0 筆</span>
-    </div>
-    <div class="field">
-      <span class="lbl">專案名稱</span>
-      <input type="text" id="mem-project" class="inp-b" placeholder="輸入專案名稱" autocomplete="off">
     </div>
     <div class="field">
       <span class="lbl">內容</span>
@@ -319,38 +318,63 @@ tr.hl td{background:var(--bi)!important}
 <script>
 // ── 接頭規格資料 ──────────────────────────────────────────────────
 const SHAPES_CONFIG={
-  '直接頭':{ports:['#1','#2']},
-  '90度':{ports:['#1','#2']},
-  '三通':{ports:['#1','#2','#3']},
-  'BANJO':{ports:['#1','#2']},
-  '穿艙':{ports:['#1','#2']},
-  '45度':{ports:['#1','#2']}
+  '直接頭':{ports:['端1','端2']},
+  '90度':{ports:['端1','端2']},
+  '三通':{ports:['端1','端2','端3']},
+  '塞頭':{ports:['端1']},
+  'BANJO':{ports:['端1','端2']},
+  '穿艙':{ports:['端1','端2']},
+  '45度':{ports:['端1','端2']},
+  '魚眼':{ports:['端1','端2']}
 };
 const PORT_SPECS={
   Steel_Tube_Fitting:{name:'鋼管頭',genders:['公','母'],sizes:['6L','8L','10L','12L','15L','18L','22L','28L','35L','42L','6S','8S','10S','12S','14S','16S','20S','25S','30S','38S']},
   TH_Fitting:{name:'TH頭',genders:['公','母'],sizes:['1/8"','3/16"','1/4"','5/16"','3/8"','1/2"','5/8"','3/4"','7/8"','1"','1-1/4"','1-1/2"','2"']},
-  PT_Thread:{name:'PT牙口',genders:null,sizes:['1/8"','1/4"','3/8"','1/2"','3/4"','1"','1-1/4"','1-1/2"','2"']},
+  PT_Thread:{name:'PT',genders:['公','母'],sizes:['1/8"','1/4"','3/8"','1/2"','3/4"','1"','1-1/4"','1-1/2"','2"']},
   Metric_Port:{name:'公制牙口',genders:null,sizes:['M8x1','M10x1','M12x1.5','M14x1.5','M16x1.5','M18x1.5','M22x1.5','M27x2','M33x2','M42x2','M48x2','M60x2']},
   G_Thread:{name:'G牙口',genders:null,sizes:['1/8"','1/4"','3/8"','1/2"','5/8"','3/4"','1"','1-1/4"','1-1/2"','2"']},
-  Insert_Fitting:{name:'插心',genders:null,sizes:['1/8"','3/16"','1/4"','5/16"','3/8"','1/2"','5/8"','3/4"','1"','1-1/4"','1-1/2"','2"']},
-  Ball_Eye_Fitting:{name:'魚眼',genders:null,sizes:['M6','M8','M10','M12','M14','M16','M18','M20','M22','M24','M27','M30']}
+  Insert_Fitting:{name:'插心',genders:null,sizes:['1/8"','3/16"','1/4"','5/16"','3/8"','1/2"','5/8"','3/4"','1"','1-1/4"','1-1/2"','2"']}
 };
-const SHORT={Steel_Tube_Fitting:'鋼管頭',TH_Fitting:'TH',PT_Thread:'PT',Metric_Port:'公制',G_Thread:'G',Insert_Fitting:'插心',Ball_Eye_Fitting:'魚眼'};
+const SHORT={Steel_Tube_Fitting:'鋼管頭',TH_Fitting:'TH',PT_Thread:'PT',Metric_Port:'公制',G_Thread:'G',Insert_Fitting:'插心'};
+const PLUG_SPECS=['Steel_Tube_Fitting','TH_Fitting','PT_Thread','Metric_Port','G_Thread'];
+// 魚眼端1：規範類型 -> 尺寸（已移除括號銅圈標註）
+const BALL_EYE_SIZES_BY_NORM={
+  'M牙':['M8×1.0','M10×1.0','M10×1.25','M12×1.25','M12×1.5','M14×1.5','M16×1.5','M18×1.5','M22×1.5'],
+  'G牙':['G 1/8"','G 1/4"','G 3/8"','G 1/2"','G 3/4"'],
+  'UNF牙':['3/8"-24 UNF','7/16"-20 UNF','9/16"-18 UNF','3/4"-16 UNF','7/8"-14 UNF']
+};
+const BALL_EYE_NORMS=Object.keys(BALL_EYE_SIZES_BY_NORM);
+function ballEyeE1Out(sz){return String(sz||'').trim();}
+// 端口規範限制：直接頭/90度 端1∈{PT,公制,G} → 端2限{PT,鋼管頭,TH}；BANJO 端1限{PT,公制,G}、端2限{鋼管頭,TH}
+const THREAD_SET=['PT_Thread','Metric_Port','G_Thread']; // 判定用：螺紋型集合（PT 保留）
+const BANJO_E1_SPECS=['Metric_Port','G_Thread'];       // 變更2：BANJO 端1 規範（已刪 PT）
+function allowedSpecsFor(f,pi){
+  if(f.shape==='穿艙')return['Steel_Tube_Fitting','TH_Fitting'];
+  if(f.shape==='塞頭')return PLUG_SPECS;
+  if(f.shape==='魚眼'){return pi===0?null:['TH_Fitting'];}
+  if(f.shape==='BANJO')return pi===0?BANJO_E1_SPECS:['Steel_Tube_Fitting','TH_Fitting'];
+  if((f.shape==='直接頭'||f.shape==='90度')&&pi===1){
+    const e1=(f.ports[0]||{}).spec;
+    if(e1&&THREAD_SET.includes(e1))return['PT_Thread','Steel_Tube_Fitting','TH_Fitting'];
+  }
+  return Object.keys(PORT_SPECS);
+}
 
 // ── 軟管接頭/管徑常數 ─────────────────────────────────────────────
-const TH_SZ=['1/8"','1/4"','3/8"','1/2"','3/4"','1"','1 1/4"','1 1/2"'];
+const TH_SZ=['1/8"','1/4"','3/8"','1/2"','3/4"','1"','1-1/4"','1-1/2"'];
 const ST_SZ=['6L','8L','10L','12L','15L','18L','22L','8S','10S','12S','14S','16S','20S','25S'];
 const BASE_TYPES=['母直','母90度','母45度'];
 const BORE_OPT=['1/4','3/8','1/2','5/8','3/4','1"','1-1/4','1-1/2','2"'];
 const BORE_LAYERS={'1/4':[1,2],'3/8':[1,2,4],'1/2':[1,2,4],'5/8':[1,2,4],'3/4':[1,2,4],'1"':[1,2,4],'1-1/4':[1,2,4],'1-1/2':[1,2,4],'2"':[1,2,4]};
 const BORE_MAP={
-  TH:{'1/8"':null,'1/4"':'1/4','3/8"':'3/8','1/2"':'1/2','3/4"':'3/4','1"':'1"','1 1/4"':'1-1/4','1 1/2"':'1-1/2'},
+  TH:{'1/8"':null,'1/4"':'1/4','3/8"':'3/8','1/2"':'1/2','3/4"':'3/4','1"':'1"','1-1/4"':'1-1/4','1-1/2"':'1-1/2'},
   ST:{'6L':'1/4','8L':'1/4','10L':'3/8','12L':'3/8','15L':'1/2','18L':'5/8','22L':'3/4','8S':'1/4','10S':'1/4','12S':'3/8','14S':'1/2','16S':'1/2','20S':'5/8','25S':'3/4'}
 };
 const custom={THSz:[],STSz:[],types:[]};
 
 // COLS：移除 w 固定寬度，讓瀏覽器自動欄寬
 const COLS=[
+  {key:'vchk', label:'給廠商',      sortCol:null,    align:'center'},
   {key:'num',  label:'項次',        sortCol:null,    align:'center'},
   {key:'a',    label:'A 端',        sortCol:'a'},
   {key:'b',    label:'B 端',        sortCol:'b'},
@@ -371,7 +395,7 @@ const STORAGE_KEY='hose_measurement_v3';
 function saveState(){
   try{localStorage.setItem(STORAGE_KEY,JSON.stringify({
     records,nextId,custom,sessionDefaultPressure,sessionDefaultBrand,
-    others,nextOthId,memos,nextMemId
+    others,nextOthId,memos,nextMemId,hoseListNote,connListNote
   }));}catch(e){}
 }
 function loadState(){
@@ -381,7 +405,18 @@ function loadState(){
       records=d.records;
       records.forEach(r=>{
         if(!r.kind)r.kind='hose';
-        ['a','b'].forEach(k=>{if(r[k]&&typeof r[k].type==='string'&&r[k].type.endsWith('頭'))r[k].type=r[k].type.slice(0,-1);});
+        ['a','b'].forEach(k=>{
+          const c=r[k];if(!c)return;
+          if((c.cat==='TH'||c.cat==='鋼管頭')&&typeof c.type==='string'&&c.type.endsWith('頭'))c.type=c.type.slice(0,-1);
+          if(c.cat==='TH'&&typeof c.sz==='string')c.sz=c.sz.replace('1 1/4"','1-1/4"').replace('1 1/2"','1-1/2"'); // D 遷移
+        });
+        (r.fittings||[]).forEach(f=>{ // 變更4 遷移：魚眼端1 補 normType、去括號
+          if(f.shape!=='魚眼')return;const p1=(f.ports||[])[0];
+          if(p1&&p1.spec==='_BallEyeE1'&&!p1.normType){
+            const s=String(p1.size||'').replace(/\s*\([^)]*\)\s*$/,'').trim().replace(/\s*×\s*/g,'×');
+            p1.normType=/UNF/.test(s)?'UNF牙':(/^G/.test(s)?'G牙':'M牙');p1.size=s;
+          }
+        });
       });
     }
     if(d.nextId)nextId=d.nextId;
@@ -392,19 +427,30 @@ function loadState(){
     if(d.nextOthId)nextOthId=d.nextOthId;
     if(Array.isArray(d.memos))memos=d.memos;
     if(d.nextMemId)nextMemId=d.nextMemId;
+    if(d.hoseListNote!==undefined)hoseListNote=d.hoseListNote;
+    if(d.connListNote!==undefined)connListNote=d.connListNote;
   }catch(e){}
 }
 
 // ── Connector 工具 ────────────────────────────────────────────────
 const isDirect=t=>t.endsWith('直');
-function buildLabel(s){const p=s.cat==='TH'?'TH'+s.sz:s.sz;if(isDirect(s.type))return p+s.type;return p+s.type+(s.dir==='反向'?'(反向)':'');}
-function boreFromConn(cs){return cs.cat==='TH'?(BORE_MAP.TH[cs.sz]||null):(BORE_MAP.ST[cs.sz]||null);}
+function buildLabel(s){
+  if(s.cat==='無壓接')return'無';
+  if(s.cat==='其他'){
+    const base=[s.spec,s.sz].map(x=>String(x==null?'':x).trim()).filter(Boolean).join(' ');
+    const t=s.type||'';
+    const str=((base?base+' ':'')+t).trim()+(t&&!isDirect(t)&&s.dir==='反向'?'(反向)':'');
+    return str||'其他';
+  }
+  const p=s.cat==='TH'?'TH'+s.sz:s.sz;if(isDirect(s.type))return p+s.type;return p+s.type+(s.dir==='反向'?'(反向)':'');
+}
+function boreFromConn(cs){if(cs.cat==='TH')return BORE_MAP.TH[cs.sz]||null;if(cs.cat==='鋼管頭')return BORE_MAP.ST[cs.sz]||null;return null;}
 function hasOpt(sel,val){for(const o of sel.options)if(o.value===val)return true;return false;}
 function addOptToSel(sel,val){if(hasOpt(sel,val))return;const a=sel.querySelector('option[value="__ADD__"]');const o=document.createElement('option');o.value=val;o.textContent=val;if(a)sel.insertBefore(o,a);else sel.appendChild(o);}
 let skipBoreUpdate=false;
 function updPv(cs,pvId){
-  document.getElementById(pvId).textContent=buildLabel(cs);
-  if(cs===csA&&!skipBoreUpdate){const bore=boreFromConn(csA);document.getElementById('inp-bore').value=bore||'';rebuildLayers(bore);}
+  const el=document.getElementById(pvId);if(el)el.textContent=buildLabel(cs);
+  if(cs===csA&&!skipBoreUpdate&&(csA.cat==='TH'||csA.cat==='鋼管頭')){const bore=boreFromConn(csA);document.getElementById('inp-bore').value=bore||'';rebuildLayers(bore);}
 }
 function mkSelWrap(opts,customArr,val,onchange,catKey){
   const wrap=document.createElement('div');wrap.className='sel-wrap';
@@ -424,10 +470,12 @@ function mkSelWrap(opts,customArr,val,onchange,catKey){
   xBtn.addEventListener('click',()=>{aRow.style.display='none';aInp.value='';sel.value=prev;});
   wrap.appendChild(sel);wrap.appendChild(aRow);return{wrap,sel};
 }
-const csA={cat:'TH',sz:'1/4"',type:'母直',dir:'順向'};
-const csB={cat:'TH',sz:'1/4"',type:'母直',dir:'順向'};
+const csA={cat:'TH',sz:'1/4"',type:'母直',dir:'順向',spec:''};
+const csB={cat:'TH',sz:'1/4"',type:'母直',dir:'順向',spec:''};
 function syncBfromA(mountId){
   if(mountId!=='mntA')return;
+  if(csA.cat==='其他'||csA.cat==='無壓接')return;
+  if(csB.cat==='其他'||csB.cat==='無壓接')return;
   csB.cat=csA.cat;csB.sz=csA.sz;
   buildConn('mntB',csB,'pvB');
 }
@@ -435,17 +483,41 @@ function buildConn(mountId,cs,pvId){
   const mnt=document.getElementById(mountId);mnt.innerHTML='';
   const row=document.createElement('div');row.className='conn-row';
   const catSel=document.createElement('select');catSel.className='ssel';
-  ['TH','鋼管頭'].forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;if(v===cs.cat)o.selected=true;catSel.appendChild(o);});
-  const szKey=cs.cat==='TH'?'THSz':'STSz';
-  const szCtrl=mkSelWrap(cs.cat==='TH'?TH_SZ:ST_SZ,cs.cat==='TH'?custom.THSz:custom.STSz,cs.sz,v=>{cs.sz=v;updPv(cs,pvId);if(mountId==='mntA'&&csB.cat===csA.cat){csB.sz=csA.sz;buildConn('mntB',csB,'pvB');}},szKey);
-  const typeCtrl=mkSelWrap(BASE_TYPES,custom.types,cs.type,v=>{cs.type=v;dirWrap.style.display=isDirect(v)?'none':'block';if(isDirect(v))cs.dir='順向';updPv(cs,pvId);},'type');
-  const dirWrap=document.createElement('div');dirWrap.style.cssText='flex:1 1 auto;min-width:76px;display:'+(isDirect(cs.type)?'none':'block');
-  const dirSel=document.createElement('select');dirSel.className='ssel';
-  ['順向','反向'].forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;if(v===cs.dir)o.selected=true;dirSel.appendChild(o);});
-  dirSel.addEventListener('change',e=>{cs.dir=e.target.value;updPv(cs,pvId);});
-  dirWrap.appendChild(dirSel);
-  catSel.addEventListener('change',e=>{cs.cat=e.target.value;cs.sz=cs.cat==='TH'?TH_SZ[1]:ST_SZ[0];buildConn(mountId,cs,pvId);syncBfromA(mountId);});
-  row.appendChild(catSel);row.appendChild(szCtrl.wrap);row.appendChild(typeCtrl.wrap);row.appendChild(dirWrap);
+  [['鋼管頭','鋼管頭'],['TH','TH頭'],['無壓接','無'],['其他','其他']].forEach(([v,t])=>{const o=document.createElement('option');o.value=v;o.textContent=t;if(v===cs.cat)o.selected=true;catSel.appendChild(o);});
+  catSel.style.flex='0 1 auto';
+  catSel.addEventListener('change',e=>{
+    cs.cat=e.target.value;
+    if(cs.cat==='TH')cs.sz=TH_SZ[1];
+    else if(cs.cat==='鋼管頭')cs.sz=ST_SZ[0];
+    else if(cs.cat==='其他'){cs.spec=cs.spec||'';cs.sz='';if(!cs.type)cs.type='母直';}
+    buildConn(mountId,cs,pvId);syncBfromA(mountId);
+  });
+  row.appendChild(catSel);
+  if(cs.cat==='無壓接'){
+    // 不需規格與外型
+  }else if(cs.cat==='其他'){
+    const mkTxt=(ph,val,on)=>{const i=document.createElement('input');i.type='text';i.className='inp-b';i.placeholder=ph;i.value=val||'';i.autocomplete='off';i.style.cssText='flex:1 1 auto;min-width:0;width:auto;padding:5px 8px;font-size:14px';i.addEventListener('input',e=>{on(e.target.value);updPv(cs,pvId);});return i;};
+    row.appendChild(mkTxt('規範',cs.spec,v=>cs.spec=v));
+    row.appendChild(mkTxt('尺寸',cs.sz,v=>cs.sz=v));
+    if(!cs.type)cs.type='母直';
+    const typeCtrl=mkSelWrap(BASE_TYPES,custom.types,cs.type,v=>{cs.type=v;dirWrap.style.display=isDirect(v)?'none':'block';if(isDirect(v))cs.dir='順向';updPv(cs,pvId);},'type');
+    const dirWrap=document.createElement('div');dirWrap.style.cssText='flex:1 1 auto;min-width:76px;display:'+(isDirect(cs.type)?'none':'block');
+    const dirSel=document.createElement('select');dirSel.className='ssel';
+    ['順向','反向'].forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;if(v===cs.dir)o.selected=true;dirSel.appendChild(o);});
+    dirSel.addEventListener('change',e=>{cs.dir=e.target.value;updPv(cs,pvId);});
+    dirWrap.appendChild(dirSel);
+    row.appendChild(typeCtrl.wrap);row.appendChild(dirWrap);
+  }else{
+    const szKey=cs.cat==='TH'?'THSz':'STSz';
+    const szCtrl=mkSelWrap(cs.cat==='TH'?TH_SZ:ST_SZ,cs.cat==='TH'?custom.THSz:custom.STSz,cs.sz,v=>{cs.sz=v;updPv(cs,pvId);if(mountId==='mntA'&&csB.cat===csA.cat){csB.sz=csA.sz;buildConn('mntB',csB,'pvB');}},szKey);
+    const typeCtrl=mkSelWrap(BASE_TYPES,custom.types,cs.type,v=>{cs.type=v;dirWrap.style.display=isDirect(v)?'none':'block';if(isDirect(v))cs.dir='順向';updPv(cs,pvId);},'type');
+    const dirWrap=document.createElement('div');dirWrap.style.cssText='flex:1 1 auto;min-width:76px;display:'+(isDirect(cs.type)?'none':'block');
+    const dirSel=document.createElement('select');dirSel.className='ssel';
+    ['順向','反向'].forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;if(v===cs.dir)o.selected=true;dirSel.appendChild(o);});
+    dirSel.addEventListener('change',e=>{cs.dir=e.target.value;updPv(cs,pvId);});
+    dirWrap.appendChild(dirSel);
+    row.appendChild(szCtrl.wrap);row.appendChild(typeCtrl.wrap);row.appendChild(dirWrap);
+  }
   mnt.appendChild(row);updPv(cs,pvId);
 }
 
@@ -487,17 +559,54 @@ function setSpec(bore,layers,pressure){
 let formFittings=[];
 function defaultFitting(){const hoseMat=document.getElementById('inp-material')?.value||'鐵';return{shape:'',ports:[],qty:1,material:hoseMat};}
 function defaultPort(){return{spec:'',gender:null,size:''};}
-function cascadeFitDefault(f,fromIdx){
-  const SYNC=['TH_Fitting','Steel_Tube_Fitting'];
-  for(let i=Math.max(0,fromIdx);i<f.ports.length-1;i++){
-    const from=f.ports[i],to=f.ports[i+1];
-    if(from.spec&&SYNC.includes(from.spec)&&!to.spec){
-      to.spec=from.spec;to.gender=from.gender;to.size=from.size;
+function syncFromE1(f){
+  const e1=f.ports[0];if(!e1)return false;
+  let ch=false;
+  if(f.shape==='三通'||f.shape==='穿艙'){ // 端1 -> 其餘全部，無條件
+    for(let i=1;i<f.ports.length;i++){
+      const t=f.ports[i];
+      if(t.spec!==e1.spec||t.gender!==e1.gender||t.size!==e1.size){t.spec=e1.spec;t.gender=e1.gender;t.size=e1.size;ch=true;}
     }
+    return ch;
   }
+  if((f.shape==='直接頭'||f.shape==='90度')&&e1.spec){ // 變更3：端1 -> 端2，僅當端2允許集含端1規範，否則端2不動
+    const allowed=allowedSpecsFor(f,1);
+    if(Array.isArray(allowed)&&allowed.includes(e1.spec)){
+      const t=f.ports[1];
+      if(t&&(t.spec!==e1.spec||t.gender!==e1.gender||t.size!==e1.size)){t.spec=e1.spec;t.gender=e1.gender;t.size=e1.size;ch=true;}
+    }
+    return ch;
+  }
+  return false;
+}
+function plugSpecStr(f){
+  const p=(f.ports||[])[0];
+  if(!p||!p.spec)return'(未完成)';
+  const sp=PORT_SPECS[p.spec];
+  let str='塞頭-'+sp.name+p.size;
+  if(p.spec==='TH_Fitting')str+=(p.gender||'母');
+  if(p.spec==='PT_Thread')str+='('+(f.hex||'外六角')+')';
+  return str;
+}
+function plugNutSpec(f){
+  if(f.shape!=='塞頭')return null;
+  const p=(f.ports||[])[0];
+  if(!p||p.spec!=='Steel_Tube_Fitting')return null;
+  if(f.nut===false)return null;
+  return p.size+'螺帽';
+}
+function ballEyeStr(f){
+  const p1=(f.ports||[])[0]||{},p2=(f.ports||[])[1]||{};
+  if(!p1.size||!p2.size)return'(未完成)';
+  let tail;
+  if(p2.spec==='Insert_Fitting'){tail='*插心 '+String(p2.size||'');}        // 變更5：端2 插心
+  else{tail='*TH '+String(p2.size||'').replace(/"$/,'');}                    // 端2 TH公頭（沿用）
+  return'魚眼接頭-'+ballEyeE1Out(p1.size)+'(含螺絲與墊圈)'+tail;
 }
 function fittingLabel(f){
   if(!f.shape)return'(未完成)';
+  if(f.shape==='塞頭')return plugSpecStr(f)+' ×'+f.qty;
+  if(f.shape==='魚眼')return ballEyeStr(f)+' ×'+f.qty;
   const portStrs=(f.ports||[]).filter(p=>p.spec).map(p=>{
     const short=SHORT[p.spec]||p.spec;const sp=PORT_SPECS[p.spec];
     const gender=(sp&&sp.genders&&p.gender)?p.gender:'';
@@ -507,6 +616,8 @@ function fittingLabel(f){
 }
 function fittingSpec(f){
   if(!f.shape)return'(未完成)';
+  if(f.shape==='塞頭')return plugSpecStr(f);
+  if(f.shape==='魚眼')return ballEyeStr(f);
   const portStrs=(f.ports||[]).filter(p=>p.spec).map(p=>{
     const short=SHORT[p.spec]||p.spec;const sp=PORT_SPECS[p.spec];
     const gender=(sp&&sp.genders&&p.gender)?p.gender:'';
@@ -524,20 +635,27 @@ function mkSimpleSel(opts,val,getText,onChange,blankLabel){
   opts.forEach(o=>{const key=typeof o==='object'?o.v:o;const lbl=getText?getText(o):(typeof o==='object'?o.t:o);const el=document.createElement('option');el.value=key;el.textContent=lbl;if(key===val)el.selected=true;s.appendChild(el);});
   s.addEventListener('change',e=>onChange(e.target.value));return s;
 }
+function genderControl(port,genders,onChange){ // E1：統一性別控制（公/母）
+  if(!genders){port.gender=null;return null;}
+  if(genders.length===1){port.gender=genders[0];const fg=document.createElement('span');fg.className='gender-fixed';fg.textContent=genders[0];return fg;}
+  if(!port.gender||!genders.includes(port.gender))port.gender=genders[0];
+  const g=mkSimpleSel(genders,port.gender,x=>x,v=>{port.gender=v;onChange&&onChange();});
+  g.style.cssText='flex:0 0 auto;min-width:58px';return g;
+}
 function buildFitCard(f,idx){
   const card=document.createElement('div');card.className='fit-card';
   const top=document.createElement('div');top.className='fit-top';
-  const shapeLbl=document.createElement('span');shapeLbl.style.cssText='font-size:12px;font-weight:600;color:var(--ts);flex:0 0 auto';shapeLbl.textContent='外型';
   const shapeSel=mkSimpleSel(Object.keys(SHAPES_CONFIG),f.shape,k=>k,v=>{
     f.shape=v;
-    if(v){const n=SHAPES_CONFIG[v].ports.length;while(f.ports.length<n)f.ports.push(defaultPort());while(f.ports.length>n)f.ports.pop();}
-    else f.ports=[];
+    f.hex=undefined;f.nut=undefined;
+    f.ports=[];
+    if(v){const n=SHAPES_CONFIG[v].ports.length;for(let i=0;i<n;i++)f.ports.push(defaultPort());}
     renderFittingsForm();
   },'選擇外型...');
   shapeSel.style.flex='1';
   const del=document.createElement('button');del.type='button';del.className='btn-dl';del.style.cssText='flex:0 0 auto;padding:5px 10px;font-size:15px';del.textContent='✕';del.title='刪除接頭';
   del.addEventListener('click',()=>{formFittings.splice(idx,1);renderFittingsForm();});
-  top.appendChild(shapeLbl);top.appendChild(shapeSel);top.appendChild(del);card.appendChild(top);
+  top.appendChild(shapeSel);top.appendChild(del);card.appendChild(top);
   if(f.shape&&SHAPES_CONFIG[f.shape]){
     const portLabels=SHAPES_CONFIG[f.shape].ports;
     portLabels.forEach((pl,pi)=>{
@@ -545,34 +663,82 @@ function buildFitCard(f,idx){
       const pg=document.createElement('div');pg.className='port-group fit-reveal';
       const ph=document.createElement('div');ph.className='port-hdr';ph.textContent=pl;pg.appendChild(ph);
       const pf=document.createElement('div');pf.className='port-fields';
-      const allowedSpecs=f.shape==='穿艙'?['Steel_Tube_Fitting','TH_Fitting']:Object.keys(PORT_SPECS);
+      const allowedSpecs=allowedSpecsFor(f,pi);
+      if(f.shape==='魚眼'&&pi===0){ // 變更4：規範類型 + 尺寸 兩層
+        port.spec='_BallEyeE1';port.gender=null;
+        if(!port.normType||!BALL_EYE_SIZES_BY_NORM[port.normType])port.normType=BALL_EYE_NORMS[0];
+        const szList=BALL_EYE_SIZES_BY_NORM[port.normType];
+        if(!szList.includes(port.size))port.size=szList[0];
+        const ntSel=mkSimpleSel(BALL_EYE_NORMS,port.normType,s=>s,v=>{port.normType=v;port.size=BALL_EYE_SIZES_BY_NORM[v][0];renderFittingsForm();});
+        ntSel.style.cssText='flex:0 0 auto;min-width:84px';pf.appendChild(ntSel);
+        const szSel=mkSimpleSel(szList,port.size,s=>s,v=>{port.size=v;});
+        szSel.style.cssText='flex:1 1 auto;min-width:110px';pf.appendChild(szSel);
+        pg.appendChild(pf);card.appendChild(pg);
+      }else if(f.shape==='魚眼'&&pi===1){ // 變更5：端2 規範可選 TH公頭 / 插心
+        if(port.spec!=='TH_Fitting'&&port.spec!=='Insert_Fitting')port.spec='TH_Fitting';
+        const spSel=mkSimpleSel([{v:'TH_Fitting',t:'TH公頭'},{v:'Insert_Fitting',t:'插心'}],port.spec,o=>o.t,v=>{
+          port.spec=v;port.gender=(v==='TH_Fitting')?'公':null;port.size=PORT_SPECS[v].sizes[0];renderFittingsForm();
+        });
+        spSel.style.cssText='flex:0 0 auto;min-width:84px';pf.appendChild(spSel);
+        const sp=PORT_SPECS[port.spec];port.gender=(port.spec==='TH_Fitting')?'公':null;
+        if(!sp.sizes.includes(port.size))port.size=sp.sizes[0];
+        const szSel=mkSimpleSel(sp.sizes,port.size,s=>s,v=>{port.size=v;});
+        szSel.style.cssText='flex:1 1 auto;min-width:72px';pf.appendChild(szSel);
+        pg.appendChild(pf);card.appendChild(pg);
+      }else{
+      if(allowedSpecs&&port.spec&&!allowedSpecs.includes(port.spec)){ // A3：端口規範越界 -> 鉗制回允許集首位
+        const _s0=PORT_SPECS[allowedSpecs[0]];port.spec=allowedSpecs[0];
+        port.gender=_s0.genders?_s0.genders[0]:null;port.size=_s0.sizes[0];
+      }
       const specSel=mkSimpleSel(allowedSpecs.map(k=>({v:k,t:PORT_SPECS[k].name})),port.spec,o=>o.t,v=>{
         port.spec=v;
         if(v){
-          const sp=PORT_SPECS[v];port.gender=sp.genders?sp.genders[0]:null;
+          const sp=PORT_SPECS[v];
+          if(f.shape==='塞頭'){
+            port.gender=(v==='TH_Fitting')?'母':null;
+            f.hex=(v==='PT_Thread')?'外六角':undefined;
+            f.nut=(v==='Steel_Tube_Fitting')?true:undefined;
+          }
+          else{port.gender=sp.genders?sp.genders[0]:null;}
           const bore=document.getElementById('inp-bore')?.value||null;
           if(pi===0){port.size=getSizeFromEnd(v)||(bore&&getSizeForBore(v,bore))||sp.sizes[0];}
           else{port.size=(bore&&getSizeForBore(v,bore))||sp.sizes[0];}
-        }else{port.gender=null;port.size='';}
-        cascadeFitDefault(f,pi);renderFittingsForm();
+        }else{port.gender=null;port.size='';if(f.shape==='塞頭'){f.hex='';f.nut=undefined;}}
+        if(pi===0)syncFromE1(f);
+        renderFittingsForm();
       },'選擇規範...');
       specSel.style.cssText='flex:1 1 auto;min-width:80px';pf.appendChild(specSel);
       if(port.spec){
         const sp=PORT_SPECS[port.spec];
-        if(sp.genders){
-          if(sp.genders.length===1){
-            port.gender=sp.genders[0];
-            const fg=document.createElement('span');fg.className='gender-fixed';fg.textContent=sp.genders[0];pf.appendChild(fg);
-          }else{
-            const gSel=mkSimpleSel(sp.genders,port.gender||sp.genders[0],g=>g,v=>{port.gender=v;});
+        if(f.shape==='塞頭'){
+          if(port.spec==='TH_Fitting'){
+            const gSel=mkSimpleSel(['公','母'],port.gender||'母',g=>g,v=>{port.gender=v;});
             gSel.style.cssText='flex:0 0 auto;min-width:58px';pf.appendChild(gSel);
-          }
+          }else port.gender=null;
+        }else if(sp.genders){
+          const gc=genderControl(port,sp.genders,()=>{if(pi===0&&syncFromE1(f))renderFittingsForm();});
+          if(gc)pf.appendChild(gc);
         }
         if(!port.size)port.size=sp.sizes[0];
-        const szSel=mkSimpleSel(sp.sizes,port.size,s=>s,v=>{port.size=v;if(cascadeSizeFromPort(f,pi))renderFittingsForm();});
+        const szSel=mkSimpleSel(sp.sizes,port.size,s=>s,v=>{port.size=v;if(pi===0&&syncFromE1(f))renderFittingsForm();});
         szSel.style.cssText='flex:1 1 auto;min-width:72px';pf.appendChild(szSel);
+        if(f.shape==='塞頭'){
+          if(port.spec==='PT_Thread'){
+            if(!f.hex)f.hex='外六角';
+            const hxSel=mkSimpleSel(['外六角','內六角'],f.hex,h=>h,v=>{f.hex=v;});
+            hxSel.style.cssText='flex:0 0 auto;min-width:78px';pf.appendChild(hxSel);
+          }
+          if(port.spec==='Steel_Tube_Fitting'){
+            const nl=document.createElement('label');nl.style.cssText='display:inline-flex;align-items:center;gap:4px;font-size:13px;color:var(--ts);flex:0 0 auto;white-space:nowrap;cursor:pointer';
+            const cb=document.createElement('input');cb.type='checkbox';cb.checked=f.nut!==false;
+            cb.addEventListener('change',e=>{f.nut=e.target.checked;});
+            nl.appendChild(cb);nl.appendChild(document.createTextNode('包含螺帽'));
+            pf.appendChild(nl);
+          }
+        }
       }
       pg.appendChild(pf);card.appendChild(pg);
+      }
     });
     const qtyRow=document.createElement('div');qtyRow.style.cssText='display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:2px';
     const ql=document.createElement('span');ql.style.cssText='font-size:13px;color:var(--ts)';ql.textContent='數量 ×';
@@ -590,6 +756,7 @@ document.getElementById('btn-add-fit').addEventListener('click',()=>{formFitting
 
 // ── 初始化 ────────────────────────────────────────────────────────
 let records=[],nextId=1,sortCol=null,sortDir='asc',editId=null,sessionDefaultPressure='',sessionDefaultBrand='-',lastFormState=null;
+let hoseListNote='1. 軟管上需註明編號與長度',connListNote='';
 let currentKind='hose';
 let others=[],nextOthId=1,othEditId=null;
 let memos=[],nextMemId=1,memEditId=null;
@@ -613,14 +780,21 @@ function setKind(kind){
   const seqWrap=document.getElementById('seq-wrap');
   const fp=document.getElementById('form-panel');
 
+  const noteWrap=document.getElementById('note-wrap'),noteLbl=document.getElementById('note-lbl'),noteInp=document.getElementById('inp-note');
   if(kind==='conn'){
     const kt=document.getElementById('kind-toggle');
     fp.insertBefore(noteSeqField,kt.nextElementSibling);
     seqWrap.style.display='none';
+    noteWrap.style.display='flex';noteWrap.style.alignItems='center';noteWrap.style.gap='8px';
+    noteLbl.style.marginBottom='0';noteLbl.style.flex='0 0 auto';noteLbl.style.whiteSpace='nowrap';
+    noteInp.style.flex='1';noteInp.style.minWidth='0';noteInp.style.width='auto';
   }else{
     const vendorField=document.getElementById('vendor-field');
     fp.insertBefore(noteSeqField,vendorField);
     seqWrap.style.display='';
+    noteWrap.style.display='';noteWrap.style.alignItems='';noteWrap.style.gap='';
+    noteLbl.style.marginBottom='';noteLbl.style.flex='';noteLbl.style.whiteSpace='';
+    noteInp.style.flex='';noteInp.style.minWidth='';noteInp.style.width='';
   }
 
   document.getElementById('btn-add-fit').textContent='＋ '+(kind==='conn'?'同用途新增接頭':'新增接頭');
@@ -644,19 +818,15 @@ function getSizeFromEnd(specKey){
   else if(specKey==='Steel_Tube_Fitting'){if(csA.cat==='鋼管頭')return csA.sz;if(csB.cat==='鋼管頭')return csB.sz;}
   return null;
 }
-function cascadeSizeFromPort(f,fromIdx){
-  const from=f.ports[fromIdx];if(!from.spec)return false;
-  let changed=false;
-  for(let i=fromIdx+1;i<f.ports.length;i++){
-    if(f.ports[i].spec===from.spec&&f.ports[i].size!==from.size){f.ports[i].size=from.size;changed=true;}
-  }
-  return changed;
-}
 loadState();
 skipBoreUpdate=true;buildConn('mntA',csA,'pvA');buildConn('mntB',csB,'pvB');skipBoreUpdate=false;
 initBoreSection();
 document.getElementById('inp-pressure').value=sessionDefaultPressure||'';
 document.getElementById('inp-brand').value=sessionDefaultBrand||'-';
+document.getElementById('hose-note').value=hoseListNote;
+document.getElementById('conn-note').value=connListNote;
+document.getElementById('hose-note').addEventListener('input',e=>{hoseListNote=e.target.value;saveState();});
+document.getElementById('conn-note').addEventListener('input',e=>{connListNote=e.target.value;saveState();});
 // 初始化編號預設值
 {const _hr=records.filter(r=>r.kind!=='conn');const _u=_hr.map(r=>Number(r.seq)).filter(n=>!isNaN(n)&&n>0);document.getElementById('inp-seq').value=_u.length?Math.max(..._u)+1:1;}
 
@@ -664,6 +834,11 @@ document.getElementById('inp-brand').value=sessionDefaultBrand||'-';
 (function buildThead(){
   const tr=document.getElementById('hose-thead');tr.innerHTML='';
   COLS.forEach(col=>{
+    if(col.key==='vchk'){
+      const th=document.createElement('th');th.classList.add('c');th.style.cursor='default';
+      th.innerHTML='<div class="th-inner" style="justify-content:center;gap:4px"><input type="checkbox" id="hose-vchk-all" title="全選/取消"><span>給廠商</span></div>';
+      tr.appendChild(th);return;
+    }
     const th=document.createElement('th');
     if(col.align==='right')th.classList.add('r');if(col.align==='center')th.classList.add('c');
     const inner=document.createElement('div');inner.className='th-inner';
@@ -676,9 +851,24 @@ document.getElementById('inp-brand').value=sessionDefaultBrand||'-';
   });
   const ot=document.createElement('th');ot.innerHTML='<div class="th-inner" style="justify-content:center">選項</div>';tr.appendChild(ot);
   const ctr=document.getElementById('conn-thead');ctr.innerHTML='';
-  [['規格','l'],['數量','c'],['端頭材質','c'],['來源','c'],['備註','l'],['選項','c']].forEach(([h,al])=>{
+  [['給廠商','c'],['規格','l'],['數量','c'],['端頭材質','c'],['來源','c'],['備註','l'],['選項','c']].forEach(([h,al])=>{
     const th=document.createElement('th');if(al==='c')th.classList.add('c');
-    const inner=document.createElement('div');inner.className='th-inner';inner.textContent=h;th.appendChild(inner);ctr.appendChild(th);
+    const inner=document.createElement('div');inner.className='th-inner';
+    if(h==='給廠商'){
+      inner.style.justifyContent='center';inner.style.gap='4px';
+      inner.innerHTML='<input type="checkbox" id="conn-vchk-all" title="全選/取消"><span>給廠商</span>';
+    }else inner.textContent=h;
+    th.appendChild(inner);ctr.appendChild(th);
+  });
+  document.getElementById('hose-vchk-all').addEventListener('change',e=>{
+    const v=e.target.checked;
+    records.filter(r=>r.kind!=='conn').forEach(r=>{r.toVendor=v;});
+    saveState();renderTable();
+  });
+  document.getElementById('conn-vchk-all').addEventListener('change',e=>{
+    const v=e.target.checked;
+    records.forEach(r=>(r.fittings||[]).forEach(f=>{f.toVendor=v;if(plugNutSpec(f))f.nutToVendor=v;}));
+    saveState();renderTable();
   });
 })();
 renderFittingsForm();
@@ -697,7 +887,7 @@ function fillForm(r){
   if(r.kind==='conn'){
     setKind('conn');
     document.getElementById('inp-note').value=r.note||'';
-    formFittings=(r.fittings||[]).map(f=>({shape:f.shape||'',ports:(f.ports||[]).map(p=>({...p})),qty:f.qty||1,material:f.material||'鐵'}));
+    formFittings=(r.fittings||[]).map(f=>({shape:f.shape||'',ports:(f.ports||[]).map(p=>({...p})),qty:f.qty||1,material:f.material||'鐵',hex:f.hex,nut:f.nut,toVendor:f.toVendor,nutToVendor:f.nutToVendor}));
     renderFittingsForm();return;
   }
   setKind('hose');
@@ -711,7 +901,7 @@ function fillForm(r){
   document.getElementById('inp-note').value=r.note||'';
   document.getElementById('inp-vendor').value=r.vendor||'';
   document.getElementById('inp-seq').value=r.seq!=null?r.seq:'';
-  formFittings=(r.fittings||[]).map(f=>({shape:f.shape||'',ports:(f.ports||[]).map(p=>({...p})),qty:f.qty||1,material:f.material||'鐵'}));
+  formFittings=(r.fittings||[]).map(f=>({shape:f.shape||'',ports:(f.ports||[]).map(p=>({...p})),qty:f.qty||1,material:f.material||'鐵',hex:f.hex,nut:f.nut,toVendor:f.toVendor,nutToVendor:f.nutToVendor}));
   renderFittingsForm();
 }
 function resetForm(){
@@ -743,7 +933,7 @@ document.getElementById('btn-sub').addEventListener('click',()=>{
   const note=document.getElementById('inp-note').value.trim();
   const seqRaw=document.getElementById('inp-seq').value.trim();
   const seq=seqRaw!==''?(isNaN(Number(seqRaw))?seqRaw:Number(seqRaw)):null;
-  const fittings=formFittings.map(f=>({shape:f.shape,ports:f.ports.map(p=>({...p})),qty:f.qty,material:f.material||'鐵'}));
+  const fittings=formFittings.map(f=>({shape:f.shape,ports:f.ports.map(p=>({...p})),qty:f.qty,material:f.material||'鐵',hex:f.hex,nut:f.nut,toVendor:f.toVendor,nutToVendor:f.nutToVendor}));
   if(currentKind==='conn'){
     if(!fittings.filter(f=>f.shape).length){showToast('請至少新增一個接頭');return;}
     if(editId!==null){
@@ -796,8 +986,13 @@ function sortedRecs(){
 }
 function buildConnRows(){
   const rows=[];
-  sortedRecs().forEach((r,i)=>{(r.fittings||[]).filter(f=>f.shape).forEach(f=>rows.push({spec:fittingSpec(f),qty:f.qty,material:f.material||'鐵',source:(r.seq!=null&&r.seq!==''?'搭配軟管[編號 '+r.seq+']':'搭配軟管(未編號)'),note:'',indep:false}));});
-  records.filter(r=>r.kind==='conn').forEach(r=>{(r.fittings||[]).filter(f=>f.shape).forEach(f=>rows.push({spec:fittingSpec(f),qty:f.qty,material:f.material||'鐵',source:'獨立',note:r.note||'',indep:true,recId:r.id}));});
+  const pushFit=(f,source,note,indep,recId)=>{
+    rows.push({spec:fittingSpec(f),qty:f.qty,material:f.material||'鐵',source,note,indep,recId,fit:f,vKey:'toVendor',checked:f.toVendor!==false});
+    const nut=plugNutSpec(f);
+    if(nut)rows.push({spec:nut,qty:f.qty,material:f.material||'鐵',source,note,indep:false,nutRow:true,fit:f,vKey:'nutToVendor',checked:f.nutToVendor!==false});
+  };
+  sortedRecs().forEach(r=>{(r.fittings||[]).filter(f=>f.shape).forEach(f=>pushFit(f,(r.seq!=null&&r.seq!==''?'搭配軟管[編號 '+r.seq+']':'搭配軟管(未編號)'),'',false));});
+  records.filter(r=>r.kind==='conn').forEach(r=>{(r.fittings||[]).filter(f=>f.shape).forEach(f=>pushFit(f,'獨立',r.note||'',true,r.id));});
   return rows;
 }
 function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
@@ -808,7 +1003,7 @@ function renderTable(){
   const panel=document.getElementById('tbl-panel'),empty=document.getElementById('empty-msg');
   if(!records.length){panel.style.display='none';empty.style.display='block';return;}
   panel.style.display='block';empty.style.display='none';
-  COLS.forEach(col=>{const si=document.getElementById('si-'+col.key);if(si)si.textContent=sortCol===col.sortCol?(sortDir==='asc'?' ↑':' ↓'):'';});
+  COLS.forEach(col=>{const si=document.getElementById('si-'+col.key);if(si)si.textContent=(col.sortCol&&sortCol===col.sortCol)?(sortDir==='asc'?' ↑':' ↓'):'';});
   const hoses=sortedRecs();
 
   const htb=document.getElementById('hose-tbody');htb.innerHTML='';
@@ -820,6 +1015,10 @@ function renderTable(){
   hoses.forEach((r,i)=>{
     const tr=document.createElement('tr');if(editId===r.id)tr.className='hl';
     const la=buildLabel(r.a),lb=buildLabel(r.b);
+    const vtd=document.createElement('td');vtd.style.cssText='text-align:center';
+    const vcb=document.createElement('input');vcb.type='checkbox';vcb.checked=r.toVendor!==false;
+    vcb.addEventListener('change',e=>{r.toVendor=e.target.checked;saveState();});
+    vtd.appendChild(vcb);tr.appendChild(vtd);
     tr.appendChild(mkTd(i+1,'','text-align:center;font-size:12px;color:var(--tt)'));
     tr.appendChild(mkTd(`<span class="mono" title="${esc(la)}">${esc(la)}</span>`));
     tr.appendChild(mkTd(`<span class="mono" title="${esc(lb)}">${esc(lb)}</span>`));
@@ -842,18 +1041,23 @@ function renderTable(){
   const crows=buildConnRows();
   if(!crows.length){
     const tr=document.createElement('tr');const td=document.createElement('td');
-    td.colSpan=6;td.style.cssText='text-align:center;color:var(--tt);padding:14px';td.textContent='尚無接頭';
+    td.colSpan=7;td.style.cssText='text-align:center;color:var(--tt);padding:14px';td.textContent='尚無接頭';
     tr.appendChild(td);ctb.appendChild(tr);
   }
   crows.forEach(x=>{
     const tr=document.createElement('tr');if(editId&&x.recId===editId)tr.className='hl';
+    const vtd=document.createElement('td');vtd.style.cssText='text-align:center';
+    const vcb=document.createElement('input');vcb.type='checkbox';vcb.checked=x.checked;
+    vcb.addEventListener('change',e=>{x.fit[x.vKey]=e.target.checked;x.checked=e.target.checked;saveState();});
+    vtd.appendChild(vcb);tr.appendChild(vtd);
     tr.appendChild(mkTd(`<span class="mono" title="${esc(x.spec)}" style="max-width:none">${esc(x.spec)}</span>`));
     tr.appendChild(mkTd(x.qty,'ctr'));
     tr.appendChild(mkTd(esc(x.material),'ctr'));
     tr.appendChild(mkTd(`<span class="src-tag${x.indep?' indep':''}">  ${esc(x.source)}</span>`,'','text-align:center'));
     tr.appendChild(mkTd(x.note?`<span class="note-c" title="${esc(x.note)}">${esc(x.note)}</span>`:'<span style="color:var(--tt)">—</span>'));
     const ops=document.createElement('td');ops.style.cssText='white-space:nowrap;padding:4px 6px';
-    if(x.indep)ops.innerHTML=`<div class="act-btns"><button class="btn-ed ced-btn" data-id="${x.recId}" title="編輯">✏</button><button class="btn-dl cdl-btn" data-id="${x.recId}" title="刪除">✕</button></div>`;
+    if(x.nutRow)ops.innerHTML='<span style="color:var(--tt);font-size:11px;white-space:normal;line-height:1.4">隨塞頭連動</span>';
+    else if(x.indep)ops.innerHTML=`<div class="act-btns"><button class="btn-ed ced-btn" data-id="${x.recId}" title="編輯">✏</button><button class="btn-dl cdl-btn" data-id="${x.recId}" title="刪除">✕</button></div>`;
     else ops.innerHTML='<span style="color:var(--tt);font-size:11px;white-space:normal;line-height:1.4">編修需到軟管清單進行</span>';
     tr.appendChild(ops);ctb.appendChild(tr);
   });
@@ -884,6 +1088,11 @@ function renderTable(){
   document.getElementById('sc').textContent=hoses.length;
   document.getElementById('sq').textContent=hoses.reduce((s,r)=>s+(r.qty||1),0);
   document.getElementById('scn').textContent=crows.length;
+
+  const hAll=document.getElementById('hose-vchk-all');
+  if(hAll){const ck=hoses.filter(r=>r.toVendor!==false).length;hAll.checked=hoses.length>0&&ck===hoses.length;hAll.indeterminate=ck>0&&ck<hoses.length;}
+  const cAll=document.getElementById('conn-vchk-all');
+  if(cAll){const ck=crows.filter(x=>x.checked).length;cAll.checked=crows.length>0&&ck===crows.length;cAll.indeterminate=ck>0&&ck<crows.length;}
 }
 
 // ── 確認框 / Toast ────────────────────────────────────────────────
@@ -921,28 +1130,23 @@ function aoaHoseFull(){
   const head=['項次','A端','B端','長度(mm)','管徑','層數','耐壓(BAR)','數量','端頭材質','廠牌','編號','位置/功用/備註','說明(給廠商)'];
   return[head,...sortedRecs().map((r,i)=>[i+1,buildLabel(r.a),buildLabel(r.b),r.len,r.bore||'',r.layers?r.layers+'層':'',r.pressure||'',r.qty||1,r.material||'鐵',r.brand||'-',r.seq!=null?r.seq:'',r.note||'',r.vendor||''])];
 }
-function aoaHoseVendor(){
-  const head=['A端','B端','長度(mm)','管徑','層數','耐壓(BAR)','端頭材質','廠牌','說明(給廠商)','數量'];
-  const map=new Map();
-  sortedRecs().forEach(r=>{
-    const key=[buildLabel(r.a),buildLabel(r.b),r.len,r.bore||'',r.layers?r.layers+'層':'',r.pressure||'',r.material||'鐵',r.brand||'-',r.vendor||''].join('\x00');
-    if(map.has(key)){map.get(key).qty+=(r.qty||1);}
-    else{map.set(key,{a:buildLabel(r.a),b:buildLabel(r.b),len:r.len,bore:r.bore||'',layers:r.layers?r.layers+'層':'',pressure:r.pressure||'',material:r.material||'鐵',brand:r.brand||'-',vendor:r.vendor||'',qty:r.qty||1});}
-  });
-  const aoa=[head,...[...map.values()].map(x=>[x.a,x.b,x.len,x.bore,x.layers,x.pressure,x.material,x.brand,x.vendor,x.qty])];
-  const totalRows=map.size;
-  const totalQty=[...map.values()].reduce((s,x)=>s+x.qty,0);
-  aoa.push([`合計筆數：${totalRows} 筆，軟管總數：${totalQty} 條`,...Array(head.length-1).fill('')]);
+function aoaHoseVendor(recs){
+  recs=recs||sortedRecs();
+  const head=['編號','A端','B端','長度(mm)','管徑','層數','耐壓(BAR)','端頭材質','廠牌','說明(給廠商)','數量'];
+  const aoa=[head,...recs.map(r=>[r.seq!=null?r.seq:'',buildLabel(r.a),buildLabel(r.b),r.len,r.bore||'',r.layers?r.layers+'層':'',r.pressure||'',r.material||'鐵',r.brand||'-',r.vendor||'',r.qty||1])];
+  const totalQty=recs.reduce((s,r)=>s+(r.qty||1),0);
+  aoa.push([`合計筆數：${recs.length} 筆，軟管總數：${totalQty} 條`,...Array(head.length-1).fill('')]);
   return aoa;
 }
 function aoaConnFull(){
   const head=['規格','數量','材質','來源','備註'];
   return[head,...buildConnRows().map(x=>[x.spec,x.qty,x.material,x.source,x.note||''])];
 }
-function aoaConnVendor(){
+function aoaConnVendor(rows){
+  rows=rows||buildConnRows();
   const head=['規格','材質','數量'];
   const map=new Map();
-  buildConnRows().forEach(x=>{
+  rows.forEach(x=>{
     const key=x.spec+'\x00'+(x.material||'鐵');
     if(map.has(key)){map.get(key).qty+=x.qty;}
     else{map.set(key,{spec:x.spec,material:x.material||'鐵',qty:x.qty});}
@@ -960,10 +1164,10 @@ function toRichRuns(s,sz){
   if(cur)runs.push({font:{name:inCJK?'標楷體':'Times New Roman',size:sz},text:cur});
   return runs.length>1?{richText:runs}:null;
 }
-async function dlStyledXlsx(listTitle,aoa,filename,includeProject=true,hasSummaryRow=false){
+async function dlStyledXlsx(listTitle,aoa,filename,includeProject=true,hasSummaryRow=false,opts={}){
   if(typeof ExcelJS==='undefined'){showToast('Excel 套件未載入（需連網）');return;}
   if(aoa.length<=1){showToast('清單為空，無法匯出');return;}
-  const wb=new ExcelJS.Workbook();wb.creator='HoseApp v3.4';
+  const wb=new ExcelJS.Workbook();wb.creator='HoseApp v4.0';
   const ws=wb.addWorksheet(listTitle);
   const nc=aoa[0].length;const dt=cellDateStr();
   const projName=(includeProject&&document.getElementById('inp-project')?.value.trim())||'';
@@ -1009,6 +1213,31 @@ async function dlStyledXlsx(listTitle,aoa,filename,includeProject=true,hasSummar
     return{width:Math.min(Math.max(Math.ceil(maxLen)+2,10),60)};
   });
   ws.eachRow((row,rn)=>{if(rn<=3)return;row.height=18;});
+  if(opts.frameCols&&opts.frameCols.length){
+    const top=3,bottom=hasSummaryRow?3+aoa.length-2:3+aoa.length-1;
+    if(bottom>=top)opts.frameCols.forEach(ci=>{
+      for(let r=top;r<=bottom;r++){
+        const cell=ws.getCell(r,ci);
+        const b=Object.assign({},cell.border||{});
+        b.left={style:'medium',color:{argb:'FF000000'}};
+        b.right={style:'medium',color:{argb:'FF000000'}};
+        if(r===top){b.top={style:'medium',color:{argb:'FF000000'}};if(!b.bottom)b.bottom={style:'thin',color:{argb:'FF888888'}};}
+        if(r===bottom)b.bottom={style:'medium',color:{argb:'FF000000'}};
+        cell.border=b;
+      }
+    });
+  }
+  if(opts.noteText&&String(opts.noteText).trim()){
+    const txt=String(opts.noteText);
+    ws.addRow([]);
+    const nr=ws.addRow([txt]);
+    ws.mergeCells(nr.number,1,nr.number,nc);
+    const c=ws.getCell(nr.number,1);
+    c.value=txt;
+    c.font={name:'標楷體',size:12};
+    c.alignment={horizontal:'left',vertical:'top',wrapText:true};
+    ws.getRow(nr.number).height=Math.max(18,txt.split('\n').length*18);
+  }
   const buf=await wb.xlsx.writeBuffer();
   const blob=new Blob([buf],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
   const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;a.click();
@@ -1021,8 +1250,14 @@ document.getElementById('btn-x-hose-full').addEventListener('click',async()=>{
     try{await dlStyledXlsx('軟管清單',aoaHoseFull(),fn,true,false);}catch(e){showToast('匯出失敗');}
   },'確認下載');
 });
-document.getElementById('btn-x-hose-vendor').addEventListener('click',async()=>{
-  try{await dlStyledXlsx('軟管清單',aoaHoseVendor(),dateTimeStr()+' 軟管清單.xlsx',false,true);}catch(e){showToast('匯出失敗');}
+document.getElementById('btn-x-hose-vendor').addEventListener('click',()=>{
+  const all=sortedRecs();
+  if(!all.length){showToast('清單為空，無法匯出');return;}
+  const sel=all.filter(r=>r.toVendor!==false);
+  if(!sel.length){showToast('未勾選任何「給廠商」項目');return;}
+  showConfirm(`給廠商軟管清單\n已勾選 ${sel.length}／共 ${all.length} 筆\n\n請確認「給廠商」勾選是否正確，\n確認後僅匯出已勾選項目。`,async()=>{
+    try{await dlStyledXlsx('軟管清單',aoaHoseVendor(sel),dateTimeStr()+' 軟管清單.xlsx',false,true,{frameCols:[1,4],noteText:hoseListNote});}catch(e){showToast('匯出失敗');}
+  },'確認匯出');
 });
 document.getElementById('btn-x-conn-full').addEventListener('click',async()=>{
   showConfirm('目前下載的是自存留檔',async()=>{
@@ -1031,8 +1266,14 @@ document.getElementById('btn-x-conn-full').addEventListener('click',async()=>{
     try{await dlStyledXlsx('接頭清單',aoaConnFull(),fn,true,false);}catch(e){showToast('匯出失敗');}
   },'確認下載');
 });
-document.getElementById('btn-x-conn-vendor').addEventListener('click',async()=>{
-  try{await dlStyledXlsx('接頭清單',aoaConnVendor(),dateTimeStr()+' 接頭清單.xlsx',false,false);}catch(e){showToast('匯出失敗');}
+document.getElementById('btn-x-conn-vendor').addEventListener('click',()=>{
+  const all=buildConnRows();
+  if(!all.length){showToast('清單為空，無法匯出');return;}
+  const sel=all.filter(x=>x.checked);
+  if(!sel.length){showToast('未勾選任何「給廠商」項目');return;}
+  showConfirm(`給廠商接頭清單\n已勾選 ${sel.length}／共 ${all.length} 項\n\n請確認「給廠商」勾選是否正確，\n確認後僅匯出已勾選項目。`,async()=>{
+    try{await dlStyledXlsx('接頭清單',aoaConnVendor(sel),dateTimeStr()+' 接頭清單.xlsx',false,false,{noteText:connListNote});}catch(e){showToast('匯出失敗');}
+  },'確認匯出');
 });
 
 async function copyAoa(aoa){
@@ -1056,15 +1297,7 @@ document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',
   document.querySelectorAll('.tab-page').forEach(p=>p.classList.remove('active'));
   btn.classList.add('active');
   document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
-  const proj=document.getElementById('inp-project').value;
-  if(btn.dataset.tab==='others'){const el=document.getElementById('oth-project');if(!el.value)el.value=proj;}
-  if(btn.dataset.tab==='memo'){const el=document.getElementById('mem-project');if(!el.value)el.value=proj;}
 }));
-document.getElementById('inp-project').addEventListener('input',e=>{
-  const v=e.target.value;
-  ['oth-project','mem-project'].forEach(id=>{const el=document.getElementById(id);if(!el.value||el.value===e.target._prev)el.value=v;});
-  e.target._prev=v;
-});
 
 // ── 其他需求 ──────────────────────────────────────────────────────
 function renderOthers(){
@@ -1073,14 +1306,13 @@ function renderOthers(){
   if(!others.length){panel.style.display='none';empty.style.display='block';return;}
   panel.style.display='block';empty.style.display='none';
   const thead=document.getElementById('oth-thead');thead.innerHTML='';
-  ['項次','專案名稱','名稱','數量','用途','選項'].forEach((h,i)=>{
-    const th=document.createElement('th');th.innerHTML=`<div class="th-inner"${i===0||i===3||i===5?' style="justify-content:center"':''}>${h}</div>`;thead.appendChild(th);
+  ['項次','品名','數量','用途','選項'].forEach((h,i)=>{
+    const th=document.createElement('th');th.innerHTML=`<div class="th-inner"${i===0||i===2||i===4?' style="justify-content:center"':''}>${h}</div>`;thead.appendChild(th);
   });
   const tbody=document.getElementById('oth-tbody');tbody.innerHTML='';
   others.forEach((r,i)=>{
     const tr=document.createElement('tr');
     tr.appendChild(mkTd(i+1,'ctr'));
-    tr.appendChild(mkTd(esc(r.proj||'')));
     tr.appendChild(mkTd(esc(r.name||'')));
     tr.appendChild(mkTd(r.qty||1,'ctr'));
     tr.appendChild(mkTd(esc(r.usage||'')));
@@ -1090,7 +1322,6 @@ function renderOthers(){
   });
   tbody.querySelectorAll('.oth-ed-btn').forEach(b=>b.addEventListener('click',()=>{
     const r=others.find(x=>x.id===parseInt(b.dataset.id));if(!r)return;
-    document.getElementById('oth-project').value=r.proj||'';
     document.getElementById('oth-name').value=r.name||'';
     document.getElementById('oth-qty').value=r.qty||1;
     document.getElementById('oth-usage').value=r.usage||'';
@@ -1106,7 +1337,6 @@ function renderOthers(){
   }));
 }
 function othResetForm(){
-  document.getElementById('oth-project').value=document.getElementById('inp-project').value||'';
   document.getElementById('oth-name').value='';document.getElementById('oth-qty').value=1;document.getElementById('oth-usage').value='';
   othEditId=null;
   const fp=document.getElementById('others-form-panel');fp.classList.replace('mode-edit','mode-new');
@@ -1115,14 +1345,13 @@ function othResetForm(){
   document.getElementById('oth-cancel').style.display='none';
 }
 document.getElementById('oth-sub').addEventListener('click',()=>{
-  const proj=document.getElementById('oth-project').value.trim();
   const name=document.getElementById('oth-name').value.trim();
   const qty=Math.max(1,parseInt(document.getElementById('oth-qty').value)||1);
   const usage=document.getElementById('oth-usage').value.trim();
-  if(!name){document.getElementById('oth-name').focus();showToast('請填寫名稱');return;}
+  if(!name){document.getElementById('oth-name').focus();showToast('請填寫品名');return;}
   if(othEditId!==null){
-    const r=others.find(x=>x.id===othEditId);if(r){r.proj=proj;r.name=name;r.qty=qty;r.usage=usage;}
-  }else{others.push({id:nextOthId++,proj,name,qty,usage});}
+    const r=others.find(x=>x.id===othEditId);if(r){r.name=name;r.qty=qty;r.usage=usage;}
+  }else{others.push({id:nextOthId++,name,qty,usage});}
   othResetForm();renderOthers();saveState();
 });
 document.getElementById('oth-cancel').addEventListener('click',()=>othResetForm());
@@ -1133,7 +1362,7 @@ document.getElementById('oth-x-full').addEventListener('click',async()=>{
   if(!others.length){showToast('清單為空');return;}
   const proj=document.getElementById('inp-project').value.trim();
   const fn=(proj?proj+' ':'')+dateTimeStr()+' 其他需求清單.xlsx';
-  const aoa=[['專案名稱','名稱','數量','用途'],...others.map(r=>[r.proj||'',r.name||'',r.qty||1,r.usage||''])];
+  const aoa=[['品名','數量','用途'],...others.map(r=>[r.name||'',r.qty||1,r.usage||''])];
   try{await dlStyledXlsx('其他需求清單',aoa,fn,true,false);}catch(e){showToast('匯出失敗');}
 });
 
@@ -1144,14 +1373,13 @@ function renderMemos(){
   if(!memos.length){panel.style.display='none';empty.style.display='block';return;}
   panel.style.display='block';empty.style.display='none';
   const thead=document.getElementById('mem-thead');thead.innerHTML='';
-  ['項次','專案名稱','內容','選項'].forEach((h,i)=>{
-    const th=document.createElement('th');th.innerHTML=`<div class="th-inner"${i===0||i===3?' style="justify-content:center"':''}>${h}</div>`;thead.appendChild(th);
+  ['項次','內容','選項'].forEach((h,i)=>{
+    const th=document.createElement('th');th.innerHTML=`<div class="th-inner"${i===0||i===2?' style="justify-content:center"':''}>${h}</div>`;thead.appendChild(th);
   });
   const tbody=document.getElementById('mem-tbody');tbody.innerHTML='';
   memos.forEach((r,i)=>{
     const tr=document.createElement('tr');
     tr.appendChild(mkTd(i+1,'ctr'));
-    tr.appendChild(mkTd(esc(r.proj||'')));
     tr.appendChild(mkTd(`<span style="white-space:pre-wrap;font-size:13px">${esc(r.content||'')}</span>`));
     const ops=document.createElement('td');ops.style.cssText='white-space:nowrap;padding:4px 6px;text-align:center';
     ops.innerHTML=`<div class="act-btns"><button class="btn-ed mem-ed-btn" data-id="${r.id}" title="編輯">✏</button><button class="btn-dl mem-dl-btn" data-id="${r.id}" title="刪除">✕</button></div>`;
@@ -1159,7 +1387,6 @@ function renderMemos(){
   });
   tbody.querySelectorAll('.mem-ed-btn').forEach(b=>b.addEventListener('click',()=>{
     const r=memos.find(x=>x.id===parseInt(b.dataset.id));if(!r)return;
-    document.getElementById('mem-project').value=r.proj||'';
     document.getElementById('mem-content').value=r.content||'';
     memEditId=r.id;
     const fp=document.getElementById('memo-form-panel');fp.classList.replace('mode-new','mode-edit');
@@ -1173,7 +1400,6 @@ function renderMemos(){
   }));
 }
 function memResetForm(){
-  document.getElementById('mem-project').value=document.getElementById('inp-project').value||'';
   document.getElementById('mem-content').value='';
   memEditId=null;
   const fp=document.getElementById('memo-form-panel');fp.classList.replace('mode-edit','mode-new');
@@ -1182,12 +1408,11 @@ function memResetForm(){
   document.getElementById('mem-cancel').style.display='none';
 }
 document.getElementById('mem-sub').addEventListener('click',()=>{
-  const proj=document.getElementById('mem-project').value.trim();
   const content=document.getElementById('mem-content').value.trim();
   if(!content){document.getElementById('mem-content').focus();showToast('請填寫內容');return;}
   if(memEditId!==null){
-    const r=memos.find(x=>x.id===memEditId);if(r){r.proj=proj;r.content=content;}
-  }else{memos.push({id:nextMemId++,proj,content});}
+    const r=memos.find(x=>x.id===memEditId);if(r){r.content=content;}
+  }else{memos.push({id:nextMemId++,content});}
   memResetForm();renderMemos();saveState();
 });
 document.getElementById('mem-cancel').addEventListener('click',()=>memResetForm());
@@ -1198,7 +1423,7 @@ document.getElementById('mem-x-full').addEventListener('click',async()=>{
   if(!memos.length){showToast('清單為空');return;}
   const proj=document.getElementById('inp-project').value.trim();
   const fn=(proj?proj+' ':'')+dateTimeStr()+' 備忘清單.xlsx';
-  const aoa=[['專案名稱','內容'],...memos.map(r=>[r.proj||'',r.content||''])];
+  const aoa=[['內容'],...memos.map(r=>[r.content||''])];
   try{await dlStyledXlsx('備忘清單',aoa,fn,true,false);}catch(e){showToast('匯出失敗');}
 });
 
